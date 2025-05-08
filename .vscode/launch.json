@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GestionDeUsuariosApplication",
+            "request": "launch",
+            "mainClass": "com.example.GestionDeUsuarios.GestionDeUsuariosApplication",
+            "projectName": "GestionDeUsuarios"
+        },
+        {
+            "type": "java",
             "name": "AutenticacionApplication",
             "request": "launch",
             "mainClass": "com.example.Autenticacion.AutenticacionApplication",
