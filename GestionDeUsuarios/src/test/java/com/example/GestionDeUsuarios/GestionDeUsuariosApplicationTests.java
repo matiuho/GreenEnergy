@@ -1,4 +1,4 @@
-package com.example.Gestion.de.Usuarios;
+package com.example.GestionDeUsuarios;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
