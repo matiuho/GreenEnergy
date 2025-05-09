@@ -7,6 +7,8 @@ import com.example.Notificaciones.model.NotificacionModel;
 @Repository
 
 public interface NotificacionRepository extends JpaRepository<NotificacionModel, Long> {
+
+    
     
 
 }
