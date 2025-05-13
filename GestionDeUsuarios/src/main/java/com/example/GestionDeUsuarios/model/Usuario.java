@@ -38,6 +38,12 @@ public class Usuario {
 
 
     private String rol;
+
+
+    public void setActivo(boolean b) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setActivo'");
+    }
     
 
 }
