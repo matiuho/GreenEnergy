@@ -1,5 +1,6 @@
 package com.example.GestionDeUsuarios.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +21,23 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
+    @Column(nullable = false, length = 30)
     private String nombre;
+
+    @Column(nullable = false, length = 30)
     private String apellido;
+
+    @Column(nullable = false, length = 45)
     private String correo;
-    private String telefono;
+
+    @Column(nullable = false, length = 9)
+    private int telefono;
+
+    @Column(nullable = false, length = 30)
     private String direccion;
+
+
     private String rol;
-    private boolean activo;
+    
 
 }
