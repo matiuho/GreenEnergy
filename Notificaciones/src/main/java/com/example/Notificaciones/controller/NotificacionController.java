@@ -61,7 +61,7 @@ public class NotificacionController {
 
     //metodo de eliminar una notificcacion  por id
     @DeleteMapping("/{id}")
-     public ResponseEntity<?> eliminarNotificacion(@PathVariable Long id) {
+    public ResponseEntity<?> eliminarNotificacion(@PathVariable Long id) {
         try {
             //verificar si LA NOTIFICACION existe
             NotificacionModel not = notificacionService.buscarNotificacionPorId(id);
