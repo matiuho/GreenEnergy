@@ -16,7 +16,7 @@ import com.example.GestionDeUsuarios.model.Usuario;
 import com.example.GestionDeUsuarios.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
     @Autowired
     private UsuarioService service;
@@ -36,7 +36,7 @@ public class UsuarioController {
         service.desactivarUsuario(id);
     }
 
-    @GetMapping("/perro")
+    @GetMapping("/{id}")
     public Usuario obtener(@PathVariable Long id){
         return service.obtenerPorId(id);
     }
