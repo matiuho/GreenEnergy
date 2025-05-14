@@ -26,9 +26,9 @@ public class Proyecto {
 
     @Column(nullable = false )
     @Temporal(TemporalType.DATE)
-    private Date fechaProyecto;
+    private Date fechaproyecto;
 
     @Column(nullable = false, length = 50)
-    private String Comentarios;
+    private String comentarios;
 
 }
