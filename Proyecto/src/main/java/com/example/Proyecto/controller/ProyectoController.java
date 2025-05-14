@@ -39,7 +39,7 @@ public class ProyectoController {
     public ResponseEntity<Proyecto> obtenerProyectoPorId(@PathVariable Long id){
         //busco el cliente por su ID
         try {
-            Proyecto proyecto = proyectoService.getProeyctoPorId(id);
+            Proyecto proyecto = proyectoService.getProyectoPorId(id);
             return ResponseEntity.ok(proyecto);
         } catch (Exception e) {
             //retorno codigo 404

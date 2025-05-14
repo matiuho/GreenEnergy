@@ -22,7 +22,7 @@ public class ProyectoService {
         }
 
         //metodo para buscar un proyecto por su ID
-        public Proyecto getProeyctoPorId(Long id){
+        public Proyecto getProyectoPorId(Long id){
         return proyectoRepository.findById(id)
         .orElseThrow(()-> new RuntimeException("Proyecto No encontrado"));
         }
@@ -32,7 +32,7 @@ public class ProyectoService {
         return proyectoRepository.save(nuevo);
         }
 
-        
+
 
 
 
