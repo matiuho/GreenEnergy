@@ -1,6 +1,7 @@
 package com.example.Proyecto.model;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,8 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +24,7 @@ public class Proyecto {
     private  Long idProyecto;
 
     @Column(nullable = false )
-    @Temporal(TemporalType.DATE)
-    private Date fechaproyecto;
+    private LocalDate fechaproyecto;
 
     @Column(nullable = false, length = 50)
     private String comentarios;
