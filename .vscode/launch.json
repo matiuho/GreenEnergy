@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ProyectoApplication",
+            "request": "launch",
+            "mainClass": "com.example.Proyecto.ProyectoApplication",
+            "projectName": "proyecto"
+        },
+        {
+            "type": "java",
             "name": "NotificacionesApplication",
             "request": "launch",
             "mainClass": "com.example.Notificaciones.NotificacionesApplication",

@@ -21,7 +21,20 @@ public class ProyectoService {
             return proyectoRepository.findAll();
         }
 
+        //metodo para buscar un proyecto por su ID
+        public Proyecto getProeyctoPorId(Long id){
+        return proyectoRepository.findById(id)
+        .orElseThrow(()-> new RuntimeException("Proyecto No encontrado"));
+        }
+
+        //metodo para agregar un cliente nuevo
+        public Proyecto saveProyecto(Proyecto nuevo){
+        return proyectoRepository.save(nuevo);
+        }
+
         
+
+
 
 
 

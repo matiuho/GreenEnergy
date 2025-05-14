@@ -8,12 +8,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Proyecto")
+@Table(name = "proyecto")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,7 @@ public class Proyecto {
     private  Long idProyecto;
 
     @Column(nullable = false )
+    @Temporal(TemporalType.DATE)
     private Date fechaProyecto;
 
     @Column(nullable = false, length = 50)
