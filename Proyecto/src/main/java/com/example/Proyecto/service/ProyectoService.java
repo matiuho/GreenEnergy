@@ -1,6 +1,7 @@
 package com.example.Proyecto.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,25 +13,15 @@ import com.example.Proyecto.repository.ProyectoRepository;
 @Service
 @Transactional
 public class ProyectoService {
+//proyecto pedido
+// estado el cliente
+    @Autowired
+    private ProyectoRepository proyectoRepository; 
+    @Autowired
+    
 
-        @Autowired
-        private ProyectoRepository proyectoRepository;
-
-        //metodo para consultar todos los proyectos
-        public List<Proyecto> list() {
-            return proyectoRepository.findAll();
-        }
-
-        //metodo para buscar un proyecto por su ID
-        public Proyecto getProyectoPorId(Long id){
-        return proyectoRepository.findById(id)
-        .orElseThrow(()-> new RuntimeException("Proyecto No encontrado"));
-        }
-
-        //metodo para agregar un proyecto nuevo
-        public Proyecto saveProyecto(Proyecto nuevo){
-        return proyectoRepository.save(nuevo);
-        }
+   
+    }
 
 
 

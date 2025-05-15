@@ -23,34 +23,7 @@ public class ProyectoController {
     
     
     //endpoint buscar todos los clientes
-    @GetMapping
-    public ResponseEntity<List<Proyecto>> obtenerProyectos(){
-        //lista auxiliar de clientes
-        List<Proyecto> listaProyectos = proyectoService.list();
-        //valido si la lista esta vacia
-        if(listaProyectos.isEmpty()){
-            //retorno codigo 204
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(listaProyectos);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Proyecto> obtenerProyectoPorId(@PathVariable Long id){
-        //busco el cliente por su ID
-        try {
-            Proyecto proyecto = proyectoService.getProyectoPorId(id);
-            return ResponseEntity.ok(proyecto);
-        } catch (Exception e) {
-            //retorno codigo 404
-            return ResponseEntity.notFound().build();
-        }   
-    }
-
-    //endpoint para crear un nuevo proyecto
-    @PostMapping
-    public ResponseEntity<Proyecto> guardarProyecto(@RequestBody Proyecto nuevo){
-        return ResponseEntity.status(201).body(proyectoService.saveProyecto(nuevo));
+   
     }
 
 

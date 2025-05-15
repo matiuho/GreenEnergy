@@ -17,18 +17,17 @@ import jakarta.transaction.Transactional;
 public class EstadoService {
     @Autowired
     private EstadoRepository estadoRepository;
-    @Autowired
-    private Proyectoproyec proyectoproyect;
+   
 
 
-    //metodo para obtener todos los pedidos
+    //metodo para obtener todos los PEDIDOS
     public List<Estado> getEstado() {
         return estadoRepository.findAll();
     }
 
-    //metodo para agregar un nuevo pedido
+    //metodo para agregar un nuevo ESTADO
     public Estado saveEstado(Estado nuevoEstado) {
-        //verificar si el cliente existe consultando al microservicio cliente
+        //verificar si existe consultando al microservicio PROYECTO
         Map<String, Object> proyecto = proyectoproyect.getProyectoPorId(nuevoEstado.getIdEstado());
         //verifico si me trajo el proyecto
         if (proyecto != null || proyecto.isEmpty()) {
