@@ -27,7 +27,7 @@ public class ProyectoService {
         .orElseThrow(()-> new RuntimeException("Proyecto No encontrado"));
         }
 
-        //metodo para agregar un cliente nuevo
+        //metodo para agregar un proyecto nuevo
         public Proyecto saveProyecto(Proyecto nuevo){
         return proyectoRepository.save(nuevo);
         }
