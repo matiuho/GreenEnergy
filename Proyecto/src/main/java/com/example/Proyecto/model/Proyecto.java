@@ -27,6 +27,6 @@ public class Proyecto {
     private LocalDate fechaproyecto;
 
     @Column(nullable = false, length = 50)
-    private String comentarios;
+    private String comentario;
 
 }

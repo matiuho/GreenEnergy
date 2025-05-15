@@ -20,7 +20,7 @@ public class Proyectoproyec {
                 .build();
     }
 
-    // Método para realizar la consulta GET al microservicio cliente
+    // Método para realizar la consulta GET al microservicio 
     public Map<String, Object> getProyectoPorId(Long id) {
         return this.webclient.get()
                 .uri("/{id}", id)
