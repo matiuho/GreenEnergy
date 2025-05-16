@@ -1,4 +1,4 @@
-package com.example.ESTADO;
+package com.example.Estado;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
