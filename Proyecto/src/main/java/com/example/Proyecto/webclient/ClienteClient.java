@@ -24,7 +24,10 @@ public class ClienteClient {
         .onStatus(status -> status.is4xxClientError(),
         response -> response.bodyToMono(String.class)
         .map(body -> new RuntimeException("Estado no encontrado")))
-        .bodyToMono(Map.class).block();
+        .bodyToMono(Map.class)
+        .doOnNext(body -> System.out.println("Respuesta estado: " + body))
+        .block();
+
     }
 
     

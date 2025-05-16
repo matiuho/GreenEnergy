@@ -21,7 +21,7 @@ public class EstadoController {
     @Autowired
     private EstadoService estadoService;
 
-        //endpoint buscar todos los clientes
+        //endpoint buscar todos los estados
 
     @GetMapping
     public ResponseEntity<List<Estado>> obtenerEstado(){
@@ -46,6 +46,8 @@ public class EstadoController {
         }
         
     }
+
+    
 
     //endpoint para crear un nuevo estado
     @PostMapping
