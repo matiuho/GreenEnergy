@@ -1,7 +1,6 @@
 package com.example.Proyecto.model;
 
-
-import java.time.LocalDate;
+import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,19 +13,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "proyecto")
+@Table(name = "proyectos")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long idProyecto;
+    private Long id;
 
-    @Column(nullable = false )
-    private LocalDate fechaproyecto;
+    @Column
+    private Date fehca;
 
-    @Column(nullable = false, length = 50)
-    private String comentario;
+    @Column
+    private String comentarios;
 
 }
