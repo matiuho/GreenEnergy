@@ -4,6 +4,13 @@
             "type": "java",
             "name": "EstadoApplication",
             "request": "launch",
+            "mainClass": "com.example.Estado.EstadoApplication",
+            "projectName": "Estado"
+        },
+        {
+            "type": "java",
+            "name": "EstadoApplication",
+            "request": "launch",
             "mainClass": "com.example.ESTADO.EstadoApplication",
             "projectName": "ESTADO"
         },

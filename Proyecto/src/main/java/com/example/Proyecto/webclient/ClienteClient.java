@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 
 @Component
 public class ClienteClient {
@@ -13,8 +13,8 @@ public class ClienteClient {
     private final WebClient webClient;
 
     //metodo constructor 
-    public ClienteClient(@Value("${estado-service.url}") String estadoServiceUrl){
-        this.webClient = webClient.builder().baseUrl(estadoServiceUrl).build();
+    public ClienteClient(@Value("${estado-service.url}") String estadoServiceUrl) {
+        this.webClient = WebClient.builder().baseUrl(estadoServiceUrl).build();
     }
     //metodo para realizar la consulta getmaping(/{id}) al microservicio estado
     public Map<String, Object> getEstadoById(Long id){
