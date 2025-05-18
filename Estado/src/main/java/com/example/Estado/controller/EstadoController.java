@@ -37,7 +37,7 @@ public class EstadoController {
     @GetMapping("/{id}")
     public ResponseEntity<Estado> obtenerEstadoPorId(@PathVariable Long id) {
         try {
-            //verificar si existe el cliente
+            //verificar si existe el estado
             Estado estado = estadoService.getEstadoPorId(id);
             return ResponseEntity.ok(estado);
         } catch (Exception e) {

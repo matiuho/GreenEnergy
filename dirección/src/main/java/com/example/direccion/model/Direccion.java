@@ -25,13 +25,16 @@ public class Direccion {
     private Long idDireccion;
 
     @Column(nullable = false, length = 50)
-    private String calle;
+    private String nombre ;
 
-    @Column(nullable = false, length = 7)
-    private String numero;
+    
 
     @ManyToOne
     @JoinColumn(name ="id_comuna")// pasar el id de la comuna como referencia
+
     private Comuna comuna;
+    
+    @Column(nullable = false)
+    private Long idUsuario;
 
 }
