@@ -20,10 +20,14 @@ public CommandLineRunner initDatabase(RolRepository rolRepo, UsuarioRepository u
         if (rolRepo.count() == 0 && userRepo.count() == 0) {
 
             Rol admin = new Rol("Administrador");
-            Rol user = new Rol("Usuario");
+            Rol cli = new Rol("Cliente");
+            Rol coord = new Rol("Coordinador");
+            Rol Soporte = new Rol("Soporte");
+            Rol Tec = new Rol("Técnico Instalador");
+
             
 
-            rolRepo.saveAll(List.of(admin, user));
+            rolRepo.saveAll(List.of(admin, cli, coord, Soporte, Tec));
 
             Usuario samuel = new Usuario("Samuel","Villanueva",LocalDate.parse("2004-08-08"),"1234",admin);
 
