@@ -16,7 +16,7 @@ public class RegionService {
     @Autowired
     private RegionRepository regionRepository;
     // Método para obtener todas las regiones
-    public List<Region> obtenerTodasLasRegiones() {
+    public List<Region> getRegiones() {
         return regionRepository.findAll();
     }
     // Método para buscar una región por su ID

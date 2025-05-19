@@ -26,8 +26,7 @@ import lombok.NoArgsConstructor;
 public class Region {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idRegion;
+    private int idRegion;
 
     @Column(nullable = false, length = 100)
     private String nombre;
@@ -35,5 +34,11 @@ public class Region {
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("region") // evita recursión al serializar
     private List<Comuna> comunas = new ArrayList<>();
+    //constructor para prcargar las tablas de la base de datos
+    public Region(int idRegion  ,  String nombre) {
+        this.nombre = nombre;
+        this.idRegion = idRegion;
+    }
 }
+
 

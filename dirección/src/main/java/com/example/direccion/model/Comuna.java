@@ -33,5 +33,11 @@ public class Comuna {
     @JoinColumn(name = "id_region") // clave foránea en la tabla 
     @JsonIgnoreProperties("comunas") // evita recursión si Region tiene lista de comunas
     private Region region;
+    //constructor para prcargar las tablas de la base de datos
+    public Comuna(String nombre, Region region) {
+        
+        this.nombre = nombre;
+        this.region = region;
+    }
 }
 

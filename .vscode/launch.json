@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DireccionApplication",
+            "request": "launch",
+            "mainClass": "com.example.direccion.DireccionApplication",
+            "projectName": "direccion"
+        },
+        {
+            "type": "java",
             "name": "EstadoApplication",
             "request": "launch",
             "mainClass": "com.example.Estado.EstadoApplication",

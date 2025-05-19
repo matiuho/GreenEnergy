@@ -17,7 +17,7 @@ public class ComunaService {
     private ComunaRepository comunaRepository;
 
     //metodo para mostrar todas las comunas
-    public List<Comuna> obtenerTodasLasComunas() {
+    public List<Comuna> getComunas() {
         return comunaRepository.findAll();
     }
 
