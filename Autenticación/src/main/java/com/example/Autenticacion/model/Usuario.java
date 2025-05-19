@@ -1,5 +1,7 @@
 package com.example.Autenticacion.model;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -24,8 +26,14 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    @Column(nullable = false, length = 30)
+    private String nombre;
+
+    @Column(nullable = false, length = 30)
+    private String apellido;
+
+    @Column(nullable = false)
+    private LocalDate fnacimiento;
 
     @Column(nullable = false, length = 30)
     private String password;
@@ -34,5 +42,13 @@ public class Usuario {
     @JoinColumn(name = "rol_id")
     @JsonIgnoreProperties("user")
     private Rol rol;
+
+    public Usuario(String nombre, String apellido, LocalDate fnacimiento, String password, Rol rol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fnacimiento = fnacimiento;
+        this.password = password;
+        this.rol = rol;
+    }
 
 }

@@ -26,11 +26,15 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false,length = 50)
     private String nombre;
 
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Usuario> users;
 
+     public Rol( String nombre) {
+        this.nombre = nombre;
+
+    }
 }

@@ -20,7 +20,7 @@ public class RegionService {
         return regionRepository.findAll();
     }
     // Método para buscar una región por su ID
-    public Region obtenerRegionPorId(Long id) {
+    public Region obtenerRegionPorId(int id) {
         return regionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Región no encontrada con ID: " + id));
     }       

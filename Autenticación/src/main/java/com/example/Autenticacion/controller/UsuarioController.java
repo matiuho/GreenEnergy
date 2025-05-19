@@ -49,7 +49,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<?> crearUsuario(@RequestParam String username, @RequestParam String password, @RequestParam Long rolId){
         try {
-            Usuario usernuevo = usuarioService.creUsuario(username, password, rolId);
+            Usuario usernuevo = usuarioService.creUsuario(password, username, null, password, rolId);
             return ResponseEntity.status(HttpStatus.CREATED).body(usernuevo);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

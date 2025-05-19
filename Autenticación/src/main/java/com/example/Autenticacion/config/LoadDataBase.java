@@ -1,5 +1,8 @@
 package com.example.Autenticacion.config;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,25 +15,26 @@ import com.example.Autenticacion.repository.UsuarioRepository;
 @Configuration
 public class LoadDataBase {
     @Bean
-    CommandLineRunner initDatabase(RolRepository rolRepo, UsuarioRepository userRepo){
-        return args ->{
-            if(rolRepo.count() == 0 && userRepo.count() == 0){
-                Rol admin = new Rol();
-                admin.setNombre("Administrador");;
-                rolRepo.save(admin);
+public CommandLineRunner initDatabase(RolRepository rolRepo, UsuarioRepository userRepo) {
+    return args -> {
+        if (rolRepo.count() == 0 && userRepo.count() == 0) {
 
-                Rol user = new Rol();
-                user.setNombre("Usuario");
-                rolRepo.save(user);
+            Rol admin = new Rol("Administrador");
+            Rol user = new Rol("Usuario");
+            
 
-                userRepo.save(new Usuario(null, "matias", "1234", admin));
-                userRepo.save(new Usuario(null, "samuel", "4321", admin));
+            rolRepo.saveAll(List.of(admin, user));
 
-                System.out.println("Datos iniciales cargados");
-            }
-            else{
-                System.out.println("datos ya existentes. No se cargaron nuevos datos");
-            }
-        };
-    }
+            Usuario samuel = new Usuario("Samuel","Villanueva",LocalDate.parse("2004-08-08"),"1234",admin);
+
+            userRepo.save(samuel);
+
+            System.out.println("✅ Datos iniciales cargados");
+        } else {
+            System.out.println("ℹ️ Datos ya existentes. No se cargaron nuevos datos");
+        }
+    };
+}
+
+
 }

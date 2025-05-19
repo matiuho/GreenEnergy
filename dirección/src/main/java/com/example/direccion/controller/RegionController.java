@@ -30,7 +30,7 @@ public class RegionController {
 
     //edpoint para buscar una region por su id
     @GetMapping("/{id}")
-    public ResponseEntity<Region> obtenerRegionPorId(Long id) {
+    public ResponseEntity<Region> obtenerRegionPorId(int  id) {
         try {
             //verificar si existe la region
             Region region = regionService.obtenerRegionPorId(id);
