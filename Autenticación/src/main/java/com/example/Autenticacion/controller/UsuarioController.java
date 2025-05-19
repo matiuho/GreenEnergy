@@ -17,13 +17,14 @@ import com.example.Autenticacion.service.RolService;
 import com.example.Autenticacion.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
     @Autowired
     private RolService rolService;
     @Autowired
     private UsuarioService usuarioService;
 
+    //metodo para buscar todos los usuarios
     @GetMapping("/user")
     public ResponseEntity<List<Usuario>> obtenerTodosUsuarios(){
         List<Usuario> users = usuarioService.obtenerUsuarios();
@@ -33,6 +34,7 @@ public class UsuarioController {
         return ResponseEntity.ok(users);
     }
 
+    //metodo para buscar todos los roles
     @GetMapping("/roles")
     public ResponseEntity<List<Rol>> obtenerRoles(){
         List<Rol> roles = rolService.obtenerRoles();
@@ -42,7 +44,9 @@ public class UsuarioController {
         return ResponseEntity.ok(roles);
     }
 
-    @PostMapping("/users")
+    
+    //metodo para crear un nuevo usuario
+    @PostMapping
     public ResponseEntity<?> crearUsuario(@RequestParam String username, @RequestParam String password, @RequestParam Long rolId){
         try {
             Usuario usernuevo = usuarioService.creUsuario(username, password, rolId);

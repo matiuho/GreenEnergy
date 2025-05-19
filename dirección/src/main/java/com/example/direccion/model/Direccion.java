@@ -27,11 +27,8 @@ public class Direccion {
     @Column(nullable = false, length = 50)
     private String nombre ;
 
-    
-
     @ManyToOne
     @JoinColumn(name ="id_comuna")// pasar el id de la comuna como referencia
-
     private Comuna comuna;
     
     @Column(nullable = false)

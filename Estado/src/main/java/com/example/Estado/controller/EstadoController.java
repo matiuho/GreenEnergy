@@ -33,7 +33,7 @@ public class EstadoController {
         return ResponseEntity.ok(estados);
     }
 
-    //endpoint para buscar un proyecto mediante su id
+    //endpoint para buscar un estado mediante su id
     @GetMapping("/{id}")
     public ResponseEntity<Estado> obtenerEstadoPorId(@PathVariable Long id) {
         try {
@@ -46,9 +46,6 @@ public class EstadoController {
         }
         
     }
-
-    
-
     //endpoint para crear un nuevo estado
     @PostMapping
     public ResponseEntity<Estado> crearEstado(@RequestBody Estado estado) {
