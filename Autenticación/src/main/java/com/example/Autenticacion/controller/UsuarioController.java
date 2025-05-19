@@ -1,14 +1,17 @@
 package com.example.Autenticacion.controller;
 
+
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Autenticacion.model.Rol;
@@ -25,7 +28,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     //metodo para buscar todos los usuarios
-    @GetMapping("/user")
+    @GetMapping
     public ResponseEntity<List<Usuario>> obtenerTodosUsuarios(){
         List<Usuario> users = usuarioService.obtenerUsuarios();
         if(users.isEmpty()){
@@ -47,13 +50,29 @@ public class UsuarioController {
     
     //metodo para crear un nuevo usuario
     @PostMapping
-    public ResponseEntity<?> crearUsuario(@RequestParam String username, @RequestParam String password, @RequestParam Long rolId){
-        try {
-            Usuario usernuevo = usuarioService.creUsuario(password, username, null, password, rolId);
-            return ResponseEntity.status(HttpStatus.CREATED).body(usernuevo);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario) {
+    if (usuario.getRol() == null || usuario.getRol().getId() == null) {
+        return ResponseEntity.badRequest().body("⚠️ El campo 'rol.id' no puede ser nulo");
     }
+
+    // Buscar el rol real desde la BD
+    Optional<Rol> rolOpt = rolService.obtenerRoles().stream()
+        .filter(rol -> rol.getId().equals(usuario.getRol().getId()))
+        .findFirst();
+
+    if (rolOpt.isEmpty()) {
+        return ResponseEntity.badRequest().body("❌ Rol no encontrado con ID: " + usuario.getRol().getId());
+    }
+
+    usuario.setRol(rolOpt.get()); // asignar el rol completo con nombre incluido
+
+    Usuario guardado = usuarioService.saveUsuario(usuario);
+    if (guardado == null) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("❌ Error al guardar el usuario");
+    }
+    return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
+    }
+
+
 
 }
