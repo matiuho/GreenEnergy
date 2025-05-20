@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +53,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario) {
     if (usuario.getRol() == null || usuario.getRol().getId() == null) {
-        return ResponseEntity.badRequest().body("⚠️ El campo 'rol.id' no puede ser nulo");
+        return ResponseEntity.badRequest().body("El campo 'rol.id' no puede ser nulo");
     }
 
     // Buscar el rol real desde la BD
@@ -61,17 +62,29 @@ public class UsuarioController {
         .findFirst();
 
     if (rolOpt.isEmpty()) {
-        return ResponseEntity.badRequest().body("❌ Rol no encontrado con ID: " + usuario.getRol().getId());
+        return ResponseEntity.badRequest().body("Rol no encontrado con ID: " + usuario.getRol().getId());
     }
 
     usuario.setRol(rolOpt.get()); // asignar el rol completo con nombre incluido
 
     Usuario guardado = usuarioService.saveUsuario(usuario);
     if (guardado == null) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("❌ Error al guardar el usuario");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el usuario");
     }
     return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
     }
+
+     @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerUsuarioPorId(@PathVariable Long id) {
+        try {
+            Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    
 
 
 

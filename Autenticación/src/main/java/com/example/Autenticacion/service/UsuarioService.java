@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.example.Autenticacion.model.Usuario;
-import com.example.Autenticacion.repository.RolRepository;
 import com.example.Autenticacion.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
@@ -15,8 +15,6 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class UsuarioService {
-    @Autowired
-    private RolRepository rolRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -27,4 +25,10 @@ public class UsuarioService {
     public Usuario  saveUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario con ID " + id + " no encontrado"));
+    }
+    
 }
