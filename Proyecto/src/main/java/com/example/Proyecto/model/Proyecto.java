@@ -23,11 +23,11 @@ public class Proyecto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProyecto;
 
-    @Column(nullable = false)
-    private LocalDate fecha;
-
     @Column(nullable = false, length = 100)
     private String comentario;
+
+    @Column(nullable = false)
+    private LocalDate fecha;
 
     @Column(nullable = false)
     private Long estadoId;

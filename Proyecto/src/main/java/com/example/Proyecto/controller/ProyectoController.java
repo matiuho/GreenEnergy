@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Proyecto.model.Proyecto;
 import com.example.Proyecto.service.ProyectosService;
 import com.example.Proyecto.webclient.ClienteClient;
+import com.example.Proyecto.webclient.UsuarioClient;
+
 
 @RestController
 @RequestMapping("/api/proyecto")
@@ -21,7 +23,11 @@ public class ProyectoController {
     private   ProyectosService proyectosService;
 
     @Autowired
-    private ClienteClient clienteClient; // Inyección del WebClient para Estado
+    private     ClienteClient clienteClient;
+
+    @Autowired
+    private UsuarioClient usuarioClient;
+
 
 
     @GetMapping
