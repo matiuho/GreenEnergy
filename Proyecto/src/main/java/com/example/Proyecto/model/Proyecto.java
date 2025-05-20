@@ -32,4 +32,7 @@ public class Proyecto {
     @Column(nullable = false)
     private Long estadoId;
 
+    @Column(nullable = false)
+    private Long usuarioId;
+
 }

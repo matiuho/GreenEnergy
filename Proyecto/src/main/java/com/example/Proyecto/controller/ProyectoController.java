@@ -46,7 +46,7 @@ public class ProyectoController {
             return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
         // Otro error interno
-             return ResponseEntity.status(500).body("Error al crear el proyecto: " + e.getMessage());
+             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 

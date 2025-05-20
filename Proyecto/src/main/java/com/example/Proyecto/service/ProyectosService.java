@@ -3,6 +3,7 @@ package com.example.Proyecto.service;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,13 @@ public class ProyectosService {
         if (estado == null || estado.isEmpty()) {
             throw new RuntimeException("Estado no encontrado");
         }
-
+        //verificar si el usuario exisyte consultando al microservicio de usuario
+        Map<String, Object> usuario = clienteClient.getEstadoById(nuevoproyecto.getUsuarioId());
+        //verifico si me trajo el usuario o no
+        if (usuario == null || usuario.isEmpty()) {
+            throw new RuntimeException("Usuario no encontrado");
+            
+        }
         return proyectoRepository.save(nuevoproyecto);
 
     }

@@ -13,10 +13,10 @@ public class ClienteClient {
     private final WebClient webClient;
 
     //metodo constructor 
-    public ClienteClient(@Value("${estado-service.url}") String estadoServiceUrl) {
+    public ClienteClient(@Value("${estado-usuario-service.url}") String estadoServiceUrl) {
         this.webClient = WebClient.builder().baseUrl(estadoServiceUrl).build();
     }
-    //metodo para realizar la consulta getmaping(/{id}) al microservicio estado
+    //metodo para realizar la consulta  al microservicio estado y al estado
     public Map<String, Object> getEstadoById(Long id){
         return this.webClient.get()
         .uri("/{id}", id)
@@ -29,6 +29,7 @@ public class ClienteClient {
         .block();
 
     }
+
 
     
 }
