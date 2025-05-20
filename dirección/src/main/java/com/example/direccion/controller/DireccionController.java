@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.direccion.model.Direccion;
 import com.example.direccion.service.DireccionService;
-import com.example.direccion.webclient.ClienteClient;
+
 
 @RestController
 @RequestMapping("/api/direccion")
@@ -20,8 +20,7 @@ public class DireccionController {
     @Autowired
      private DireccionService direccionService;
 
-    @Autowired
-    private ClienteClient clienteClient;
+
 
     @GetMapping
     public ResponseEntity<List<Direccion>> obtenerDirecciones() {
