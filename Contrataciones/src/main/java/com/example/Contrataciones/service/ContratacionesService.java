@@ -1,4 +1,4 @@
-/*package com.example.Contrataciones.service;
+package com.example.Contrataciones.service;
 
 import java.sql.Date;
 import java.util.List;
@@ -32,4 +32,3 @@ public class ContratacionesService {
     }
 
 }
-*/
