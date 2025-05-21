@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.direccion.model.Comuna;
-import com.example.direccion.model.Direccion;
+
 import com.example.direccion.model.Region;
 import com.example.direccion.repository.ComunaRepository;
 import com.example.direccion.repository.DireccionRepository;
@@ -15,8 +15,9 @@ import com.example.direccion.repository.RegionRepository;
 public class LoadDataBase {
 
     @Bean
-    CommandLineRunner InitDataBase(RegionRepository regionRepository, ComunaRepository comunaRepository,
-            DireccionRepository direccionRepository) {
+    CommandLineRunner InitDataBase(RegionRepository regionRepository, 
+                                   ComunaRepository comunaRepository,
+                                   DireccionRepository direccionRepository) {
         return args -> {
             if (regionRepository.count() == 0) {
                 // insertar regiones

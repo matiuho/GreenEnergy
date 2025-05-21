@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.example.direccion.model.Direccion;
 import com.example.direccion.service.DireccionService;
@@ -37,12 +39,33 @@ public class DireccionController {
     public ResponseEntity<?> crearDireccion(@RequestBody Direccion nuevaDireccion) {
         try {
             Direccion direccion = direccionService.saveDireccion(nuevaDireccion);
+            // Retorno código 201 Created
             return ResponseEntity.status(201).body(direccion);
         } catch (RuntimeException e) {
-            //retorno codigo 404
+        // Captura error por estado no encontrado
             return ResponseEntity.status(404).body(e.getMessage());
+        } catch (Exception e) {
+        // Otro error interno
+             return ResponseEntity.status(500).body("Error al crear la direccion: " + e.getMessage());
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Direccion> obtenerDireccionPorId(@PathVariable Long id) {
+        try {
+            //verificar si existe la comuna
+            //si no existe, se lanza una excepcion
+            Direccion direccion = direccionService.obtenerDireccionPorId(id);
+            return ResponseEntity.ok(direccion);
+        } catch (Exception e) {
+            //retorno codigo 404
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+   
+
+
 
 
 }

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 
 import com.example.direccion.model.Comuna;
 import com.example.direccion.model.Direccion;
@@ -30,26 +32,35 @@ public class DireccionService {
         return direccionRepository.findAll();
     }
 
+
     //metodo para crear una nueva direccion
-    public Direccion  saveDireccion(Direccion nuevaDireccion) {
-        //verificar si el usuario existe 
-        Map<String, Object> usuario = clienteClient.getUsuarioById(nuevaDireccion.getIdUsuario());
-        //verifico si me trajo el eusuario  
-        if (usuario == null || usuario.isEmpty()) {
-            throw new RuntimeException("Usuario no encontrado");
-        }
-        Long idComuna = nuevaDireccion.getComuna().getIdComuna(); // O podrías recibirlo por separado
-
-        Comuna comuna = comunaRepository.findById(idComuna)
-            .orElseThrow(() -> new RuntimeException("Comuna no encontrada con ID: " + idComuna));
-
-        // Paso 3: Asociar comuna a la dirección
-        nuevaDireccion.setComuna(comuna);
-
-
-        return direccionRepository.save(nuevaDireccion);
-
+    public Direccion saveDireccion(Direccion nuevaDireccion) {
+    // Paso 1: Verificar si el usuario existe en microservicio de autenticación
+    Map<String, Object> usuario = clienteClient.getUsuarioById(nuevaDireccion.getIdUsuario());
+    if (usuario == null || usuario.isEmpty()) {
+        throw new RuntimeException(" Usuario no encontrado con ID: " + nuevaDireccion.getIdUsuario());
     }
+    //  Verificar si la comuna existe localmente
+    Long idComuna = nuevaDireccion.getComuna().getIdComuna();
+    Comuna comuna = comunaRepository.findById(idComuna)
+            .orElseThrow(() -> new RuntimeException(" Comuna no encontrada con ID: " + idComuna));
+    //  Asignar la comuna a la dirección
+    nuevaDireccion.setComuna(comuna);
+    //  Guardar la dirección
+    Direccion guardada = direccionRepository.save(nuevaDireccion);
+
+    System.out.println("✅ Dirección creada correctamente: " + guardada);
+    return guardada;
+    }
+
+
+
+
+    public Direccion obtenerDireccionPorId(Long id) {
+        return direccionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Direccion no encontrada con ID: " + id));
+    }
+
 
 
 }
