@@ -15,9 +15,9 @@ import com.example.direccion.repository.RegionRepository;
 public class LoadDataBase {
 
     @Bean
-    CommandLineRunner InitDataBase(RegionRepository regionRepository, 
-                                   ComunaRepository comunaRepository,
-                                   DireccionRepository direccionRepository) {
+    CommandLineRunner InitDataBase(RegionRepository regionRepository,
+            ComunaRepository comunaRepository,
+            DireccionRepository direccionRepository) {
         return args -> {
             if (regionRepository.count() == 0) {
                 // insertar regiones
@@ -277,7 +277,27 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Santa Juana", new Region(11, null)));
                 comunaRepository.save(new Comuna("Talcahuano", new Region(11, null)));
                 comunaRepository.save(new Comuna("Tomé", new Region(11, null)));
-                comunaRepository.save(new Comuna("Hualqui", new Region(11, null)));
+                comunaRepository.save(new Comuna("Los Ángeles", new Region(11, null)));
+                comunaRepository.save(new Comuna("Antuco", new Region(11, null)));
+                comunaRepository.save(new Comuna("Cabrero", new Region(11, null)));
+                comunaRepository.save(new Comuna("Laja", new Region(11, null)));
+                comunaRepository.save(new Comuna("Mulchén", new Region(11, null)));
+                comunaRepository.save(new Comuna("Nacimiento", new Region(11, null)));
+                comunaRepository.save(new Comuna("Negrete", new Region(11, null)));
+                comunaRepository.save(new Comuna("Quilaco", new Region(11, null)));
+                comunaRepository.save(new Comuna("Quilleco", new Region(11, null)));
+                comunaRepository.save(new Comuna("San Rosendo", new Region(11, null)));
+                comunaRepository.save(new Comuna("Santa Bárbara", new Region(11, null)));
+                comunaRepository.save(new Comuna("Tucapel", new Region(11, null)));
+                comunaRepository.save(new Comuna("Yumbel", new Region(11, null)));
+                comunaRepository.save(new Comuna("Alto Biobío", new Region(11, null)));
+                comunaRepository.save(new Comuna("Arauco", new Region(11, null)));
+                comunaRepository.save(new Comuna("Cañete", new Region(11, null)));
+                comunaRepository.save(new Comuna("Contulmo", new Region(11, null)));
+                comunaRepository.save(new Comuna("Curanilahue", new Region(11, null)));
+                comunaRepository.save(new Comuna("Lebu", new Region(11, null)));
+                comunaRepository.save(new Comuna("Los Álamos", new Region(11, null)));
+                comunaRepository.save(new Comuna("Tirúa", new Region(11, null)));
 
                 // Región 12: La Araucanía
                 comunaRepository.save(new Comuna("Temuco", new Region(12, null)));
@@ -300,6 +320,18 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Toltén", new Region(12, null)));
                 comunaRepository.save(new Comuna("Vilcún", new Region(12, null)));
                 comunaRepository.save(new Comuna("Villarrica", new Region(12, null)));
+                comunaRepository.save(new Comuna("Cholchol", new Region(12, null)));
+                comunaRepository.save(new Comuna("Angol", new Region(12, null)));
+                comunaRepository.save(new Comuna("Collipulli", new Region(12, null)));
+                comunaRepository.save(new Comuna("Curacautín", new Region(12, null)));
+                comunaRepository.save(new Comuna("Ercilla", new Region(12, null)));
+                comunaRepository.save(new Comuna("Lonquimay", new Region(12, null)));
+                comunaRepository.save(new Comuna("Los Sauces", new Region(12, null)));
+                comunaRepository.save(new Comuna("Lumaco", new Region(12, null)));
+                comunaRepository.save(new Comuna("Purén", new Region(12, null)));
+                comunaRepository.save(new Comuna("Renaico", new Region(12, null)));
+                comunaRepository.save(new Comuna("Traiguén", new Region(12, null)));
+                comunaRepository.save(new Comuna("Victoria", new Region(12, null)));
 
                 // Región 13: Los Ríos
                 comunaRepository.save(new Comuna("Valdivia", new Region(13, null)));
@@ -310,6 +342,10 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Mariquina", new Region(13, null)));
                 comunaRepository.save(new Comuna("Paillaco", new Region(13, null)));
                 comunaRepository.save(new Comuna("Panguipulli", new Region(13, null)));
+                comunaRepository.save(new Comuna("La Unión", new Region(13, null)));
+                comunaRepository.save(new Comuna("Futrono", new Region(13, null)));
+                comunaRepository.save(new Comuna("Lago Ranco", new Region(13, null)));
+                comunaRepository.save(new Comuna("Río Bueno", new Region(13, null)));
 
                 // Región 14: Los Lagos
                 comunaRepository.save(new Comuna("Puerto Montt", new Region(14, null)));
@@ -322,6 +358,7 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Maullín", new Region(14, null)));
                 comunaRepository.save(new Comuna("Puerto Varas", new Region(14, null)));
                 comunaRepository.save(new Comuna("Castro", new Region(14, null)));
+                comunaRepository.save(new Comuna("Ancud", new Region(14, null)));
                 comunaRepository.save(new Comuna("Chonchi", new Region(14, null)));
                 comunaRepository.save(new Comuna("Curaco de Vélez", new Region(14, null)));
                 comunaRepository.save(new Comuna("Dalcahue", new Region(14, null)));
@@ -330,13 +367,23 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Quellón", new Region(14, null)));
                 comunaRepository.save(new Comuna("Quemchi", new Region(14, null)));
                 comunaRepository.save(new Comuna("Quinchao", new Region(14, null)));
+                comunaRepository.save(new Comuna("Osorno", new Region(14, null)));
+                comunaRepository.save(new Comuna("Puerto Octay", new Region(14, null)));
+                comunaRepository.save(new Comuna("Purranque", new Region(14, null)));
+                comunaRepository.save(new Comuna("Puyehue", new Region(14, null)));
+                comunaRepository.save(new Comuna("Río Negro", new Region(14, null)));
+                comunaRepository.save(new Comuna("San Juan de la Costa", new Region(14, null)));
+                comunaRepository.save(new Comuna("San Pablo", new Region(14, null)));
 
                 // Región 15: Aysén del General Carlos Ibáñez del Campo
-                comunaRepository.save(new Comuna("Coihaique", new Region(15, null)));
+                comunaRepository.save(new Comuna("Coyhaique", new Region(15, null)));
                 comunaRepository.save(new Comuna("Lago Verde", new Region(15, null)));
                 comunaRepository.save(new Comuna("Aysén", new Region(15, null)));
                 comunaRepository.save(new Comuna("Cisnes", new Region(15, null)));
                 comunaRepository.save(new Comuna("Guaitecas", new Region(15, null)));
+                comunaRepository.save(new Comuna("Cochrane", new Region(15, null)));
+                comunaRepository.save(new Comuna("O'Higgins", new Region(15, null)));
+                comunaRepository.save(new Comuna("Tortel", new Region(15, null)));
                 comunaRepository.save(new Comuna("Chile Chico", new Region(15, null)));
                 comunaRepository.save(new Comuna("Río Ibáñez", new Region(15, null)));
 
@@ -345,11 +392,13 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Laguna Blanca", new Region(16, null)));
                 comunaRepository.save(new Comuna("Río Verde", new Region(16, null)));
                 comunaRepository.save(new Comuna("San Gregorio", new Region(16, null)));
+                comunaRepository.save(new Comuna("Puerto Natales", new Region(16, null)));
+                comunaRepository.save(new Comuna("Torres del Paine", new Region(16, null)));
                 comunaRepository.save(new Comuna("Porvenir", new Region(16, null)));
                 comunaRepository.save(new Comuna("Primavera", new Region(16, null)));
                 comunaRepository.save(new Comuna("Timaukel", new Region(16, null)));
-                comunaRepository.save(new Comuna("Natales", new Region(16, null)));
-                comunaRepository.save(new Comuna("Torres del Paine", new Region(16, null)));
+                comunaRepository.save(new Comuna("Cabo de Hornos", new Region(16, null)));
+                comunaRepository.save(new Comuna("Antártica", new Region(16, null)));
 
                 System.out.println("✅ Regiones Cargadas  Y Comunas correctamente.");
 
