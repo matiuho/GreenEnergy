@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.Proyecto.model.Proyecto;
 import com.example.Proyecto.repository.ProyectoRepository;
 import com.example.Proyecto.webclient.ClienteClient;
+import com.example.Proyecto.webclient.UsuarioClient;
 
 import jakarta.transaction.Transactional;
 
@@ -20,6 +21,8 @@ public class ProyectosService {
     private ProyectoRepository proyectoRepository;
     @Autowired
     private ClienteClient clienteClient;
+    @Autowired
+    private UsuarioClient usuarioClient;
 
     //metodo para obtener todos los proyecto
     public List<Proyecto> getProyectos() {
@@ -35,7 +38,7 @@ public class ProyectosService {
             throw new RuntimeException("Estado no encontrado");
         }
         //verificar si el usuario exisyte consultando al microservicio de usuario
-        Map<String, Object> usuario = clienteClient.getEstadoById(nuevoproyecto.getUsuarioId());
+        Map<String, Object> usuario = usuarioClient.getUsuarioById(nuevoproyecto.getUsuarioId());
         //verifico si me trajo el usuario o no
         if (usuario == null || usuario.isEmpty()) {
             throw new RuntimeException("Usuario no encontrado");
