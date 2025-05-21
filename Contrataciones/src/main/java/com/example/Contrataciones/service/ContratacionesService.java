@@ -21,14 +21,4 @@ public class ContratacionesService {
     public List<Contrataciones> obtenerContrataciones(){
         return contratacionesRepository.findAll();
     }
-   // public Contrataciones crearContrataciones(Date fechaContrato, Date fechaFin, Date fechaInicio, int total, Long id){
-      //  Contrataciones contrataciones = contratacionesRepository.findById(id).orElseThrow(()-> new RuntimeException("Contratacion no existe con ID: " + id));
-        
-      /*   Contrataciones contrataciones2 = new Contrataciones();
-        contrataciones2.setFechaContrato(fechaContrato);
-        contrataciones2.setFechaFin(fechaFin);
-        contrataciones2.setFechaInicio(fechaInicio);
-        contrataciones2.setTotal(total);
-    }
-
 }
