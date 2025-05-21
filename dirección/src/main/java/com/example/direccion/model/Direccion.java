@@ -1,7 +1,5 @@
 package com.example.direccion.model;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,18 +18,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Direccion {
+
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDireccion;
 
     @Column(nullable = false, length = 50)
-    private String nombre ;
+    private String nombre;
 
     @ManyToOne
-    @JoinColumn(name ="id_comuna")// pasar el id de la comuna como referencia
+    @JoinColumn(name = "id_comuna", nullable = false)
     private Comuna comuna;
-    
+
     @Column(nullable = false)
     private Long idUsuario;
-
 }

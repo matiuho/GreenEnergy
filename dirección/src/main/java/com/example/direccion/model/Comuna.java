@@ -30,7 +30,7 @@ public class Comuna {
 
 
     @ManyToOne
-    @JoinColumn(name = "id_region") // clave foránea en la tabla 
+    @JoinColumn(name = "id_region", nullable = false) // clave foránea en la tabla 
     @JsonIgnoreProperties("comunas") // evita recursión si Region tiene lista de comunas
     private Region region;
     //constructor para prcargar las tablas de la base de datos

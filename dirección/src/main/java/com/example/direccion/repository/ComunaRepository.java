@@ -7,5 +7,4 @@ import com.example.direccion.model.Comuna;
 @Repository
 public interface ComunaRepository extends JpaRepository<Comuna, Long> {
     
-
 }
