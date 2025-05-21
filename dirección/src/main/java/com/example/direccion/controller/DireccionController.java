@@ -36,7 +36,7 @@ public class DireccionController {
     @PostMapping
     public ResponseEntity<?> crearDireccion(@RequestBody Direccion nuevaDireccion) {
         try {
-            Direccion direccion = direccionService.saveProyecto(nuevaDireccion);
+            Direccion direccion = direccionService.saveDireccion(nuevaDireccion);
             return ResponseEntity.status(201).body(direccion);
         } catch (RuntimeException e) {
             //retorno codigo 404

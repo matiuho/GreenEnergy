@@ -31,7 +31,7 @@ public class DireccionService {
     }
 
     //metodo para crear una nueva direccion
-    public Direccion  saveProyecto(Direccion nuevaDireccion) {
+    public Direccion  saveDireccion(Direccion nuevaDireccion) {
         //verificar si el usuario existe 
         Map<String, Object> usuario = clienteClient.getUsuarioById(nuevaDireccion.getIdUsuario());
         //verifico si me trajo el eusuario  

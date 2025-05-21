@@ -5,15 +5,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.direccion.model.Comuna;
+import com.example.direccion.model.Direccion;
 import com.example.direccion.model.Region;
 import com.example.direccion.repository.ComunaRepository;
+import com.example.direccion.repository.DireccionRepository;
 import com.example.direccion.repository.RegionRepository;
 
 @Configuration
 public class LoadDataBase {
 
     @Bean
-    CommandLineRunner InitDataBase(RegionRepository regionRepository, ComunaRepository comunaRepository) {
+    CommandLineRunner InitDataBase(RegionRepository regionRepository, ComunaRepository comunaRepository, DireccionRepository direccionRepository) {
         return args -> {
             if (regionRepository.count() == 0) {
                 // insertar regiones
@@ -249,10 +251,12 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Natales", new Region(16, null)));
                 comunaRepository.save(new Comuna("Torres del Paine", new Region(16, null)));
 
-                System.out.println("✅ Regiones Cargadas  correctamente.");
+                direccionRepository.save(new Direccion (null,"av el guanaco 2535", new Region(16)));
+
+                System.out.println("✅ Regiones Cargadas  Y Comunas correctamente.");
 
             } else {
-                System.out.println("ℹ️ Datos ya existentes. No se cargó información inicial.");
+                System.out.println("Regiones y Comunas ya cargadas.");
             }
         };
     }
