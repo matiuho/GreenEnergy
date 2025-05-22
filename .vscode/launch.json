@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CategoriaApplication",
+            "request": "launch",
+            "mainClass": "com.example.categoria.CategoriaApplication",
+            "projectName": "categoria"
+        },
+        {
+            "type": "java",
             "name": "ContratacionesApplication",
             "request": "launch",
             "mainClass": "com.example.Contrataciones.ContratacionesApplication",

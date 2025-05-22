@@ -28,4 +28,6 @@ public class Servicio {
 
     @Column(nullable = false, length = 20)
     private String disponibilidad; // para poner si esta "Disponible" o "No disponible"
+    
+
 }

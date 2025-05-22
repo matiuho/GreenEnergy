@@ -7,5 +7,6 @@ import com.example.servicio.model.Servicio;
 
 @Repository
 public interface ServicioRepository extends JpaRepository<Servicio, Long>{
+    
 
 }

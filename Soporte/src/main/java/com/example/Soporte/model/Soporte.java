@@ -25,4 +25,7 @@ public class Soporte {
 
     @Column(nullable = false)
     private LocalDate fecha;
+
+    @Column(nullable = false,length = 100)
+    private String descripcion;
 }
