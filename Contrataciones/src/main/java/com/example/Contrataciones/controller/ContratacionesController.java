@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Contrataciones.model.Contrataciones;
 import com.example.Contrataciones.repository.ContratacionesRepository;
 
-@RestController
+/*@RestController
 @RequestMapping("/api/contrataciones")
 public class ContratacionesController {
     @Autowired
@@ -45,3 +45,4 @@ public class ContratacionesController {
     }
 
 }
+*/

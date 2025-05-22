@@ -2,13 +2,17 @@ package com.example.servicio.service;
 
 import com.example.servicio.model.Servicio;
 import com.example.servicio.repository.ServicioRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
+@Transactional
 public class ServicioService {
 
     @Autowired
@@ -18,11 +22,11 @@ public class ServicioService {
         return servicioRepository.findAll();
     }
 
-    public Optional<Servicio> obtenerPorId(Long id) {
-        return servicioRepository.findById(id);
+   public Servicio getServicioPorId(Long id){
+        return servicioRepository.findById(id).orElseThrow(()-> new RuntimeException("Servicio no encontrado"));
     }
 
-    public Servicio crear(Servicio servicio) {
+    public Servicio saveServicio(Servicio servicio) {
         return servicioRepository.save(servicio);
     }
 
@@ -35,7 +39,7 @@ public class ServicioService {
         return servicioRepository.save(existente);
     }
 
-    public void eliminar(Long id) {
+    public void eliminarservicio(Long id) {
         servicioRepository.deleteById(id);
     }
 }

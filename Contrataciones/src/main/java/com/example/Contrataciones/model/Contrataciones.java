@@ -22,16 +22,22 @@ public class Contrataciones {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fecha_contrato")
-    private Date fechaContrato;
+    @Column(nullable = false)
+    private Date fechacontrato;
 
-    @Column(name = "fecha_inicio")
-    private Date fechaInicio;
+    @Column(nullable = false)
+    private Date fechainicio;
 
-    @Column(name = "fecha_fin")
-    private Date fechaFin;
+    @Column(nullable = false)
+    private Date fechafin;
 
-    @Column(name = "total")
+    @Column(nullable = false)
     private int total;
+
+    @Column(nullable = false)
+    private long idServicio;
+
+    @Column(nullable = false)
+    private long iddireccion;
 
 }

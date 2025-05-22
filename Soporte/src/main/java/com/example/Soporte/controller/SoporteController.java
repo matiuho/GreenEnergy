@@ -2,15 +2,17 @@ package com.example.Soporte.controller;
 
 import com.example.Soporte.model.Soporte;
 import com.example.Soporte.service.SoporteService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.*;
+
+
+
 @RestController
-@RequestMapping("/api/soportes")
+@RequestMapping("/api/soporte")
 public class SoporteController {
 
     @Autowired
@@ -29,11 +31,5 @@ public class SoporteController {
     @DeleteMapping("/{id}")
     public void eliminarSoporte(@PathVariable Long id) {
         soporteService.eliminarPorId(id);
-    }
-
-    @GetMapping("/fecha")
-    public List<Soporte> buscarPorFecha(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha) {
-        return soporteService.obtenerPorFecha(fecha);
     }
 }

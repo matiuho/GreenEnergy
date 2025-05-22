@@ -1,6 +1,6 @@
 package com.example.Contrataciones.service;
 
-import java.sql.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +21,7 @@ public class ContratacionesService {
     public List<Contrataciones> obtenerContrataciones(){
         return contratacionesRepository.findAll();
     }
+
+    //metodo para agregar una nueva contratacion
+    
 }
