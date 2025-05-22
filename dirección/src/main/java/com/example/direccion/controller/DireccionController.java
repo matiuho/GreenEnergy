@@ -3,6 +3,7 @@ package com.example.direccion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,18 +38,17 @@ public class DireccionController {
     //endpoint para crear una nueva direccion
     @PostMapping
     public ResponseEntity<?> crearDireccion(@RequestBody Direccion nuevaDireccion) {
-        try {
-            Direccion direccion = direccionService.saveDireccion(nuevaDireccion);
-            // Retorno código 201 Created
-            return ResponseEntity.status(201).body(direccion);
-        } catch (RuntimeException e) {
-        // Captura error por estado no encontrado
-            return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-        // Otro error interno
-             return ResponseEntity.status(500).body("Error al crear la direccion: " + e.getMessage());
-        }
+    try {
+        Direccion direccion = direccionService.saveDireccion(nuevaDireccion);
+        return ResponseEntity.status(HttpStatus.CREATED).body(direccion);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body( e.getMessage());
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                             .body(" Error interno: " + e.getMessage());
     }
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Direccion> obtenerDireccionPorId(@PathVariable Long id) {
@@ -64,8 +64,4 @@ public class DireccionController {
     }
 
    
-
-
-
-
 }

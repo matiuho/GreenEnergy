@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.direccion.model.Comuna;
-import com.example.direccion.model.Direccion;
 import com.example.direccion.model.Region;
 import com.example.direccion.repository.ComunaRepository;
-import com.example.direccion.repository.DireccionRepository;
 import com.example.direccion.repository.RegionRepository;
 
 @Configuration
@@ -16,8 +14,7 @@ public class LoadDataBase {
 
     @Bean
     CommandLineRunner InitDataBase(RegionRepository regionRepository,
-            ComunaRepository comunaRepository,
-            DireccionRepository direccionRepository) {
+            ComunaRepository comunaRepository) {
         return args -> {
             if (regionRepository.count() == 0) {
                 // insertar regiones
@@ -416,7 +413,7 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Timaukel", new Region(16, null)));
                 comunaRepository.save(new Comuna("Cabo de Hornos", new Region(16, null)));
                 comunaRepository.save(new Comuna("Antártica", new Region(16, null)));
-                direccionRepository.save(new Direccion(null, "Parral", 1, 1))
+                
 
                 System.out.println("✅ Regiones Cargadas  Y Comunas correctamente.");
 

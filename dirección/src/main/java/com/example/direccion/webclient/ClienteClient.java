@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import reactor.core.publisher.Mono;
+
 @Component
 public class ClienteClient {
     // variable con la que se comunica
@@ -22,7 +24,7 @@ public class ClienteClient {
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError(),
                 response -> response.bodyToMono(String.class)
-                .map(body -> new RuntimeException("Usuario no encontrado: ")))     
+                .flatMap(body -> Mono.error(new RuntimeException("Usuario no encontrado: " + body))))    
                 .bodyToMono(Map.class)
                 .doOnNext(body -> System.out.println("Respuesta usuario: " + body))
                 .block();
