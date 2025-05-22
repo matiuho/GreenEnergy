@@ -31,6 +31,9 @@ public class ProyectosService {
 
     //metodo para agregar un nuevo proyecto
     public Proyecto saveProyecto(Proyecto nuevoproyecto) {
+         System.out.println("Proyecto recibido: " + nuevoproyecto);
+         System.out.println("ID del proyecto: " + nuevoproyecto.getIdProyecto());
+
         //verificar si el estado existe consultando al microservicio estado
         Map<String, Object> estado = clienteClient.getEstadoById(nuevoproyecto.getEstadoId());
         //verifico si me trajo el estado o no
@@ -41,9 +44,9 @@ public class ProyectosService {
         Map<String, Object> usuario = usuarioClient.getUsuarioById(nuevoproyecto.getUsuarioId());
         //verifico si me trajo el usuario o no
         if (usuario == null || usuario.isEmpty()) {
-            throw new RuntimeException("Usuario no encontrado");
-            
+            throw new RuntimeException("Direccion no encontrada");  
         }
+        
         return proyectoRepository.save(nuevoproyecto);
 
     }
