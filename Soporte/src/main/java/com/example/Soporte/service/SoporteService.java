@@ -25,5 +25,10 @@ public class SoporteService {
     public void eliminarPorId(Long id) {
         soporteRepository.deleteById(id);
     }
+    //metodo para buscar un estado por su ID
+     public Soporte getEstadoPorId(Long id){
+        return soporteRepository.findById(id).orElseThrow(()-> new RuntimeException("Soporte no encontrado"));
+    }
+    
 
 }
