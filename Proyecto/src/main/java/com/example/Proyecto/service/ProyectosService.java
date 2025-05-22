@@ -48,6 +48,11 @@ public class ProyectosService {
 
     }
 
+    //metodo para buscar un estado por su ID
+    public Proyecto getProyectoPorId(Long id){
+        return proyectoRepository.findById(id).orElseThrow(()-> new RuntimeException("Proyecto no encontrado"));
+    }
+
 
     
 

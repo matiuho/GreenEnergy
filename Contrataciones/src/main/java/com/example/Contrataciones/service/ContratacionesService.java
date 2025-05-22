@@ -31,6 +31,9 @@ public class ContratacionesService {
     }
     //metodo para agregar un nuevo proyecto
     public Contrataciones saveContrataciones(Contrataciones nuevoproyecto) {
+         System.out.println("🧾 Contratación recibida: " + nuevoproyecto);
+         System.out.println("🧪 ID del servicio: " + nuevoproyecto.getIdServicio());
+
         //verificar si el estado existe consultando al microservicio estado
         Map<String, Object> contrataciones = clienteClient.getServicioById(nuevoproyecto.getIdServicio());
         //verifico si me trajo el estado o no

@@ -2,7 +2,6 @@ package com.example.Contrataciones.model;
 
 import java.time.LocalDate;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +27,7 @@ public class Contrataciones {
 
     @Column(nullable = false)
     private int total;
-    
+
     @Column(nullable = false)
     private LocalDate fechaInicio;
 
@@ -41,7 +40,33 @@ public class Contrataciones {
     @Column(nullable = false)
     private Long idDireccion;
 
-    @Column(nullable = false)   
+    @Column(nullable = false)
     private Long idProyecto;
+
+    public Long getIdServicio() {
+        return idServicio;
+    }
+
+    public void setIdServicio(Long idServicio) {
+        this.idServicio = idServicio;
+    }
+
+    public Long getIdDireccion() {
+        return idDireccion;
+    }
+
+    public void setIdDireccion(Long idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+
+    public Long getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Long idProyecto) {
+        this.idProyecto = idProyecto;
+    }
+
+    
 
 }

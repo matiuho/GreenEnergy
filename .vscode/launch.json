@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ContratacionesApplication",
+            "request": "launch",
+            "mainClass": "com.example.Contrataciones.ContratacionesApplication",
+            "projectName": "Contrataciones"
+        },
+        {
+            "type": "java",
             "name": "SoporteApplication",
             "request": "launch",
             "mainClass": "com.example.Soporte.SoporteApplication",
