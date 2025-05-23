@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GestionDeUsuarioApplication",
+            "request": "launch",
+            "mainClass": "com.example.GestionDeUsuario.GestionDeUsuarioApplication",
+            "projectName": "GestionDeUsuario"
+        },
+        {
+            "type": "java",
+            "name": "RolesApplication",
+            "request": "launch",
+            "mainClass": "com.example.Roles.RolesApplication",
+            "projectName": "Roles"
+        },
+        {
+            "type": "java",
             "name": "ResenaApplication",
             "request": "launch",
             "mainClass": "com.example.resena.ResenaApplication",
