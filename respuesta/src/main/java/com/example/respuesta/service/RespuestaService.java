@@ -1,12 +1,14 @@
 package com.example.respuesta.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.respuesta.model.Respuesta;
 import com.example.respuesta.repository.RespuestaRepository;
+import com.example.respuesta.webclient.SoporteClient;
 
 import jakarta.transaction.Transactional;
 
@@ -16,20 +18,17 @@ public class RespuestaService {
 
     @Autowired
     private RespuestaRepository respuestaRepository;
+    @Autowired
+    private SoporteClient soporteClient;
 
-    //mostrar todas las respuestas
+    // mostrar todas las respuestas
     public List<Respuesta> obtenerRespuestas() {
         return respuestaRepository.findAll();
     }
 
-    //buscar respuesta por id
-    public Respuesta getRespuestaPorId(Long id){
-        return respuestaRepository.findById(id).orElseThrow(()-> new RuntimeException("Respuesta no encontrado"));
-    }
-
-    //guardar una respuesta 
-    public Respuesta saveRespuesta(Respuesta respuesta) {
-        return respuestaRepository.save(respuesta);
+    // buscar respuesta por id
+    public Respuesta getRespuestaPorId(Long id) {
+        return respuestaRepository.findById(id).orElseThrow(() -> new RuntimeException("Respuesta no encontrado"));
     }
 
     public Respuesta actualizar(Long id, Respuesta datos) {
@@ -38,7 +37,7 @@ public class RespuestaService {
         existente.setFechaSoporte(datos.getFechaSoporte());
         existente.setComentario(datos.getComentario());
         existente.setTipoUsuario(datos.getTipoUsuario());
-        
+
         return respuestaRepository.save(existente);
     }
 
@@ -46,5 +45,13 @@ public class RespuestaService {
         respuestaRepository.deleteById(id);
     }
 
-
+    public Respuesta saveRespuesta(Respuesta nuevaRespuesta) {
+        // verificar si el Soporte existe consultando al microservicio Soporte
+        Map<String, Object> soporte = soporteClient.getSoporteById(nuevaRespuesta.getIdSoporte());
+        // verifico si me trajo el estado o no
+        if (soporte == null || soporte.isEmpty()) {
+            throw new RuntimeException("Soporte no encontrado");
+        }
+        return respuestaRepository.save(nuevaRespuesta);
+    }
 }

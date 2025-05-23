@@ -32,4 +32,7 @@ public class Respuesta {
     @Column(nullable = false,length = 25)
     private String tipoUsuario;
 
+    @Column(nullable = false)
+    private Long idSoporte;
+
 }

@@ -30,13 +30,13 @@ public class ContratacionesService {
     }
     //metodo para agregar un nuevo proyecto
     public Contrataciones saveContrataciones(Contrataciones nuevoproyecto) {    
-        //verificar si el  servicio consultando al microservicio  de servicio
+        //verificar si el  proyecto consultando al microservicio  de proyecto
         Map<String, Object> servicio = clienteClient.getServicioById(nuevoproyecto.getIdServicio());
         //verifico si me trajo el estado o no
         if (servicio == null || servicio.isEmpty()) {
             throw new RuntimeException("Servicio no encontrado");
         }
-        //verificar si el usuario exisyte consultando al microservicio de usuario
+        //verificar si el proyecto exisyte consultando al microservicio de proyecto
         Map<String, Object> direccion = direccionClient.getDireccionById(nuevoproyecto.getIdDireccion());
         //verifico si me trajo el usuario o no
         if (direccion == null || direccion.isEmpty()) {
@@ -47,7 +47,7 @@ public class ContratacionesService {
         
     }
 
-    //metodo para buscar un estado por su ID
+    //metodo para buscar un contrataciones por su ID
     public Contrataciones getContrtacionPorId(Long id){
         return contratacionesRepository.findById(id).orElseThrow(()-> new RuntimeException("Contratacion no encontrado"));
     }
