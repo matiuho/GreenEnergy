@@ -48,32 +48,6 @@ public class UsuarioController {
         return ResponseEntity.ok(roles);
     }
 
-    
-    //metodo para crear un nuevo usuario
-    @PostMapping
-    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario) {
-    if (usuario.getRol() == null || usuario.getRol().getId() == null) {
-        return ResponseEntity.badRequest().body("El campo 'rol.id' no puede ser nulo");
-    }
-
-    // Buscar el rol real desde la BD
-    Optional<Rol> rolOpt = rolService.obtenerRoles().stream()
-        .filter(rol -> rol.getId().equals(usuario.getRol().getId()))
-        .findFirst();
-
-    if (rolOpt.isEmpty()) {
-        return ResponseEntity.badRequest().body("Rol no encontrado con ID: " + usuario.getRol().getId());
-    }
-
-    usuario.setRol(rolOpt.get()); // asignar el rol completo con nombre incluido
-
-    Usuario guardado = usuarioService.saveUsuario(usuario);
-    if (guardado == null) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el usuario");
-    }
-    return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
-    }
-
      @GetMapping("/{id}")
     public ResponseEntity<?> obtenerUsuarioPorId(@PathVariable Long id) {
         try {
@@ -84,6 +58,10 @@ public class UsuarioController {
         }
     }
 
+    @PostMapping
+    public Usuario crearUsuario(@RequestBody Usuario usuario) {
+        return usuarioService.saveUsuario(usuario);
+    }
     
 
 

@@ -39,8 +39,8 @@ public class Usuario {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id")
-    @JsonIgnoreProperties("user")
+    @JoinColumn(name = "id_Rol", nullable = false)
+    @JsonIgnoreProperties("rol")
     private Rol rol;
 
     public Usuario(String nombre, String apellido, LocalDate fnacimiento, String password, Rol rol) {

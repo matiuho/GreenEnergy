@@ -20,7 +20,7 @@ public class RolService {
         return rolRepository.findAll();
     }
 
-    public Rol obtenerRolPorId(Long id){
+    public Rol obtenerRolPorId(Integer id){
         return rolRepository.findById(id).orElseThrow(()-> new RuntimeException("Rol no encontrado con ID:" + id));
     }
 }

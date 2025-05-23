@@ -1,14 +1,13 @@
 package com.example.Autenticacion.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -23,18 +22,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Rol {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable = false,length = 50)
     private String nombre;
 
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Usuario> users;
-
-     public Rol( String nombre) {
+    @JsonIgnoreProperties("rol")
+    private List<Usuario> users = new ArrayList<>();
+    public Rol(int id  ,  String nombre) {
+        this.id = id;        
         this.nombre = nombre;
-
     }
+
+    
 }
