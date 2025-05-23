@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.Proyecto.model.Proyecto;
 import com.example.Proyecto.repository.ProyectoRepository;
 import com.example.Proyecto.webclient.ClienteClient;
+import com.example.Proyecto.webclient.ContratacionClient;
 import com.example.Proyecto.webclient.UsuarioClient;
 
 import jakarta.transaction.Transactional;
@@ -23,6 +24,8 @@ public class ProyectosService {
     private ClienteClient clienteClient;
     @Autowired
     private UsuarioClient usuarioClient;
+    @Autowired
+    private ContratacionClient contratacionClient;
 
     //metodo para obtener todos los proyecto
     public List<Proyecto> getProyectos() {
@@ -31,8 +34,6 @@ public class ProyectosService {
 
     //metodo para agregar un nuevo proyecto
     public Proyecto saveProyecto(Proyecto nuevoproyecto) {
-         System.out.println("Proyecto recibido: " + nuevoproyecto);
-         System.out.println("ID del proyecto: " + nuevoproyecto.getIdProyecto());
 
         //verificar si el estado existe consultando al microservicio estado
         Map<String, Object> estado = clienteClient.getEstadoById(nuevoproyecto.getEstadoId());
@@ -45,6 +46,11 @@ public class ProyectosService {
         //verifico si me trajo el usuario o no
         if (usuario == null || usuario.isEmpty()) {
             throw new RuntimeException("Direccion no encontrada");  
+        }
+        Map<String, Object> contratacion = contratacionClient.getContratacionById(nuevoproyecto.getIdContratacion());
+        //verifico si me trajo el usuario o no
+        if (contratacion == null || contratacion.isEmpty()) {
+            throw new RuntimeException("Contratación no encontrada");
         }
         
         return proyectoRepository.save(nuevoproyecto);

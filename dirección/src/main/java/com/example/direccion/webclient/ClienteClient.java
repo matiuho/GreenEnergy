@@ -14,7 +14,7 @@ public class ClienteClient {
     private final WebClient webClient;
 
     // metodo constructor
-    public ClienteClient(@Value("${usuario-service.url}") String  direccionServiceUrl) {
+    public ClienteClient(@Value("${GestionDeUsuario-service.url}") String  direccionServiceUrl) {
         this.webClient = WebClient.builder().baseUrl(direccionServiceUrl).build();
     }
 

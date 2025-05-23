@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Proyecto.model.Proyecto;
 import com.example.Proyecto.service.ProyectosService;
 import com.example.Proyecto.webclient.ClienteClient;
+import com.example.Proyecto.webclient.ContratacionClient;
 import com.example.Proyecto.webclient.UsuarioClient;
 
 
@@ -28,6 +29,9 @@ public class ProyectoController {
 
     @Autowired
     private UsuarioClient usuarioClient;
+
+    @Autowired
+    private ContratacionClient contratacionClient;
 
 
 

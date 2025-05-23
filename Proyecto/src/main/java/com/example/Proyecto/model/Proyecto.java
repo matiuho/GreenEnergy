@@ -35,6 +35,9 @@ public class Proyecto {
     @Column(nullable = false)
     private Long usuarioId;
 
+    @Column(nullable = false)
+    private Long idContratacion;
+
     
 
 

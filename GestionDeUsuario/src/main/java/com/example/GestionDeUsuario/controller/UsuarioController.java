@@ -50,7 +50,7 @@ public class UsuarioController {
     }
     //endpoint para obtener un usuario por id
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerSoportePorId(@PathVariable Long id) {
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
         try {
             Usuario usuario = usuarioService.getUsuarioPorId(id);
             return ResponseEntity.ok(usuario);
