@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,10 +59,47 @@ public class SoporteController {
     @GetMapping("/{id}")
     public ResponseEntity<Soporte> obtenerSoportePorId(@PathVariable Long id) {
         try {
-            Soporte soporte = soporteService.getEstadoPorId(id);
+            Soporte soporte = soporteService.getSoportePorId(id);
             return ResponseEntity.ok(soporte);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> borrarSoportePorId(@PathVariable Long id){
+        try {
+            //verificar si el soporte existe
+            Soporte  sop = soporteService.getSoportePorId(id);
+            soporteService.eliminarPorId(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            // no existe el paciente
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    //metodo para actualixar un paciete por su id 
+    @PutMapping("/{id}")
+    public ResponseEntity<Soporte> actualizarSoportePorId(@PathVariable Long id,@RequestBody Soporte sop){
+        try {
+            //verifico si el paciente existe
+            Soporte soporte2 =soporteService.getSoportePorId(null);
+            //si existe modifico uno a uno sus valores
+            soporte2.setIdSoporte(id);
+            soporte2.setFecha(sop.getFecha());
+            soporte2.setDescripcion(sop.getDescripcion());
+            soporte2.setIdEstado(sop.getIdEstado());
+            soporte2.setIdCategoria(sop.getIdCategoria());
+            soporte2.setIdRespuesta(sop.getIdRespuesta());
+            
+            //actualizar el registro
+            soporteService.saveSoporte(soporte2);
+            return ResponseEntity.ok(soporte2);
+        } catch (Exception e) {
+            //si no encuentra el paciente
+            return ResponseEntity.notFound().build();
         }
     }
 
