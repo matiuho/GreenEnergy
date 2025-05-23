@@ -24,14 +24,11 @@ public class ProyectoController {
     @Autowired
     private   ProyectosService proyectosService;
 
-    @Autowired
-    private     ClienteClient clienteClient;
+    @Autowired   ClienteClient clienteClient;
 
-    @Autowired
-    private UsuarioClient usuarioClient;
+    @Autowired UsuarioClient usuarioClient;
 
-    @Autowired
-    private ContratacionClient contratacionClient;
+    @Autowired ContratacionClient contratacionClient;
 
 
 
@@ -46,7 +43,6 @@ public class ProyectoController {
     }
 
     //endpoint para crear un nuevo proyecto
-    
     @PostMapping
     public ResponseEntity<?> crearProyecto(@RequestBody Proyecto nuevoproyecto) {
         try {

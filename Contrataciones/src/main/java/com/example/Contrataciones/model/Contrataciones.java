@@ -40,8 +40,6 @@ public class Contrataciones {
     @Column(nullable = false)
     private Long idDireccion;
 
-    @Column(nullable = false)
-    private Long idProyecto;
 
     public Long getIdServicio() {
         return idServicio;
@@ -59,13 +57,7 @@ public class Contrataciones {
         this.idDireccion = idDireccion;
     }
 
-    public Long getIdProyecto() {
-        return idProyecto;
-    }
-
-    public void setIdProyecto(Long idProyecto) {
-        this.idProyecto = idProyecto;
-    }
+    
 
     
 

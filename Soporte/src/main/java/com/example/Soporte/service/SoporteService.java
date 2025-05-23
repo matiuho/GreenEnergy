@@ -4,7 +4,7 @@ import com.example.Soporte.model.Soporte;
 import com.example.Soporte.repository.SoporteRepository;
 import com.example.Soporte.webclient.CategoriaClient;
 import com.example.Soporte.webclient.EstadoClient;
-import com.example.Soporte.webclient.RespuestaClient;
+import com.example.Soporte.webclient.UserClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class SoporteService {
     private EstadoClient estadoClient;
 
     @Autowired
-    private RespuestaClient respuestaClient;
+    private UserClient userClient;
 
     //metodo para consultar todos los Contrataciones
     public List<Soporte> getSoporte(){
@@ -50,11 +50,11 @@ public class SoporteService {
             throw new RuntimeException("Direccion no encontrada");
         }
 
-        //verificar si el proyecto existe consultando al microservicio de proyecto
-        Map<String, Object> respuesta = respuestaClient.getRespuestaById(nuevosoporte.getIdRespuesta());
-        //verifico si me trajo el proyecto o no
-        if (respuesta == null || respuesta.isEmpty()) {
-            throw new RuntimeException("Respuesta no encontrada");
+        //verificar si el proyecto existe consultando al microservicio de usuario
+        Map<String, Object> usuario = userClient.getUsuarioById(nuevosoporte.getIdUsuario());
+        //verifico si me trajo el usuario o no
+        if (usuario == null || usuario.isEmpty()) {
+            throw new RuntimeException("Usuario no encontrada");
         }
 
         return soporteRepository.save(nuevosoporte);

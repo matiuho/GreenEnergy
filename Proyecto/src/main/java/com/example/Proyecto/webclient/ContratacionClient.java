@@ -11,11 +11,11 @@ public class ContratacionClient {
     private final WebClient webClient;
 
     //metodo constructor 
-    public ContratacionClient(@Value("${contratacion-service.url}") String contratacionServiceUrl) {
+    public ContratacionClient(@Value("${contrataciones-service.url}") String contratacionServiceUrl) {
         this.webClient = WebClient.builder().baseUrl(contratacionServiceUrl).build();
     }
 
-    //metodo para realizar la consulta  al microservicio estado y al contratacion
+    //metodo para realizar la consulta  al microservicio contratacion
     public Map<String, Object> getContratacionById(Long id){
         return this.webClient.get()
         .uri("/{id}", id)

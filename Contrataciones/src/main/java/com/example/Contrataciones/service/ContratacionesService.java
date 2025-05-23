@@ -10,7 +10,7 @@ import com.example.Contrataciones.model.Contrataciones;
 import com.example.Contrataciones.repository.ContratacionesRepository;
 import com.example.Contrataciones.webclient.ClienteClient;
 import com.example.Contrataciones.webclient.DireccionClient;
-import com.example.Contrataciones.webclient.ProyectClient;
+
 
 import jakarta.transaction.Transactional;
 
@@ -23,18 +23,17 @@ public class ContratacionesService {
     private ClienteClient clienteClient;
     @Autowired
     private DireccionClient direccionClient;
-    @Autowired
-    private ProyectClient proyectClient;
+    
     //metodo para consultar todos los Contrataciones
     public List<Contrataciones> getContrataciones(){
         return contratacionesRepository.findAll();
     }
     //metodo para agregar un nuevo proyecto
     public Contrataciones saveContrataciones(Contrataciones nuevoproyecto) {    
-        //verificar si el estado existe consultando al microservicio estado
-        Map<String, Object> contrataciones = clienteClient.getServicioById(nuevoproyecto.getIdServicio());
+        //verificar si el  servicio consultando al microservicio  de servicio
+        Map<String, Object> servicio = clienteClient.getServicioById(nuevoproyecto.getIdServicio());
         //verifico si me trajo el estado o no
-        if (contrataciones == null || contrataciones.isEmpty()) {
+        if (servicio == null || servicio.isEmpty()) {
             throw new RuntimeException("Servicio no encontrado");
         }
         //verificar si el usuario exisyte consultando al microservicio de usuario
@@ -44,15 +43,16 @@ public class ContratacionesService {
             throw new RuntimeException("Direccion no encontrada");
             
         }
-        //verificar si el proyecto existe consultando al microservicio de proyecto
-        Map<String, Object> proyecto = proyectClient.getProyectoById(nuevoproyecto.getIdProyecto());
-        //verifico si me trajo el proyecto o no
-        if (proyecto == null || proyecto.isEmpty()) {
-            throw new RuntimeException("Proyecto no encontrado");
-        }
         return contratacionesRepository.save(nuevoproyecto);
-
+        
     }
+
+    //metodo para buscar un estado por su ID
+    public Contrataciones getContrtacionPorId(Long id){
+        return contratacionesRepository.findById(id).orElseThrow(()-> new RuntimeException("Contratacion no encontrado"));
+    }
+
+
 
 
 }

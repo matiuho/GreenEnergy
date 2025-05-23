@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import com.example.Contrataciones.model.Contrataciones;
 import com.example.Contrataciones.service.ContratacionesService;
 import com.example.Contrataciones.webclient.ClienteClient;
 import com.example.Contrataciones.webclient.DireccionClient;
-import com.example.Contrataciones.webclient.ProyectClient;
+
 
 @RestController
 @RequestMapping("/api/contrataciones")
@@ -25,8 +26,6 @@ public class ContratacionesController {
     @Autowired ClienteClient clienteClient;
 
     @Autowired DireccionClient direccionClient;
-
-    @Autowired ProyectClient proyectClient;
 
     @GetMapping
     public ResponseEntity<List<Contrataciones>> obtenerContrataciones() {
@@ -50,6 +49,20 @@ public class ContratacionesController {
             // Otro error interno
             return ResponseEntity.status(404).body(e.getMessage());
         }
+    }
+
+    //endpoint para buscar una contratacion  mediante su id
+    @GetMapping("/{id}")
+    public ResponseEntity<Contrataciones> obtenercontratacionPorId(@PathVariable Long id) {
+        try {
+            //verificar si existe el estado
+            Contrataciones contratacion = contratacionesService.getContrtacionPorId(id);
+            return ResponseEntity.ok(contratacion);
+        } catch (Exception e) {
+            //retorno codigo 404
+            return ResponseEntity.notFound().build();
+        }
+        
     }
 
 }

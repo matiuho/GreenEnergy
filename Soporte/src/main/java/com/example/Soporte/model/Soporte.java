@@ -36,5 +36,6 @@ public class Soporte {
     private Long idCategoria;
 
     @Column(nullable = false)
-    private Long idRespuesta;
+    private Long idUsuario;
 }
+

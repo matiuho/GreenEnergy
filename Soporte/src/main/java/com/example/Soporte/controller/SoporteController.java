@@ -18,7 +18,7 @@ import com.example.Soporte.model.Soporte;
 import com.example.Soporte.service.SoporteService;
 import com.example.Soporte.webclient.CategoriaClient;
 import com.example.Soporte.webclient.EstadoClient;
-import com.example.Soporte.webclient.RespuestaClient;
+import com.example.Soporte.webclient.UserClient;
 
 @RestController
 @RequestMapping("/api/soporte")
@@ -30,9 +30,7 @@ public class SoporteController {
 
     @Autowired EstadoClient estadoClient;
 
-    @Autowired RespuestaClient respuestaClient;
-
-
+    @Autowired UserClient userClient;
     // Endpoint para obtener todos los soportes
     @GetMapping
     public ResponseEntity<List<Soporte>> obtenerSoportes() {
@@ -70,7 +68,7 @@ public class SoporteController {
     public ResponseEntity<?> borrarSoportePorId(@PathVariable Long id){
         try {
             //verificar si el soporte existe
-            Soporte  sop = soporteService.getSoportePorId(id);
+            Soporte  soporte = soporteService.getSoportePorId(id);
             soporteService.eliminarPorId(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
@@ -92,7 +90,7 @@ public class SoporteController {
             soporte2.setDescripcion(sop.getDescripcion());
             soporte2.setIdEstado(sop.getIdEstado());
             soporte2.setIdCategoria(sop.getIdCategoria());
-            soporte2.setIdRespuesta(sop.getIdRespuesta());
+            soporte2.setIdUsuario(sop.getIdUsuario());
             
             //actualizar el registro
             soporteService.saveSoporte(soporte2);

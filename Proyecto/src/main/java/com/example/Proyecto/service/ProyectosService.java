@@ -34,7 +34,6 @@ public class ProyectosService {
 
     //metodo para agregar un nuevo proyecto
     public Proyecto saveProyecto(Proyecto nuevoproyecto) {
-
         //verificar si el estado existe consultando al microservicio estado
         Map<String, Object> estado = clienteClient.getEstadoById(nuevoproyecto.getEstadoId());
         //verifico si me trajo el estado o no
