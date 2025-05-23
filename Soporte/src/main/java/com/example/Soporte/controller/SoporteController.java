@@ -14,19 +14,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Soporte.model.Soporte;
 import com.example.Soporte.service.SoporteService;
+import com.example.Soporte.webclient.CategoriaClient;
+import com.example.Soporte.webclient.EstadoClient;
+import com.example.Soporte.webclient.RespuestaClient;
 
 @RestController
 @RequestMapping("/api/soporte")
 public class SoporteController {
     @Autowired
     private SoporteService soporteService;
+
+    @Autowired CategoriaClient categoriaClient;
+
+    @Autowired EstadoClient estadoClient;
+
+    @Autowired RespuestaClient respuestaClient;
+
+
     // Endpoint para obtener todos los soportes
     @GetMapping
     public ResponseEntity<List<Soporte>> obtenerSoportes() {
-        List<Soporte> soportes = soporteService.obtenerTodos();
+        List<Soporte> soportes = soporteService.getSoporte();
         if (soportes.isEmpty()) {
             return ResponseEntity.noContent().build();
-            
         }
         return ResponseEntity.ok(soportes);
     }
@@ -34,13 +44,13 @@ public class SoporteController {
     @PostMapping
     public ResponseEntity<?> crearSoporte(@RequestBody Soporte nuevoSoporte){
         try {
-            Soporte soporte = soporteService.guardarSoporte(nuevoSoporte);
+            Soporte soporte = soporteService.saveSoporte(nuevoSoporte);
             return ResponseEntity.status(HttpStatus.CREATED).body(soporte);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body( e.getMessage());
+            return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body(" Error interno: " + e.getMessage());
+            // Otro error interno
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
