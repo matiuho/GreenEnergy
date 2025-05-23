@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ResenaApplication",
+            "request": "launch",
+            "mainClass": "com.example.resena.ResenaApplication",
+            "projectName": "resena"
+        },
+        {
+            "type": "java",
             "name": "RespuestaApplication",
             "request": "launch",
             "mainClass": "com.example.respuesta.RespuestaApplication",

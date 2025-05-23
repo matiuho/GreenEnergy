@@ -1,4 +1,4 @@
-package com.example.Contrataciones.webclient;
+package com.example.resena.webclient;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class ClienteClient {
     // metodo para realizar la consulta al microservicio de servicio
     public Map<String, Object> getServicioById(Long id) {
         return webClient.get()
-                .uri("/{id}", id) // Usa esto exactamente
+                .uri("/{id}", id) 
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError(),
                         response -> response.bodyToMono(String.class)

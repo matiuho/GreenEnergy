@@ -1,4 +1,4 @@
-package com.example.Contrataciones.webclient;
+package com.example.resena.webclient;
 
 import java.util.Map;
 
@@ -9,22 +9,21 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class ClienteClient {
+public class UserClient {
     private final WebClient webClient;
 
     // metodo constructor
-    public ClienteClient(@Value("${servicio-service.url}") String servicioServiceUrl) {
-        this.webClient = WebClient.builder().baseUrl(servicioServiceUrl).build();
+    public UserClient(@Value("${usuario-service.url}") String usuarioServiceUrl) {
+        this.webClient = WebClient.builder().baseUrl(usuarioServiceUrl).build();
     }
-
     // metodo para realizar la consulta al microservicio de servicio
-    public Map<String, Object> getServicioById(Long id) {
+    public Map<String, Object> getUsuarioById(Long id) {
         return webClient.get()
-                .uri("/{id}", id) // Usa esto exactamente
+                .uri("/{id}", id) 
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError(),
                         response -> response.bodyToMono(String.class)
-                                .flatMap(body -> Mono.error(new RuntimeException("Servicio no encontrado: " + body))))
+                                .flatMap(body -> Mono.error(new RuntimeException("Usuario no encontrado: " + body))))
                 .bodyToMono(Map.class)
                 .block();
     }
