@@ -84,8 +84,6 @@ public class ProyectoController {
             //actualizar el proyecto
             proyecto.setComentario(proyectoActualizado.getComentario());
             proyecto.setEstadoId(proyectoActualizado.getEstadoId());
-            proyecto.setTecnicoId(proyectoActualizado.getTecnicoId());
-            proyecto.setIdContratacion(proyectoActualizado.getIdContratacion());
             //guardar el proyecto actualizado
             proyectosService.saveProyecto(proyecto);
             return ResponseEntity.ok(proyecto);
