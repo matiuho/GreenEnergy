@@ -30,14 +30,13 @@ public class UsuarioService {
     }
     //metodo para agregar un nuevo usuario
     public Usuario saveUsuario(Usuario nuevoUsuario) {
-
         //verificar si el rol existe consultando al microservicio roles
         Map<String, Object> roles  = rolClient.getRolesById(nuevoUsuario.getIdRol());
         //verifico si me trajo el rol o no
         if (roles == null||roles.isEmpty()) {
             throw new RuntimeException("Rol no encontrado");
         }
-
+        
         return usuarioRepository.save(nuevoUsuario);
     }
     public void eliminarUsuario(Long id) {

@@ -20,7 +20,7 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRol;
 
-    @Column (nullable = false)
+    @Column (nullable = false,length = 20)
     private String nombre;
 
 }
