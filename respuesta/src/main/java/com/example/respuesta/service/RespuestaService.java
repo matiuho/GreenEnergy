@@ -18,8 +18,7 @@ public class RespuestaService {
 
     @Autowired
     private RespuestaRepository respuestaRepository;
-    @Autowired
-    private SoporteClient soporteClient;
+    @Autowired  SoporteClient soporteClient;
 
     // mostrar todas las respuestas
     public List<Respuesta> obtenerRespuestas() {
@@ -36,7 +35,7 @@ public class RespuestaService {
                 .orElseThrow(() -> new RuntimeException("Respuesta no encontrado"));
         existente.setFechaSoporte(datos.getFechaSoporte());
         existente.setComentario(datos.getComentario());
-        existente.setTipoUsuario(datos.getTipoUsuario());
+        existente.setTipousuario(datos.getTipousuario());
 
         return respuestaRepository.save(existente);
     }
@@ -47,10 +46,10 @@ public class RespuestaService {
 
     public Respuesta saveRespuesta(Respuesta nuevaRespuesta) {
         // verificar si el Soporte existe consultando al microservicio Soporte
-        Map<String, Object> soporte = soporteClient.getSoporteById(nuevaRespuesta.getIdSoporte());
+        Map<String, Object> soporte = soporteClient.getSoporteById(nuevaRespuesta.getIdsoporte());
         // verifico si me trajo el estado o no
         if (soporte == null || soporte.isEmpty()) {
-            throw new RuntimeException("Respuesta no encontrado");
+            throw new RuntimeException("Soporte no encontrado");
         }
         return respuestaRepository.save(nuevaRespuesta);
     }

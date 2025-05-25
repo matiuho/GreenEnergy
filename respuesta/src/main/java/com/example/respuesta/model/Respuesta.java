@@ -30,9 +30,9 @@ public class Respuesta {
     private String comentario;
 
     @Column(nullable = false,length = 25)
-    private String tipoUsuario;
+    private String tipousuario;
 
     @Column(nullable = false)
-    private Long idSoporte;
+    private Long idsoporte;
 
 }

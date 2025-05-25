@@ -22,7 +22,7 @@ public class SoporteClient {
         .retrieve()
         .onStatus(status -> status.is4xxClientError(),
         response -> response.bodyToMono(String.class)
-        .map(body -> new RuntimeException("Soporte no encontrada")))
+        .map(body -> new RuntimeException("Soporte no encontrado")))
         .bodyToMono(Map.class)
         .doOnNext(body -> System.out.println("Respuesta Soporte: " + body))
         .block();

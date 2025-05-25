@@ -42,21 +42,15 @@ public class RespuestaController {
 
     // Crear una respuesta
     @PostMapping
-    public ResponseEntity<?> crearservicio(@RequestBody Respuesta respuesta) {
-        if (respuesta.getComentario().length() < 1 || respuesta.getComentario().length() > 100) {
-            return ResponseEntity.badRequest().body("El comentario debe tener entre 1 y 100 caracteres.");
-        }
-        if (!respuesta.getTipoUsuario().contains("ADMINISTRADOR") &&
-                !respuesta.getTipoUsuario().contains("COORDINADOR") &&
-                !respuesta.getTipoUsuario().contains("TECNICO INSTALADOR") &&
-                !respuesta.getTipoUsuario().contains("SOPORTE") &&
-                !respuesta.getTipoUsuario().contains("CLIENTE")) {
-            return ResponseEntity.badRequest().body(
-                    "SOLO SE ACEPTAN ESTOS TIPOS DE USUARIOS:\n'ADMINISTRADOR',\n'COORDINADOR',\n'TECNICO INSTALADOR',\n'SOPORTE'\n'CLIENTE'\n'PARA QUE SEA VALIDO INGRESE CON MAYUSUCULA EL NOMBRE'");
-        }
-
-        Respuesta nuevarespuesta = respuestaService.saveRespuesta(respuesta);
-        return ResponseEntity.status(201).body(nuevarespuesta);
+    public ResponseEntity<?> crearservicio(@RequestBody Respuesta nuevarespuesta) {
+        
+        try {
+            Respuesta respuesta = respuestaService.saveRespuesta(nuevarespuesta);
+            return ResponseEntity.status(201).body(respuesta);
+        } catch (RuntimeException e) {
+            // Captura error por estado no encontrado
+            return ResponseEntity.status(404).body(e.getMessage());
+        } 
     }
 
     // Actualizar un servicio existente
