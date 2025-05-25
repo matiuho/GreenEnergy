@@ -41,25 +41,25 @@ public class ContratacionesController {
 
     // endpoint para crear un nuevo proyecto
     @PostMapping
-    public ResponseEntity<?> crearContrataciones(@RequestBody Contrataciones nuevoproyecto) {
+    public ResponseEntity<?> crearContrataciones(@RequestBody Contrataciones nuevContrataciones) {
         LocalDate DESDE = LocalDate.of(2025, 5, 27);
         LocalDate despues = LocalDate.of(2025, 5, 28);
-        if (nuevoproyecto.getFechaContratacion().isBefore(DESDE)) {
+        if (nuevContrataciones.getFechaContratacion().isBefore(DESDE)) {
             return ResponseEntity.badRequest()
                     .body("La fecha de contratación debe ser igual o posterior al 27 de mayo de 2025.");
         }
 
-        if (nuevoproyecto.getFechaInicio().isBefore(DESDE)) {
+        if (nuevContrataciones.getFechaInicio().isBefore(DESDE)) {
             return ResponseEntity.badRequest()
                     .body("La fecha de inicio debe ser posterior al 27 de mayo de 2025.");
         }
 
-        if (nuevoproyecto.getFechaFin().isBefore(despues)) {
+        if (nuevContrataciones.getFechaFin().isBefore(despues)) {
             return ResponseEntity.badRequest()
                     .body("La fecha de finalización debe ser posterior al 28 de mayo de 2025.");
         }
         try {
-            Contrataciones contrataciones = contratacionesService.saveContrataciones(nuevoproyecto);
+            Contrataciones contrataciones = contratacionesService.saveContrataciones(nuevContrataciones);
             return ResponseEntity.status(201).body(contrataciones);
         } catch (RuntimeException e) {
             // Captura error por estado no encontrado

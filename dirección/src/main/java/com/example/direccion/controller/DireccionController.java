@@ -34,7 +34,7 @@ public class DireccionController {
     // endpoint para crear una nueva direccion
     @PostMapping
     public ResponseEntity<?> crearDireccion(@RequestBody Direccion nuevaDireccion) {
-        if (nuevaDireccion.getNombre().length() < 5 || nuevaDireccion.getNombre().length() < 50) {
+        if (nuevaDireccion.getNombre().length() < 5 || nuevaDireccion.getNombre().length() > 50) {
             return ResponseEntity.badRequest().body("El Nombre debe Contener entre 5 y 50 Caracteres");
         }
         try {

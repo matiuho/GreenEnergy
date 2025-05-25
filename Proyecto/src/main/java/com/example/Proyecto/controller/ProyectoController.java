@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,4 +75,23 @@ public class ProyectoController {
 
     }
 
+    //endpoint para actualizar un proyecto
+    @PutMapping ("/{id}")
+    public ResponseEntity<?> actualizarProyecto(@PathVariable Long id, @RequestBody Proyecto proyectoActualizado) {
+        try {
+            //verificar si existe el proyecto
+            Proyecto proyecto = proyectosService.getProyectoPorId(id);
+            //actualizar el proyecto
+            proyecto.setComentario(proyectoActualizado.getComentario());
+            proyecto.setEstadoId(proyectoActualizado.getEstadoId());
+            proyecto.setTecnicoId(proyectoActualizado.getTecnicoId());
+            proyecto.setIdContratacion(proyectoActualizado.getIdContratacion());
+            //guardar el proyecto actualizado
+            proyectosService.saveProyecto(proyecto);
+            return ResponseEntity.ok(proyecto);
+        } catch (Exception e) {
+            //retorno codigo 404
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
