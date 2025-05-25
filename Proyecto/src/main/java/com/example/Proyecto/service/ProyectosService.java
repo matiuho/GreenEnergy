@@ -19,12 +19,9 @@ import jakarta.transaction.Transactional;
 public class ProyectosService {
     @Autowired
     private ProyectoRepository proyectoRepository;
-    @Autowired
-    private ClienteClient clienteClient;
-    @Autowired
-    private UsuarioClient usuarioClient;
-    @Autowired
-    private ContratacionClient contratacionClient;
+    @Autowired ClienteClient clienteClient;
+    @Autowired UsuarioClient usuarioClient;
+    @Autowired ContratacionClient contratacionClient;
 
     // metodo para obtener todos los proyecto
     public List<Proyecto> getProyectos() {
@@ -39,20 +36,21 @@ public class ProyectosService {
         if (estado == null || estado.isEmpty()) {
             throw new RuntimeException("Estado no encontrado");
         }
-        // verificar si el usuario exisyte consultando al microservicio de usuario
-        Map<String, Object> tecnico = usuarioClient.getTecnicoById(nuevoproyecto.getTecnicoId());
+        // verificar si el tecnico exisyte consultando al microservicio de gestion de
+        // usuario
+        Map<String, Object> usuario = usuarioClient.getUsuarioById(nuevoproyecto.getUsuarioId());
         // verifico si me trajo el usuario o no
-        if (tecnico == null || tecnico.isEmpty()) {
-            throw new RuntimeException("Usuario no encontrada");
+        if (usuario == null || usuario.isEmpty()) {
+            throw new RuntimeException("Usuario no encontrado");
         }
-        // Validar que el usuario tiene el rol de técnico (idRol = 3)
-        Integer idRol = (Integer) tecnico.get("idRol"); // Extraer idRol del JSON recibido
+        // Validar que el usuario tiene el rol de técnico idRol = 3
+        Integer idRol = (Integer) usuario.get("idRol"); // Extraer idRol del JSON recibido
         if (idRol == null || idRol != 3) {
             throw new RuntimeException("Solo los usuarios con rol de técnico (ID 3) pueden ser asignados.");
         }
 
-        Map<String, Object> contratacion = contratacionClient.getContratacionById(nuevoproyecto.getIdContratacion());
-        // verifico si me trajo el usuario o no
+        Map<String, Object> contratacion = contratacionClient.getContratacionById(nuevoproyecto.getContratacionId());
+        // verifico si me trajo la contratacion o no
         if (contratacion == null || contratacion.isEmpty()) {
             throw new RuntimeException("Contratación no encontrada");
         }

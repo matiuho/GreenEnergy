@@ -28,10 +28,10 @@ public class Proyecto {
     private Long estadoId;
 
     @Column(nullable = false)
-    private Long tecnicoId;
+    private Long usuarioId;
 
     @Column(nullable = false)
-    private Long idContratacion;
+    private Long contratacionId;
 
     
 

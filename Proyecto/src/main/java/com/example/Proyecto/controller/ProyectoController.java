@@ -55,10 +55,7 @@ public class ProyectoController {
         } catch (RuntimeException e) {
             // Captura error por estado no encontrado
             return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            // Otro error interno
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+        } 
     }
 
     // endpoint para buscar un estado mediante su id

@@ -16,7 +16,7 @@ public class UsuarioClient {
     }
 
     //metodo para realizar la consulta  al microservicio estado y al usuario
-    public Map<String, Object> getTecnicoById(Long id){
+    public Map<String, Object> getUsuarioById(Long id){
         return this.webClient.get()
         .uri("/{id}", id)
         .retrieve()
@@ -24,7 +24,7 @@ public class UsuarioClient {
         response -> response.bodyToMono(String.class)
         .map(body -> new RuntimeException("Usuario no encontrado")))
         .bodyToMono(Map.class)
-        .doOnNext(body -> System.out.println("Respuesta usuario: " + body))
+        .doOnNext(body -> System.out.println("Respuesta Usuario: " + body))
         .block();
 
     }

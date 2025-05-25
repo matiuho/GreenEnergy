@@ -50,7 +50,7 @@ public class RespuestaService {
         Map<String, Object> soporte = soporteClient.getSoporteById(nuevaRespuesta.getIdSoporte());
         // verifico si me trajo el estado o no
         if (soporte == null || soporte.isEmpty()) {
-            throw new RuntimeException("Soporte no encontrado");
+            throw new RuntimeException("Respuesta no encontrado");
         }
         return respuestaRepository.save(nuevaRespuesta);
     }
