@@ -26,13 +26,13 @@ public class Contrataciones {
     private LocalDate fechaContratacion;
 
     @Column(nullable = false)
-    private int total;
-
-    @Column(nullable = false)
     private LocalDate fechaInicio;
 
     @Column(nullable = false)
     private LocalDate fechaFin;
+
+    @Column(nullable = false)
+    private int total;
 
     @Column(nullable = false)
     private Long idServicio;

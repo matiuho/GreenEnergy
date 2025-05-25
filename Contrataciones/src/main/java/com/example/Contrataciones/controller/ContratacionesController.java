@@ -43,14 +43,21 @@ public class ContratacionesController {
     @PostMapping
     public ResponseEntity<?> crearContrataciones(@RequestBody Contrataciones nuevoproyecto) {
         LocalDate DESDE = LocalDate.of(2025, 5, 27);
-        if (nuevoproyecto.getFechaContratacion().isAfter(DESDE)) {
-            System.out.println("Fecha válida: Es posterior al 27 de Mayo de 2025,Fecha Formato YYYY-MM-DD");
-        }
-        if (nuevoproyecto.getFechaInicio().isAfter(DESDE)) {
-            System.out.println("Fecha válida: Es posterior al 27 de Mayo de 2025,Fecha Formato YYYY-MM-DD");
+        LocalDate despues = LocalDate.of(2025, 5, 28);
+        if (nuevoproyecto.getFechaContratacion().isBefore(DESDE)) {
+            return ResponseEntity.badRequest()
+                    .body("La fecha de contratación debe ser igual o posterior al 27 de mayo de 2025.");
         }
 
+        if (nuevoproyecto.getFechaInicio().isBefore(DESDE)) {
+            return ResponseEntity.badRequest()
+                    .body("La fecha de inicio debe ser posterior al 27 de mayo de 2025.");
+        }
 
+        if (nuevoproyecto.getFechaFin().isBefore(despues)) {
+            return ResponseEntity.badRequest()
+                    .body("La fecha de finalización debe ser posterior al 28 de mayo de 2025.");
+        }
         try {
             Contrataciones contrataciones = contratacionesService.saveContrataciones(nuevoproyecto);
             return ResponseEntity.status(201).body(contrataciones);
