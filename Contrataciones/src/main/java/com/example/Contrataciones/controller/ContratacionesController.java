@@ -1,5 +1,6 @@
 package com.example.Contrataciones.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,17 @@ import com.example.Contrataciones.service.ContratacionesService;
 import com.example.Contrataciones.webclient.ClienteClient;
 import com.example.Contrataciones.webclient.DireccionClient;
 
-
 @RestController
 @RequestMapping("/api/contrataciones")
 public class ContratacionesController {
     @Autowired
     private ContratacionesService contratacionesService;
 
-    @Autowired ClienteClient clienteClient;
+    @Autowired
+    ClienteClient clienteClient;
 
-    @Autowired DireccionClient direccionClient;
+    @Autowired
+    DireccionClient direccionClient;
 
     @GetMapping
     public ResponseEntity<List<Contrataciones>> obtenerContrataciones() {
@@ -36,33 +38,40 @@ public class ContratacionesController {
         }
         return ResponseEntity.ok(contrataciones);
     }
-    //endpoint para crear un nuevo proyecto
+
+    // endpoint para crear un nuevo proyecto
     @PostMapping
     public ResponseEntity<?> crearContrataciones(@RequestBody Contrataciones nuevoproyecto) {
+        LocalDate DESDE = LocalDate.of(2025, 5, 27);
+        if (nuevoproyecto.getFechaContratacion().isAfter(DESDE)) {
+            System.out.println("Fecha válida: Es posterior al 27 de Mayo de 2025,Fecha Formato YYYY-MM-DD");
+        }
+        if (nuevoproyecto.getFechaInicio().isAfter(DESDE)) {
+            System.out.println("Fecha válida: Es posterior al 27 de Mayo de 2025,Fecha Formato YYYY-MM-DD");
+        }
+
+
         try {
             Contrataciones contrataciones = contratacionesService.saveContrataciones(nuevoproyecto);
             return ResponseEntity.status(201).body(contrataciones);
         } catch (RuntimeException e) {
             // Captura error por estado no encontrado
             return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            // Otro error interno
-            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
-    //endpoint para buscar una contratacion  mediante su id
+    // endpoint para buscar una contratacion mediante su id
     @GetMapping("/{id}")
     public ResponseEntity<Contrataciones> obtenercontratacionPorId(@PathVariable Long id) {
         try {
-            //verificar si existe el estado
+            // verificar si existe el estado
             Contrataciones contratacion = contratacionesService.getContrtacionPorId(id);
             return ResponseEntity.ok(contratacion);
         } catch (Exception e) {
-            //retorno codigo 404
+            // retorno codigo 404
             return ResponseEntity.notFound().build();
         }
-        
+
     }
 
 }
