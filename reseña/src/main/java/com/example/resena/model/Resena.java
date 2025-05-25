@@ -23,7 +23,7 @@ public class Resena {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idResena;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 100)
     private String comentario;
     
     @Column(nullable = false)

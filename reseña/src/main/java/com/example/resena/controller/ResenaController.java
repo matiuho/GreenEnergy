@@ -1,6 +1,7 @@
 package com.example.resena.controller;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class ResenaController {
 
     @PostMapping
     public ResponseEntity<?> crearResena(@RequestBody Resena nuevResena){
+        LocalDate despues = LocalDate.of(2025, 5, 28);
+        if (nuevResena.getFechaComentario().isBefore(despues)) {
+            return ResponseEntity.badRequest()
+                    .body("La fecha del Comentario debe ser igual o posterior al 28 de mayo de 2025.");
+        }
+        if (nuevResena.getComentario().length() < 1|| nuevResena.getComentario().length() > 100) {
+            return ResponseEntity.badRequest().body("El comentario debe tener entre 1 y 100 caracteres.");
+        }
         try {
             Resena resena = resenaService.savResena(nuevResena);
             return ResponseEntity.status(201).body(resena);
