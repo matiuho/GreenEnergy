@@ -3,6 +3,7 @@ package com.example.servicio.controller;
 import com.example.servicio.model.Servicio;
 import com.example.servicio.service.ServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +36,19 @@ public class ServicioController {
 
     // Crear un nuevo servicio
     @PostMapping
-    public ResponseEntity<Servicio> crearservicio(@RequestBody Servicio servicio) {
+    public ResponseEntity<?> crearservicio(@RequestBody Servicio servicio) {
+        //Validar 
+        if (servicio.getNombre().length() > 20) {
+            return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 50 Caracteres");
+        }
+        if (servicio.getDescripcion().length() <1 || servicio.getDescripcion().length()>100) {
+            return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 100 Caracteres");
+        }
+        if  (!servicio.getDisponibilidad().contains("Disponible") && !servicio.getDisponibilidad().contains("No Disponible")) {
+            return ResponseEntity.badRequest().body("Dsiponibilidad Solo acepta 2 Estados 'Disponible' y 'No Disponible'");
+        }
         Servicio nuevoServicio = servicioService.saveServicio(servicio);
-        return ResponseEntity.status(201).body(nuevoServicio);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoServicio);
     }
 
     // Actualizar un servicio existente

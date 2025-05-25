@@ -16,7 +16,7 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idServicio;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private String nombre;
     
     
