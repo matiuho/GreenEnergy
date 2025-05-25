@@ -36,6 +36,8 @@ public class SoporteService {
     //metodo para agregar un nuevo proyecto
     public Soporte saveSoporte(Soporte nuevosoporte) {
 
+        
+
         //verificar si la categoria existe consultando al microservicio categoria
         Map<String, Object> categoria  = categoriaClient.getCategoriaById(nuevosoporte.getIdCategoria());
         //verifico si me trajo el estado o no
@@ -49,7 +51,6 @@ public class SoporteService {
         if (estado == null || estado.isEmpty()) {
             throw new RuntimeException("Direccion no encontrada");
         }
-
         //verificar si el proyecto existe consultando al microservicio de usuario
         Map<String, Object> usuario = userClient.getUsuarioById(nuevosoporte.getIdUsuario());
         //verifico si me trajo el usuario o no

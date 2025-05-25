@@ -17,20 +17,20 @@ import com.example.Proyecto.webclient.ClienteClient;
 import com.example.Proyecto.webclient.ContratacionClient;
 import com.example.Proyecto.webclient.UsuarioClient;
 
-
 @RestController
 @RequestMapping("/api/proyecto")
 public class ProyectoController {
     @Autowired
-    private   ProyectosService proyectosService;
+    private ProyectosService proyectosService;
 
-    @Autowired   ClienteClient clienteClient;
+    @Autowired
+    ClienteClient clienteClient;
 
-    @Autowired UsuarioClient usuarioClient;
+    @Autowired
+    UsuarioClient usuarioClient;
 
-    @Autowired ContratacionClient contratacionClient;
-
-
+    @Autowired
+    ContratacionClient contratacionClient;
 
     @GetMapping
     public ResponseEntity<List<Proyecto>> obtenerProyectos() {
@@ -42,34 +42,36 @@ public class ProyectoController {
         return ResponseEntity.ok(proyecto);
     }
 
-    //endpoint para crear un nuevo proyecto
+    // endpoint para crear un nuevo proyecto
     @PostMapping
     public ResponseEntity<?> crearProyecto(@RequestBody Proyecto nuevoproyecto) {
+        if (nuevoproyecto.getComentario().length() < 1|| nuevoproyecto.getComentario().length() > 100) {
+            return ResponseEntity.badRequest().body("El comentario debe tener entre 1 y 100 caracteres.");
+        }
         try {
             Proyecto proyecto = proyectosService.saveProyecto(nuevoproyecto);
             return ResponseEntity.status(201).body(proyecto);
         } catch (RuntimeException e) {
-        // Captura error por estado no encontrado
+            // Captura error por estado no encontrado
             return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
-        // Otro error interno
-             return ResponseEntity.status(404).body(e.getMessage());
+            // Otro error interno
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
-    //endpoint para buscar un estado mediante su id
+    // endpoint para buscar un estado mediante su id
     @GetMapping("/{id}")
     public ResponseEntity<Proyecto> obtenerProyectoPorId(@PathVariable Long id) {
         try {
-            //verificar si existe el estado
+            // verificar si existe el estado
             Proyecto proyecto = proyectosService.getProyectoPorId(id);
             return ResponseEntity.ok(proyecto);
         } catch (Exception e) {
-            //retorno codigo 404
+            // retorno codigo 404
             return ResponseEntity.notFound().build();
         }
-        
-    }
 
+    }
 
 }

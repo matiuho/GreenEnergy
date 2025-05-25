@@ -38,14 +38,14 @@ public class ServicioController {
     @PostMapping
     public ResponseEntity<?> crearservicio(@RequestBody Servicio servicio) {
         //Validar 
-        if (servicio.getNombre().length() > 20) {
-            return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 50 Caracteres");
+        if (servicio.getNombre().length() <1|| servicio.getNombre().length()>20) {
+            return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 20 Caracteres");
         }
         if (servicio.getDescripcion().length() <1 || servicio.getDescripcion().length()>100) {
-            return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 100 Caracteres");
+            return ResponseEntity.badRequest().body("La Descripcicion debe Contener entre 1 y 100 Caracteres");
         }
         if  (!servicio.getDisponibilidad().contains("Disponible") && !servicio.getDisponibilidad().contains("No Disponible")) {
-            return ResponseEntity.badRequest().body("Dsiponibilidad Solo acepta 2 Estados 'Disponible' y 'No Disponible'");
+            return ResponseEntity.badRequest().body("Disponibilidad Solo acepta 2 Estados 'Disponible' y 'No Disponible'");
         }
         Servicio nuevoServicio = servicioService.saveServicio(servicio);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoServicio);

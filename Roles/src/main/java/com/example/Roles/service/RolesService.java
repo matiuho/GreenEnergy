@@ -23,12 +23,4 @@ public class RolesService {
     public Roles getRolesPorId(Long id){
         return rolesRepository.findById(id).orElseThrow(()-> new RuntimeException("Rol no encontrado"));
     }
-    //guardar un rol
-    public Roles saveRoles(Roles respuesta) {
-        return rolesRepository.save(respuesta);
-    }
-    //eliminar un rol
-    public void eliminarroles(Long id) {
-        rolesRepository.deleteById(id);
-    }
 }

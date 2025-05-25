@@ -16,10 +16,10 @@ public class LoadDatabase {
     CommandLineRunner initDataBase(ProyectoRepository proyectoRepository) {
         return args -> {
             if (proyectoRepository.count() == 0) {
-             proyectoRepository.save(new Proyecto(null, "probando", LocalDate.parse("2023-01-01"), Long.valueOf(1), Long.valueOf(1), Long.valueOf(1)));
+             proyectoRepository.save(new Proyecto(null, "Proyecto Instalacion de Paneles", Long.valueOf(1), Long.valueOf(1), Long.valueOf(1)));
 
 
-                System.out.println("✅ Proyecto precargado correctamente");
+                System.out.println("Proyecto precargado correctamente");
             }
         };
     }

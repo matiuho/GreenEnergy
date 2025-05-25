@@ -1,5 +1,6 @@
 package com.example.Soporte.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,14 @@ public class SoporteController {
 
     @PostMapping
     public ResponseEntity<?> crearSoporte(@RequestBody Soporte nuevoSoporte){
+        LocalDate  desde = LocalDate.of(2025, 5, 27);
+        if (nuevoSoporte.getFecha().isBefore(desde)) {
+            return ResponseEntity.badRequest()
+                    .body("La fecha de contratación debe ser igual o posterior al 27 de mayo de 2025.");
+        }
+        if (nuevoSoporte.getDescripcion().length() <1|| nuevoSoporte.getDescripcion().length()>100) {
+            return ResponseEntity.badRequest().body("La Descripccion debe Contener entre 1 y 100 Caracteres");
+        }
         try {
             Soporte soporte = soporteService.saveSoporte(nuevoSoporte);
             return ResponseEntity.status(HttpStatus.CREATED).body(soporte);

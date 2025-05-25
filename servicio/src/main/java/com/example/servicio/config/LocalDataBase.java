@@ -14,19 +14,38 @@ public class LocalDataBase {
         return args -> {
             if (repository.count() == 0) {
                 //cargar datos de servicios 
-                repository.save(new Servicio(null,"1 Servicio","instalacion de paneles soales",10000,"disponible"));
-                System.out.println("Base de datos inicializada con datos de prueba.");
+                repository.save(new Servicio(null,
+                                 "Instalación On-Grid",
+                                "Conectada a la red eléctrica; permite reducir el consumo de la compañía eléctrica.",
+                                1500000,"Disponible"));
+                repository.save(new Servicio(null,
+                                "Instalación Off-Grid",
+                                "Funciona de forma autónoma usando baterías; ideal para zonas sin acceso a la red.",
+                                1000000,"Disponible"));
+                repository.save(new Servicio(null,
+                                " Instalación Híbrida",
+                                "Combina red eléctrica y baterías para asegurar suministro continuo.",
+                                3000000,"Disponible"));
+                repository.save(new Servicio(null,
+                                " Instalación Comercial",
+                                "Diseñada para oficinas o negocios que buscan ahorro energético.",
+                                2500000,"Disponible"));
+                repository.save(new Servicio(null,
+                                " Instalación Agrícola o Rural",
+                                "Instalación en zonas de campo para alimentar equipos como bombas o cercas.",
+                                2500000,"Disponible"));
+                repository.save(new Servicio(null,
+                                " Instalación en Suelo",
+                                "Paneles montados directamente en el terreno, con estructuras fijas o móviles.",
+                                1850000,"Disponible"));
+                repository.save(new Servicio(null,
+                                "Instalación con Seguimiento Solar",
+                                "Paneles que se mueven siguiendo al sol para captar más energía.",
+                                3500000,"Disponible"));
+                                System.out.println("Base de datos inicializada con datos");
             } else {
-                System.out.println("Base de datos ya contiene datos.");
-                
+                System.out.println("Base de datos ya contiene datos.");  
             }
-            // Aquí puedes inicializar la base de datos con datos de prueba si lo deseas
-            // Por ejemplo:
-            // repository.save(new Servicio("Servicio 1", 100.0));
-            // repository.save(new Servicio("Servicio 2", 200.0));
         };
     }
-
-
-
 }

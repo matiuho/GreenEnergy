@@ -32,9 +32,6 @@ public class Contrataciones {
     private LocalDate fechaFin;
 
     @Column(nullable = false)
-    private int total;
-
-    @Column(nullable = false)
     private Long idServicio;
 
     @Column(nullable = false)

@@ -1,8 +1,6 @@
 package com.example.Proyecto.model;
 
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,13 +25,10 @@ public class Proyecto {
     private String comentario;
 
     @Column(nullable = false)
-    private LocalDate fecha;
-
-    @Column(nullable = false)
     private Long estadoId;
 
     @Column(nullable = false)
-    private Long usuarioId;
+    private Long tecnicoId;
 
     @Column(nullable = false)
     private Long idContratacion;

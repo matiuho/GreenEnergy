@@ -16,7 +16,7 @@ public class UsuarioClient {
     }
 
     //metodo para realizar la consulta  al microservicio estado y al usuario
-    public Map<String, Object> getUsuarioById(Long id){
+    public Map<String, Object> getTecnicoById(Long id){
         return this.webClient.get()
         .uri("/{id}", id)
         .retrieve()
