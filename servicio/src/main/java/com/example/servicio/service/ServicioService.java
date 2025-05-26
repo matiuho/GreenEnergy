@@ -30,7 +30,7 @@ public class ServicioService {
         return servicioRepository.save(servicio);
     }
 
-    public Servicio actualizar(Long id, Servicio datos) {
+    public Servicio actualizarServicio(Long id, Servicio datos) {
         Servicio existente = servicioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
         existente.setNombre(datos.getNombre());

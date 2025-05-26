@@ -26,26 +26,28 @@ public class ServicioController {
     @GetMapping("/{id}")
     public ResponseEntity<Servicio> obtenerPorId(@PathVariable Long id) {
         try {
-            //verificar si el servicio existe
+            // verificar si el servicio existe
             Servicio servicio = servicioService.getServicioPorId(id);
             return ResponseEntity.ok(servicio);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
-    }   
+    }
 
     // Crear un nuevo servicio
     @PostMapping
     public ResponseEntity<?> crearservicio(@RequestBody Servicio servicio) {
-        //Validar 
-        if (servicio.getNombre().length() <1|| servicio.getNombre().length()>20) {
+        // Validar
+        if (servicio.getNombre().length() < 1 || servicio.getNombre().length() > 20) {
             return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 20 Caracteres");
         }
-        if (servicio.getDescripcion().length() <1 || servicio.getDescripcion().length()>100) {
+        if (servicio.getDescripcion().length() < 1 || servicio.getDescripcion().length() > 100) {
             return ResponseEntity.badRequest().body("La Descripcicion debe Contener entre 1 y 100 Caracteres");
         }
-        if  (!servicio.getDisponibilidad().contains("Disponible") && !servicio.getDisponibilidad().contains("No Disponible")) {
-            return ResponseEntity.badRequest().body("Disponibilidad Solo acepta 2 Estados 'Disponible' y 'No Disponible'");
+        if (!servicio.getDisponibilidad().contains("Disponible")
+                && !servicio.getDisponibilidad().contains("No Disponible")) {
+            return ResponseEntity.badRequest()
+                    .body("Disponibilidad Solo acepta 2 Estados 'Disponible' y 'No Disponible'");
         }
         Servicio nuevoServicio = servicioService.saveServicio(servicio);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoServicio);
@@ -53,15 +55,23 @@ public class ServicioController {
 
     // Actualizar un servicio existente
     @PutMapping("/{id}")
-    public ResponseEntity<Servicio> actualizar(@PathVariable Long id, @RequestBody Servicio datos) {
+    public ResponseEntity<?> actualizarDireccion(@PathVariable Long id, @RequestBody Servicio servicioActualizada) {
         try {
-            Servicio actualizado = servicioService.actualizar(id, datos);
-            return ResponseEntity.ok(actualizado);
-        } catch (RuntimeException e) {
+            // verificar si existe la servicio
+            Servicio servicio = servicioService.getServicioPorId(id);
+            // actualizar los campos del servicio
+            servicio.setNombre(servicioActualizada.getNombre());
+            servicio.setDescripcion(servicioActualizada.getDescripcion());
+            servicio.setPrecio(servicioActualizada.getPrecio());
+            servicio.setDisponibilidad(servicioActualizada.getDisponibilidad());
+            // guardar el servicio actualizado
+            Servicio updatedDireccion = servicioService.saveServicio(servicio);
+            return ResponseEntity.ok(updatedDireccion);
+        } catch (Exception e) {
+            // retorno codigo 404
             return ResponseEntity.notFound().build();
         }
     }
-
     // Eliminar un servicio
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
