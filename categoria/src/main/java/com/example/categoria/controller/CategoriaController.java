@@ -55,7 +55,9 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> actualizar(@PathVariable Long id, @RequestBody Categoria  datos) {
         try {
-            Categoria actualizado = categoriaService.actualizar(id, datos);
+            Categoria actualizado = categoriaService.getCategoriaById(id);
+            actualizado.setIdCategoria(id);
+            actualizado.setNombre(datos.getNombre());
             return ResponseEntity.ok(actualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

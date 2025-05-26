@@ -92,9 +92,8 @@ public class SoporteController {
     public ResponseEntity<Soporte> actualizarSoportePorId(@PathVariable Long id,@RequestBody Soporte sop){
         try {
             //verifico si el paciente existe
-            Soporte soporte2 =soporteService.getSoportePorId(null);
+            Soporte soporte2 =soporteService.getSoportePorId(id);
             //si existe modifico uno a uno sus valores
-            soporte2.setIdSoporte(id);
             soporte2.setFecha(sop.getFecha());
             soporte2.setDescripcion(sop.getDescripcion());
             soporte2.setIdEstado(sop.getIdEstado());
