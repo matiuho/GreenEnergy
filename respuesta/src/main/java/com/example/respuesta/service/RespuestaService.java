@@ -45,6 +45,7 @@ public class RespuestaService {
     }
 
     public Respuesta saveRespuesta(Respuesta nuevaRespuesta) {
+        
         // verificar si el Soporte existe consultando al microservicio Soporte
         Map<String, Object> soporte = soporteClient.getSoporteById(nuevaRespuesta.getIdsoporte());
         // verifico si me trajo el estado o no

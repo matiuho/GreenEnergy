@@ -1,6 +1,7 @@
 package com.example.respuesta.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +44,21 @@ public class RespuestaController {
     // Crear una respuesta
     @PostMapping
     public ResponseEntity<?> crearservicio(@RequestBody Respuesta nuevarespuesta) {
-        
+        // Definir los tipos de usuario permitidos
+        Set<String> tiposPermitidos = Set.of("Administrador", "Tecnico Instalador", "Coordinador", "Cliente","Soporte");
+
+        // Validar si el tipo de usuario no está en el conjunto
+        if (!tiposPermitidos.contains(nuevarespuesta.getTipousuario())) {
+            return ResponseEntity.badRequest().body(
+                    "Solo se aceptan estos Tipos de Usuarios\n'Administrador', 'Tecnico Instalador', 'Coordinador', 'Cliente','Soporte'");
+        }
+
         try {
             Respuesta respuesta = respuestaService.saveRespuesta(nuevarespuesta);
             return ResponseEntity.status(201).body(respuesta);
         } catch (RuntimeException e) {
-            // Captura error por estado no encontrado
             return ResponseEntity.status(404).body(e.getMessage());
-        } 
+        }
     }
 
     // Actualizar un servicio existente
