@@ -50,7 +50,7 @@ public class UsuarioController {
         if (nuevoUsuario.getPassword().length() < 8 || nuevoUsuario.getPassword().length() > 12) {
             return ResponseEntity.badRequest().body("La contraseña debe tener entre 8 y 12 caracteres.");
         }
-        if (nuevoUsuario.getNombre().length() < 1 || nuevoUsuario.getPassword().length() > 50) {
+        if (nuevoUsuario.getNombre().length() < 1 || nuevoUsuario.getNombre().length() > 50) {
             return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 50 Caracteres");
         }
         if (nuevoUsuario.getApellido().length() < 1 || nuevoUsuario.getApellido().length() > 50) {

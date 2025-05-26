@@ -12,6 +12,7 @@ import com.example.Contrataciones.model.Contrataciones;
 import com.example.Contrataciones.repository.ContratacionesRepository;
 import com.example.Contrataciones.webclient.ClienteClient;
 import com.example.Contrataciones.webclient.DireccionClient;
+import com.example.Contrataciones.webclient.UsuarioClient;
 
 import jakarta.transaction.Transactional;
 
@@ -24,6 +25,8 @@ public class ContratacionesService {
     private ClienteClient clienteClient;
     @Autowired
     private DireccionClient direccionClient;
+    @Autowired
+    private UsuarioClient usuarioClient;
 
     // metodo para consultar todos los Contrataciones
     public List<Contrataciones> getContrataciones() {
@@ -44,6 +47,11 @@ public class ContratacionesService {
         if (direccion == null || direccion.isEmpty()) {
             throw new RuntimeException("Direccion no encontrada");
 
+        }
+        Map<String, Object> usuario = usuarioClient.getUsuarioById(nuevaContrataciones.getIdusuario());
+        // verifico si me trajo el estado o no
+        if (usuario == null || usuario.isEmpty()) {
+            throw new RuntimeException("Usuario no encontrado");
         }
         return contratacionesRepository.save(nuevaContrataciones);
 

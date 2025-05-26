@@ -2,6 +2,8 @@ package com.example.Contrataciones.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CollectionId;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,22 +39,8 @@ public class Contrataciones {
     @Column(nullable = false)
     private Long idDireccion;
 
-
-    public Long getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(Long idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    public Long getIdDireccion() {
-        return idDireccion;
-    }
-
-    public void setIdDireccion(Long idDireccion) {
-        this.idDireccion = idDireccion;
-    }
+    @Column(nullable=false)
+    private Long idusuario;
 
     
 
