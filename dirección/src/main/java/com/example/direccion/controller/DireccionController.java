@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +57,35 @@ public class DireccionController {
             // si no existe, se lanza una excepcion
             Direccion direccion = direccionService.obtenerDireccionPorId(id);
             return ResponseEntity.ok(direccion);
+        } catch (Exception e) {
+            // retorno codigo 404
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarDireccion(@PathVariable Long id, @RequestBody Direccion direccionActualizada) {
+        try {
+            // verificar si existe la direccion
+            Direccion direccion = direccionService.obtenerDireccionPorId(id);
+            // actualizar los campos de la direccion
+            direccion.setNombre(direccionActualizada.getNombre());
+            direccion.setComuna(direccionActualizada.getComuna());
+            // guardar la direccion actualizada
+            Direccion updatedDireccion = direccionService.saveDireccion(direccion);
+            return ResponseEntity.ok(updatedDireccion);
+        } catch (Exception e) {
+            // retorno codigo 404
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarDireccion(@PathVariable Long id) {
+        try {
+            // verificar si existe la direccion
+            direccionService.obtenerDireccionPorId(id);
+            // eliminar la direccion
+            direccionService.eliminarDireccion(id);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             // retorno codigo 404
             return ResponseEntity.notFound().build();

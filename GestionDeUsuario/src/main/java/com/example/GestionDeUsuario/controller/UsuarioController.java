@@ -97,7 +97,6 @@ public class UsuarioController {
             // verifico si el usuario existe
             Usuario usuario2 = usuarioService.getUsuarioPorId(id);
             // si existe modifico uno a uno sus valores
-            usuario2.setIdUsuario(id);
             usuario2.setNombre(user.getNombre());
             usuario2.setApellido(user.getApellido());
             usuario2.setEmail(user.getEmail());
