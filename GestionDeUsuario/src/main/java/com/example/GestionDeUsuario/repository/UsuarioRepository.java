@@ -10,7 +10,7 @@ import com.example.GestionDeUsuario.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    //buscar por el nombre
+    //metodo para buscar con un nombre
     Usuario findByNombreIgnoreCase(String nombre);
 
 }

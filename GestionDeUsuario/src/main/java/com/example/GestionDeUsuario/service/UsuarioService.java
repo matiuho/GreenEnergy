@@ -50,28 +50,20 @@ public class UsuarioService {
     }
 
     public String autenticarUsuario(String nombre, String rawPassword) {
-        System.out.println("Intentando autenticar usuario: " + nombre);
-
         Usuario usuario = usuarioRepository.findByNombreIgnoreCase(nombre);
         if (usuario == null) {
-            System.out.println("Usuario no encontrado en la BD.");
+            System.out.println("Usuario no encontrado");
             return null;
         }
-
-        System.out.println("Usuario encontrado: " + usuario.getNombre());
-
+        //toma el texto lo pasa pasword y lo encripta con hashpassword
         String hashedInput = PasswordUtil.hashPassword(rawPassword);
-        System.out.println("Contraseña ingresada encriptada: " + hashedInput);
-        System.out.println("Contraseña almacenada en la BD: " + usuario.getPassword());
-
+        //comparar la contraseña guardada con la de la base de datos
         if (!hashedInput.equals(usuario.getPassword())) {
-            System.out.println("Error: La contraseña no coincide.");
+            System.out.println("La contraseña no coincide.");
             return null;
         }
-
         String token = TokenUtil.generateToken(usuario.getNombre());
-        System.out.println("Token generado: " + token);
-
+        
         return token;
     }
 
