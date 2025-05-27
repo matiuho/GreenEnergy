@@ -22,7 +22,7 @@ public class ServicioService {
         return servicioRepository.findAll();
     }
 
-   public Servicio getServicioPorId(Long id){
+    public Servicio getServicioPorId(Long id){
         return servicioRepository.findById(id).orElseThrow(()-> new RuntimeException("Servicio no encontrado"));
     }
 

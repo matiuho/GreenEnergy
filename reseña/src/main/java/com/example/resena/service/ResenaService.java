@@ -42,5 +42,9 @@ public class ResenaService {
         return resenaRepository.save(nuevaResena);
     }
 
+    public Resena getResenaPorId(Long id){
+        return resenaRepository.findById(id).orElseThrow(()-> new RuntimeException("Resena no encontrado"));
+    }
+
 
 }
