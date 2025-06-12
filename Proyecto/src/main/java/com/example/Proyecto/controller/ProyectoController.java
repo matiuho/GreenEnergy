@@ -72,6 +72,17 @@ public class ProyectoController {
 
     }
 
+    // endpoint para buscar Contratcion por ID USUARIO
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Proyecto>> obtenerProByUsuario(@PathVariable Long usuarioId) {
+        List<Proyecto> proyecto = proyectosService.obtenerProByUsuario(usuarioId);
+
+        if (proyecto == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+        return ResponseEntity.ok(proyecto);
+    }
+
     //endpoint para actualizar un proyecto
     @PutMapping ("/{id}")
     public ResponseEntity<?> actualizarProyecto(@PathVariable Long id, @RequestBody Proyecto proyectoActualizado) {

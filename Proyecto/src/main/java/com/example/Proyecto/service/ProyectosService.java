@@ -63,4 +63,9 @@ public class ProyectosService {
     public Proyecto getProyectoPorId(Long id) {
         return proyectoRepository.findById(id).orElseThrow(() -> new RuntimeException("Proyecto no encontrado"));
     }
+
+    // metodo para buscar por ID USUARIO
+    public List<Proyecto> obtenerProByUsuario(Long usuarioid) {
+        return proyectoRepository.findByIdUsuario(usuarioid);
+    }
 }

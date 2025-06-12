@@ -62,5 +62,11 @@ public class ContratacionesService {
         return contratacionesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Contratacion no encontrado"));
     }
+    // metodo para buscar por ID USUARIO
+    public List<Contrataciones> obtenerContratacionByUsuario(Long idusuario) {
+        return contratacionesRepository.findByIdUsuario(idusuario);
+    }
+
+    
 
 }

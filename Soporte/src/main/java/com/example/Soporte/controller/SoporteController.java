@@ -73,6 +73,15 @@ public class SoporteController {
         }
     }
 
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<Soporte>> obtenerSoportePorUsuario(Long idUsuario){
+        List<Soporte> soporte = soporteService.obtenerSoByUsuario(idUsuario);
+        if (soporte == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+        return ResponseEntity.ok(soporte);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> borrarSoportePorId(@PathVariable Long id){
         try {

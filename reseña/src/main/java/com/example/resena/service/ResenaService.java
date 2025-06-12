@@ -46,5 +46,10 @@ public class ResenaService {
         return resenaRepository.findById(id).orElseThrow(()-> new RuntimeException("Resena no encontrado"));
     }
 
+    //metodo para buscar por ID USUARIO
+    public List<Resena> obtenerReByUsuario(Long idUsuario){
+        return resenaRepository.findByIdUsuario(idUsuario);
+    }
+
 
 }

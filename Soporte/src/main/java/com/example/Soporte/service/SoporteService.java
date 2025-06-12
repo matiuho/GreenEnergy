@@ -69,6 +69,12 @@ public class SoporteService {
      public Soporte getSoportePorId(Long id){
         return soporteRepository.findById(id).orElseThrow(()-> new RuntimeException("Soporte no encontrado"));
     }
+
+    //metodo para buscar un soporte por ID USUARIO
+    public List<Soporte> obtenerSoByUsuario(Long idUsuario){
+        return soporteRepository.findByUsuario(idUsuario);
+        
+    }
     
 
 }

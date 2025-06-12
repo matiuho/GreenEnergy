@@ -64,4 +64,14 @@ public class ResenaController {
         }
 
     }
+
+    //endpoint para buscar Reseña por ID USUARIO
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<Resena>> obtenerReByUsuario(@PathVariable Long idUsuario){
+        List<Resena> resena = resenaService.obtenerReByUsuario(idUsuario);
+        if (resena == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+        return ResponseEntity.ok(resena);
+    }
 }

@@ -7,5 +7,4 @@ import com.example.respuesta.model.Respuesta;
 
 @Repository
 public interface RespuestaRepository  extends JpaRepository<Respuesta,Long>{
-
 }
