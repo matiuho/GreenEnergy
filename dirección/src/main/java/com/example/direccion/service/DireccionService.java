@@ -61,7 +61,14 @@ public class DireccionService {
         return direccionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Direccion no encontrada con ID: " + id));
     }
+
     public void eliminarDireccion(Long id) {
-        direccionRepository.deleteById(id);}
+        direccionRepository.deleteById(id);
+    }
+
+    public List<Direccion> obtenerDireccionPorUsuario(Long idUsuario) {
+        return direccionRepository.findByIdUsuario(idUsuario);
+    }
+
 
 }

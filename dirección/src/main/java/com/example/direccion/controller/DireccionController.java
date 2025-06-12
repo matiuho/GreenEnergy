@@ -62,6 +62,19 @@ public class DireccionController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<Direccion>> obtenerDirPorUsuario(@PathVariable Long idUsuario) {
+        List<Direccion> direccion = direccionService.obtenerDireccionPorUsuario(idUsuario);
+
+        if (direccion == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+        return ResponseEntity.ok(direccion);
+    }
+
+
+
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarDireccion(@PathVariable Long id, @RequestBody Direccion direccionActualizada) {
         try {
@@ -91,5 +104,8 @@ public class DireccionController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    
+
 
 }
