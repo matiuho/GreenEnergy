@@ -52,7 +52,7 @@ public class SoporteService {
             throw new RuntimeException("Direccion no encontrada");
         }
         //verificar si el proyecto existe consultando al microservicio de usuario
-        Map<String, Object> usuario = userClient.getUsuarioById(nuevosoporte.getIdUsuario());
+        Map<String, Object> usuario = userClient.getUsuarioById(nuevosoporte.getIdusuario());
         //verifico si me trajo el usuario o no
         if (usuario == null || usuario.isEmpty()) {
             throw new RuntimeException("Usuario no encontrada");
@@ -71,8 +71,8 @@ public class SoporteService {
     }
 
     //metodo para buscar un soporte por ID USUARIO
-    public List<Soporte> obtenerSoByUsuario(Long idUsuario){
-        return soporteRepository.findByUsuario(idUsuario);
+    public List<Soporte> obtenerSoByUsuario(Long idusuario){
+        return soporteRepository.findByUsuario(idusuario);
         
     }
     

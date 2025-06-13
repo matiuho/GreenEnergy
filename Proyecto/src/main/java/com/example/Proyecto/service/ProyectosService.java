@@ -65,7 +65,7 @@ public class ProyectosService {
     }
 
     // metodo para buscar por ID USUARIO
-    public List<Proyecto> obtenerProByUsuario(Long usuarioid) {
-        return proyectoRepository.findByIdUsuario(usuarioid);
+    public List<Proyecto> obtenerProByUsuarioo(Long usuarioId) {
+        return proyectoRepository.findByIdUsuario(usuarioId);
     }
 }

@@ -11,7 +11,7 @@ import com.example.Proyecto.model.Proyecto;
 
 @Repository
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long>{
-    @Query("SELECT p FROM Proyecto p WHERE p.usuarioId = :usuaroId")
+    @Query("SELECT p FROM Proyecto p WHERE p.usuarioId = :usuarioId")
     List<Proyecto> findByIdUsuario(@Param("usuarioId") Long usuarioId);
 
 }

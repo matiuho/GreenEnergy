@@ -27,11 +27,15 @@ public class SoporteController {
     @Autowired
     private SoporteService soporteService;
 
-    @Autowired CategoriaClient categoriaClient;
+    @Autowired
+    CategoriaClient categoriaClient;
 
-    @Autowired EstadoClient estadoClient;
+    @Autowired
+    EstadoClient estadoClient;
 
-    @Autowired UserClient userClient;
+    @Autowired
+    UserClient userClient;
+
     // Endpoint para obtener todos los soportes
     @GetMapping
     public ResponseEntity<List<Soporte>> obtenerSoportes() {
@@ -43,13 +47,13 @@ public class SoporteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crearSoporte(@RequestBody Soporte nuevoSoporte){
-        LocalDate  desde = LocalDate.of(2025, 5, 27);
+    public ResponseEntity<?> crearSoporte(@RequestBody Soporte nuevoSoporte) {
+        LocalDate desde = LocalDate.of(2025, 5, 27);
         if (nuevoSoporte.getFecha().isBefore(desde)) {
             return ResponseEntity.badRequest()
                     .body("La fecha de contratación debe ser igual o posterior al 27 de mayo de 2025.");
         }
-        if (nuevoSoporte.getDescripcion().length() <1|| nuevoSoporte.getDescripcion().length()>100) {
+        if (nuevoSoporte.getDescripcion().length() < 1 || nuevoSoporte.getDescripcion().length() > 100) {
             return ResponseEntity.badRequest().body("La Descripccion debe Contener entre 1 y 100 Caracteres");
         }
         try {
@@ -73,9 +77,9 @@ public class SoporteController {
         }
     }
 
-    @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<Soporte>> obtenerSoportePorUsuario(Long idUsuario){
-        List<Soporte> soporte = soporteService.obtenerSoByUsuario(idUsuario);
+    @GetMapping("/usuario/{idusuario}")
+    public ResponseEntity<List<Soporte>> obtenerSoportePorUsuario(@PathVariable Long idusuario) {
+        List<Soporte> soporte = soporteService.obtenerSoByUsuario(idusuario);
         if (soporte == null) {
             return ResponseEntity.status(404).body(null);
         }
@@ -83,10 +87,10 @@ public class SoporteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrarSoportePorId(@PathVariable Long id){
+    public ResponseEntity<?> borrarSoportePorId(@PathVariable Long id) {
         try {
-            //verificar si el soporte existe
-            Soporte  soporte = soporteService.getSoportePorId(id);
+            // verificar si el soporte existe
+            Soporte soporte = soporteService.getSoportePorId(id);
             soporteService.eliminarPorId(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
@@ -96,24 +100,24 @@ public class SoporteController {
 
     }
 
-    //metodo para actualixar un paciete por su id 
+    // metodo para actualixar un paciete por su id
     @PutMapping("/{id}")
-    public ResponseEntity<Soporte> actualizarSoportePorId(@PathVariable Long id,@RequestBody Soporte sop){
+    public ResponseEntity<Soporte> actualizarSoportePorId(@PathVariable Long id, @RequestBody Soporte sop) {
         try {
-            //verifico si el paciente existe
-            Soporte soporte2 =soporteService.getSoportePorId(id);
-            //si existe modifico uno a uno sus valores
+            // verifico si el paciente existe
+            Soporte soporte2 = soporteService.getSoportePorId(id);
+            // si existe modifico uno a uno sus valores
             soporte2.setFecha(sop.getFecha());
             soporte2.setDescripcion(sop.getDescripcion());
             soporte2.setIdEstado(sop.getIdEstado());
             soporte2.setIdCategoria(sop.getIdCategoria());
-            soporte2.setIdUsuario(sop.getIdUsuario());
-            
-            //actualizar el registro
+            soporte2.setIdusuario(sop.getIdusuario());
+
+            // actualizar el registro
             soporteService.saveSoporte(soporte2);
             return ResponseEntity.ok(soporte2);
         } catch (Exception e) {
-            //si no encuentra el paciente
+            // si no encuentra el paciente
             return ResponseEntity.notFound().build();
         }
     }

@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SoporteRepository extends JpaRepository<Soporte, Long> {
-    @Query("SELECT Soporte s FROM s WHERE s.idUsuario = :idUsuario ")
-    List<Soporte> findByUsuario(@Param ("idUsuario") Long idUsuario);
+    @Query("SELECT s FROM Soporte s WHERE s.idusuario = :idusuario")
+    List<Soporte> findByUsuario(@Param("idusuario") Long idusuario);
 }
