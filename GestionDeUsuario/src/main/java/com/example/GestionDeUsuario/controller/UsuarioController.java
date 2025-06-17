@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.GestionDeUsuario.model.Usuario;
 import com.example.GestionDeUsuario.service.UsuarioService;
-import com.example.GestionDeUsuario.webclient.RolClient;
+
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -24,7 +24,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
-    private RolClient rolClient;
 
     // endpoint para obtener todos los usuarios
     @GetMapping
