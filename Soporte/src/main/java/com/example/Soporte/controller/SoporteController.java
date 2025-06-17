@@ -61,10 +61,7 @@ public class SoporteController {
             return ResponseEntity.status(HttpStatus.CREATED).body(soporte);
         } catch (RuntimeException e) {
             return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            // Otro error interno
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+        } 
     }
 
     @GetMapping("/{id}")

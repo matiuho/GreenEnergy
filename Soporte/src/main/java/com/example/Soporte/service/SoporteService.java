@@ -36,8 +36,6 @@ public class SoporteService {
     //metodo para agregar un nuevo proyecto
     public Soporte saveSoporte(Soporte nuevosoporte) {
 
-        
-
         //verificar si la categoria existe consultando al microservicio categoria
         Map<String, Object> categoria  = categoriaClient.getCategoriaById(nuevosoporte.getIdCategoria());
         //verifico si me trajo el estado o no
@@ -65,7 +63,7 @@ public class SoporteService {
     public void eliminarPorId(Long id) {
         soporteRepository.deleteById(id);
     }
-    //metodo para buscar un estado por su ID
+    //metodo para buscar un soporte por su ID
      public Soporte getSoportePorId(Long id){
         return soporteRepository.findById(id).orElseThrow(()-> new RuntimeException("Soporte no encontrado"));
     }

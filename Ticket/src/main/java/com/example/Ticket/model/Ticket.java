@@ -20,12 +20,12 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String description;
+    @Column(nullable = false,length = 100)
+    private String descripcion;
 
     @Column(nullable = false)
-    private Long idUsuario;
+    private Long idusuario;
 
     @Column(nullable = false)
-    private Long idSoporte;
+    private Long idsoporte;
 }
