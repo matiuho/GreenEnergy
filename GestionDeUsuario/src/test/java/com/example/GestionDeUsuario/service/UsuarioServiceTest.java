@@ -34,8 +34,7 @@ public class UsuarioServiceTest {
         // crear un elemento que simule la respuesta del repositorio
 
         List<Usuario> mockUsuarios = List.of(
-                new Usuario(1L, "Juan", "Perez", "@gmail.com", "password123", 1L),
-                new Usuario(2L, "Maria", "Lopez", "@gmail.com", "password456", 2L));
+                new Usuario(1L, "Juan", "Perez", "@gmail.com", "password123", 1L));
 
         // simular el comportamiento del repositorio
         when(repository.findAll()).thenReturn(mockUsuarios);

@@ -9,8 +9,11 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Date;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "soporte")
@@ -23,10 +26,11 @@ public class Soporte {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSoporte;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     private LocalDate fecha;
 
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false, length = 100)
     private String descripcion;
 
     @Column(nullable = false)
@@ -38,4 +42,3 @@ public class Soporte {
     @Column(nullable = false)
     private Long idusuario;
 }
-
