@@ -72,6 +72,7 @@ public class UsuarioController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+        
     }
 
     // endpoint para eliminar un usuario por id

@@ -35,7 +35,8 @@ public class RolControllerTest {
         when(rolService.obtenerRoles()).thenReturn(listaRoles);
         
         try{
-            mockMvc.perform(get("api/roles")).andExpect(status().isOk())
+            mockMvc.perform(get("api/roles"))
+            .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].idRol")
             .value(1L));
         } catch (Exception e) {

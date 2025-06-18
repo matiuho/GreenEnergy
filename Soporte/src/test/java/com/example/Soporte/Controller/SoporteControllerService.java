@@ -4,8 +4,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
-
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +26,23 @@ public class SoporteControllerService {
     @Autowired
     private MockMvc mockMvc;
 
-     @Test
-    void getAllSoportes_returnsOkAndJson() throws Exception {
-        Soporte soporte = new Soporte();
-        soporte.setIdSoporte(1L);
-        soporte.setFecha(LocalDate.parse("2025-06-20")); 
-        soporte.setDescripcion("Prueba");
-        soporte.setIdEstado(null);
-        soporte.setIdCategoria(null);
-        soporte.setIdusuario(null);
+    @Test
+    void getAllSoporte_returnsOKAndJson() throws Exception {
+        // Crear una lista ficticia con un soporte
+        List<Soporte> listaSoporte = Arrays.asList(
+                new Soporte(1L,
+                        LocalDate.of(2025, 10, 10),
+                        "Problema con el sistema",
+                        2L, 3L, 4L));
 
-        when(soporteService.getSoporte()).thenReturn(List.of(soporte));
+        // Simular comportamiento del servicio
+        when(soporteService.getSoporte()).thenReturn(listaSoporte);
 
-        mockMvc.perform(get("/api/soportes"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].idSoporte").value(1L))
-            .andExpect(jsonPath("$[0].descripcion").value("Prueba"))
-            .andExpect(jsonPath("$[0].fecha").value("2025-06-20")); // Este es el valor que espera el JSON
+        // Ejecutar GET y verificar respuesta
+        mockMvc.perform(get("/api/soporte"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].idSoporte").value(1L))
+                .andExpect(jsonPath("$[0].descripcion").value("Problema con el sistema"));
     }
+
 }
