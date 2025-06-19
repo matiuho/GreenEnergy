@@ -27,7 +27,7 @@ public class Direccion {
     private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "id_comuna", nullable = false)
+    @JoinColumn(name = "comuna_id", nullable = false)
     private Comuna comuna;
 
     @Column(nullable = false)

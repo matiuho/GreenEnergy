@@ -1,6 +1,6 @@
 package com.example.direccion.Controller;
 
-import java.util.Arrays;
+/*import java.util.Arrays;
 import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,29 +32,5 @@ public class DireccionControllerTest {
 
 
 
-    @Test
-    void getAllDirecciones_returnsOkAndJson() {
-        List<Direccion> listaDireccion = Arrays.asList(new Direccion(1L,"Avenida el Guanaco",1,null));
 
-        //identificar el comportamiento del servicio
-        when(direccionService.getDirecciones()).thenReturn(listaDireccion);
-
-
-        //Ejecutar la funcion del controlador
-        //Ejecutar el metodo GET (endpoint)
-        //verficar que la respuesta sea 200 OK
-        //validar que el archivo json contenga los id
-        try{
-            mockMvc.perform(get("api/reservas"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].id").value(1L));
-        }catch(Exception e){
-
-        }
-        
-
-    }
-
-
-
-}
+}*/

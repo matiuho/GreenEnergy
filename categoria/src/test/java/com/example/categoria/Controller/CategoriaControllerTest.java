@@ -25,7 +25,7 @@ public class CategoriaControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void getAllCategorias_returnsOkAndJson() throws Exception {
+    void getAllCategorias_returnsOkAndJson()  {
         Categoria categoria = new Categoria();
         categoria.setIdCategoria(1L);
         categoria.setNombre("prueba");
