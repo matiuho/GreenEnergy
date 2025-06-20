@@ -15,6 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.Soporte.controller.SoporteController;
 import com.example.Soporte.model.Soporte;
 import com.example.Soporte.service.SoporteService;
+import com.example.Soporte.webclient.CategoriaClient;
+import com.example.Soporte.webclient.EstadoClient;
+import com.example.Soporte.webclient.UserClient;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,6 +28,14 @@ public class SoporteControllerTest {
     private SoporteService soporteService;
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private EstadoClient estadoClient;
+
+    @MockBean
+    private UserClient usuarioClient;
+
+    @MockBean
+    private CategoriaClient categoriaClient;
 
     @Test
     void getAllSoporte_returnsOKAndJson() throws Exception {
@@ -33,6 +45,7 @@ public class SoporteControllerTest {
         soporte.setDescripcion("Problema con el sistema");
         soporte.setIdEstado(null);
         soporte.setIdCategoria(null);
+        soporte.setIdusuario(null);
 
         List<Soporte> listaSoporte = Arrays.asList(soporte);
         // Simular comportamiento del servicio
@@ -46,7 +59,7 @@ public class SoporteControllerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
     }
 
 }
