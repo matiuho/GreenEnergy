@@ -1,8 +1,10 @@
 package com.example.categoria.Controller;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,27 +12,22 @@ import java.util.List;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
+import static org.mockito.Mockito.doNothing;
 import com.example.categoria.controller.CategoriaController;
 import com.example.categoria.model.Categoria;
 import com.example.categoria.service.CategoriaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-
 
 
 @WebMvcTest(CategoriaController.class)
 public class CategoriaControllerTest {
-    @MockBean
-    private CategoriaController categoriaController;
     @MockBean
     private CategoriaService categoriaService;
     @Autowired
@@ -45,7 +42,7 @@ public class CategoriaControllerTest {
         categoria.setNombre("prueba");
 
         List<Categoria> listaCategorias = Arrays.asList(categoria);
-        when(categoriaController.obtenerTodos()).thenReturn(listaCategorias);
+        when(categoriaService.obtenerCategoria()).thenReturn(listaCategorias);
 
         try {
             mockMvc.perform(get("api/categorias"))
@@ -62,9 +59,9 @@ public class CategoriaControllerTest {
         categoria.setIdCategoria(1L);
         categoria.setNombre("prueba");
 
-        when(categoriaController.obtenerPorId(1L)).thenReturn(ResponseEntity.ok(categoria));
+        when(categoriaService.getCategoriaById(1L)).thenReturn((categoria));
         try {
-            mockMvc.perform(get("api/categoria"))
+            mockMvc.perform(get("api/categoria/{id}", 1L))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.idCategoria").value(1L));
         } catch (Exception e) {
@@ -73,31 +70,27 @@ public class CategoriaControllerTest {
     }
 
     @Test
-    void crearCategoria_returnsCreatedAndJson() {
+    void crearCategoria_returnsCreatedAndJson() throws Exception {
         Categoria categoria = new Categoria();
         categoria.setIdCategoria(1L);
         categoria.setNombre("prueba");
+
         when(categoriaService.saveCategoria(categoria)).thenReturn(categoria);
-            mockMvc.perform(post("/api/categoria")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(categoria)))
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.idCategoria").value(1L));
-        }
-
-
-    @Test
-    void actualizarCategoria_returnsPutAndJson() {
-        Categoria categoria = new Categoria();
-        categoria.setNombre("pruebaActualizada");
-
-        when(categoriaController.actualizar(1L, categoria)).thenReturn(ResponseEntity.ok(categoria));
-        try {
-            mockMvc.perform(get("api/categoria"))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.nombre").value("pruebaActualizada"));
-        } catch (Exception e) {
-        }
+        mockMvc.perform(post("/api/categoria")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(categoria)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.idCategoria").value(1L))
+                .andExpect(jsonPath("$.nombre").value("prueba"));
     }
 
+    @Test
+    void eliminarCategoria_returnsNoContent() throws Exception {
+    Long id = 1L;
+
+    doNothing().when(categoriaService).eliminarservicio(id);
+
+    mockMvc.perform(delete("/api/categoria/{id}", id))
+            .andExpect(status().isNoContent());
+    }
 }

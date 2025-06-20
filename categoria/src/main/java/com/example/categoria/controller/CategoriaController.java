@@ -43,7 +43,7 @@ public class CategoriaController {
 
      // Crear un nuevo servicio
     @PostMapping
-    public ResponseEntity<?> crearcategroia(@RequestBody Categoria categoria) {
+    public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria) {
         if (categoria.getNombre().length() > 30) {
             return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 30 Caracteres");
         }
