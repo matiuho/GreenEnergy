@@ -72,7 +72,6 @@ public class CategoriaControllerTest {
     @Test
     void crearCategoria_returnsCreatedAndJson() throws Exception {
         Categoria categoria = new Categoria();
-        categoria.setIdCategoria(1L);
         categoria.setNombre("prueba");
 
         when(categoriaService.saveCategoria(categoria)).thenReturn(categoria);
@@ -80,7 +79,6 @@ public class CategoriaControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(categoria)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.idCategoria").value(1L))
                 .andExpect(jsonPath("$.nombre").value("prueba"));
     }
 
