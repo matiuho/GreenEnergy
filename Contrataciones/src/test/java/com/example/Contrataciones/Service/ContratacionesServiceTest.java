@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -108,30 +109,29 @@ public class ContratacionesServiceTest {
 
         // Assert
         assertThat(resultado).isSameAs(contratacion);
-        
+
     }
 
     @Test
-    void findByid_returnsContratacionByIdUsuario() {
-        // Arrange
-        Long id = 1L;
+    void findByIdUsuario_returnsContratacionesList() {
         Long idUsuario = 1L;
-        Contrataciones contratacion = new Contrataciones(
-                id,
+
+        Contrataciones contratacion1 = new Contrataciones(
+                1L,
                 LocalDate.of(2025, 10, 10),
                 LocalDate.of(2025, 10, 27),
                 LocalDate.of(2026, 10, 11),
-                null, null, null);
+                2L, 3L, idUsuario);
+        Contrataciones contratacion2 = new Contrataciones(
+                2L,
+                LocalDate.of(2025, 11, 1),
+                LocalDate.of(2025, 11, 15),
+                LocalDate.of(2026, 5, 20),
+                4L, 5L, idUsuario);
+        List<Contrataciones> mockLista = List.of(contratacion1, contratacion2);
 
-        // Simular el repositorio
-        when(contratacionesRepository.findByIdUsuario(idUsuario)).thenReturn(contratacion);
-
-        // Act
-        Contrataciones resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario);
-
-        // Assert
-        assertThat(resultado).isSameAs(contratacion);
-        
+        when(contratacionesRepository.findByIdUsuario(idUsuario)).thenReturn(mockLista);
+        List<Contrataciones> resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario);
+        assertThat(resultado).hasSize(2).containsExactly(contratacion1, contratacion2);
     }
-
 }

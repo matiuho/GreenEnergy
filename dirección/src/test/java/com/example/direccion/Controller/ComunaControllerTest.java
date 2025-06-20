@@ -31,26 +31,37 @@ public class ComunaControllerTest {
 
     @Test
     void getAllComunas_returnsOkAndJson() {
-        // crear una reserva ficticia para la respuesta del servicio
         
         List<Comuna> ListaComuna = Arrays.asList(new Comuna(1L, "Comuna de prueba", new Region(1, "Región de prueba")));
 
-        // identificar el comportamiento del servicio
         when(comunaService.getComunas()).thenReturn(ListaComuna);
 
-        // Ejecutar la funcion del controlador
-        // Ejecutar el metodo GET (endpoint)
-        // verficar que la respuesta sea 200 OK
-        // validar que el archivo json contenga los id
         try {
-            mockMvc.perform(get("api/comuna"))
+            mockMvc.perform(get("/api/comuna"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$[0].idComuna")
                             .value(1L));
         } catch (Exception e) {
 
         }
+        
 
+    }
+    @Test
+    void getComunaById_returnsOkAndJson() {
+        Comuna mockComuna = new Comuna(1L, "Comuna de prueba", new Region(1, "Región de prueba"));
+
+        when(comunaService.obtenerComunaPorId(1L)).thenReturn(mockComuna);
+
+        try {
+            mockMvc.perform(get("/api/comuna/{id}",1L))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.idComuna").value(1L))
+                    .andExpect(jsonPath("$.nombre").value("Comuna de prueba"));
+        } catch (Exception e) {
+
+        }
+        
     }
 
 }

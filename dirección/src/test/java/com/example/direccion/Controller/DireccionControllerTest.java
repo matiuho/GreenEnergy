@@ -1,7 +1,11 @@
 package com.example.direccion.Controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,24 +14,34 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.direccion.controller.DireccionController;
+import com.example.direccion.model.Comuna;
 import com.example.direccion.model.Direccion;
 import com.example.direccion.service.DireccionService;
 import com.example.direccion.webclient.ClienteClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //cargar el controlador que se va a simular
 @WebMvcTest(DireccionController.class)
 public class DireccionControllerTest {
+
     @MockBean
     private DireccionService direccionService;
-    @Autowired
-    private MockMvc mockMvc;
+
     @MockBean
     private ClienteClient clienteClient;
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void obtenerDirecciones_returnsOkAndJson() throws Exception {
@@ -43,8 +57,58 @@ public class DireccionControllerTest {
         mockMvc.perform(get("/api/direccion"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idDireccion").value(1L));
-        
+
     }
 
+    @Test
+    void crearDireccion_returnsCreatedAndJson() throws Exception {
+        Direccion direccion = new Direccion();
+        direccion.setNombre("Parral 2406");
+        direccion.setComuna(new Comuna(1L, "Santiago", null));
+        direccion.setIdUsuario(1L);
 
+        when(direccionService.saveDireccion(any(Direccion.class))).thenReturn(direccion);
+        mockMvc.perform(post("/api/direccion")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(direccion)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.nombre").value("Parral 2406"))
+                .andExpect(jsonPath("$.comuna.idComuna").value(1L))
+                .andExpect(jsonPath("$.idUsuario").value(1L));
+
+    }
+    @Test
+    void obtenerDireccionPorId_returnsOkAndJson() throws Exception{
+        Direccion direccion = new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L);
+
+        when(direccionService.obtenerDireccionPorId(1L)).thenReturn(direccion);
+        mockMvc.perform(get("/api/direccion/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idDireccion").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Parral 2406"))
+                .andExpect(jsonPath("$.comuna.idComuna").value(1L))
+                .andExpect(jsonPath("$.idUsuario").value(1L));
+    }
+    @Test
+    void eliminarDireccion_returnsNoContent() throws Exception {
+        Long id = 1L;
+
+        doNothing().when(direccionService).eliminarDireccion(id);
+
+        mockMvc.perform(delete("/api/direccion/{id}", id))
+                .andExpect(status().isNoContent());
+    }
+    @Test
+    void obtenerDireccionByUsuario_returnsOkAndJson(){
+        List<Direccion> listaDirecciones = Arrays.asList(new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L));
+
+        when(direccionService.obtenerDireccionPorUsuario(1L)).thenReturn(listaDirecciones);
+        try {
+            mockMvc.perform(get("/api/direccion/usuario/{idUsuario}", 1L))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$[0].idDireccion").value(1L));
+        } catch (Exception e) {
+            // Manejo de excepciones
+        }
+    }
 }
