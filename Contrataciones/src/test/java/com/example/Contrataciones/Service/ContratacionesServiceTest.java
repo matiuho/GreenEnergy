@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -63,7 +63,7 @@ public class ContratacionesServiceTest {
 
     @Test
     void save_returnsSavedContratacion() {
-        // Arrange – datos de entrada
+        
         Contrataciones nuevaContratacion = new Contrataciones(
                 1L,
                 LocalDate.of(2025, 10, 10),
@@ -71,7 +71,7 @@ public class ContratacionesServiceTest {
                 LocalDate.of(2026, 10, 11),
                 1L, 1L, 1L);
 
-        // Simular las respuestas de los microservicios (clientes)
+        // Simular las respuestas de los microservicios 
         Map<String, Object> servicioMock = Map.of("idServicio", 1L);
         Map<String, Object> direccionMock = Map.of("idDireccion", 1L);
         Map<String, Object> usuarioMock = Map.of("idUsuario", 1L);
@@ -83,16 +83,14 @@ public class ContratacionesServiceTest {
         // Simular el repositorio
         when(contratacionesRepository.save(nuevaContratacion)).thenReturn(nuevaContratacion);
 
-        // Act
         Contrataciones resultado = contratacionesService.saveContrataciones(nuevaContratacion);
 
-        // Assert
+        
         assertThat(resultado).isSameAs(nuevaContratacion);
     }
 
     @Test
     void findByid_returnsContratacionById() {
-        // Arrange
         Long id = 1L;
         Contrataciones contratacion = new Contrataciones(
                 id,
@@ -104,10 +102,8 @@ public class ContratacionesServiceTest {
         // Simular el repositorio
         when(contratacionesRepository.findById(id)).thenReturn(java.util.Optional.of(contratacion));
 
-        // Act
         Contrataciones resultado = contratacionesService.getContrtacionPorId(id);
 
-        // Assert
         assertThat(resultado).isSameAs(contratacion);
 
     }
