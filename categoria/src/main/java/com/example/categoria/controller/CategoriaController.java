@@ -56,7 +56,6 @@ public class CategoriaController {
     public ResponseEntity<Categoria> actualizar(@PathVariable Long id, @RequestBody Categoria  datos) {
         try {
             Categoria actualizado = categoriaService.getCategoriaById(id);
-            actualizado.setIdCategoria(id);
             actualizado.setNombre(datos.getNombre());
             return ResponseEntity.ok(actualizado);
         } catch (RuntimeException e) {
@@ -70,5 +69,7 @@ public class CategoriaController {
         categoriaService.eliminarservicio(id);
         return ResponseEntity.noContent().build();
     }
+
+    
 
 }

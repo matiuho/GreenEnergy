@@ -2,12 +2,15 @@ package com.example.categoria.Controller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,8 +20,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.categoria.controller.CategoriaController;
 import com.example.categoria.model.Categoria;
 import com.example.categoria.service.CategoriaService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
+
 
 @WebMvcTest(CategoriaController.class)
 public class CategoriaControllerTest {
@@ -28,6 +35,8 @@ public class CategoriaControllerTest {
     private CategoriaService categoriaService;
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void getAllCategorias_returnsOkAndJson() {
@@ -59,21 +68,36 @@ public class CategoriaControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.idCategoria").value(1L));
         } catch (Exception e) {
-    
+
         }
     }
 
     @Test
-    void crearCategoria_returnsCreatedAndJson(){
+    void crearCategoria_returnsCreatedAndJson() {
         Categoria categoria = new Categoria();
         categoria.setIdCategoria(1L);
         categoria.setNombre("prueba");
         when(categoriaService.saveCategoria(categoria)).thenReturn(categoria);
+            mockMvc.perform(post("/api/categoria")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(categoria)))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.idCategoria").value(1L));
+        }
+
+
+    @Test
+    void actualizarCategoria_returnsPutAndJson() {
+        Categoria categoria = new Categoria();
+        categoria.setNombre("pruebaActualizada");
+
+        when(categoriaController.actualizar(1L, categoria)).thenReturn(ResponseEntity.ok(categoria));
         try {
             mockMvc.perform(get("api/categoria"))
-                    .andExpect(status().isCreated())
-                    .andExpect(jsonPath("$.idCategoria").value(1L));
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.nombre").value("pruebaActualizada"));
         } catch (Exception e) {
         }
     }
+
 }
