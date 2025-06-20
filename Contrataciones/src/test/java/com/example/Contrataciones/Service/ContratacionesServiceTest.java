@@ -111,7 +111,7 @@ public class ContratacionesServiceTest {
         
     }
 
-     @Test
+    @Test
     void findByid_returnsContratacionByIdUsuario() {
         // Arrange
         Long id = 1L;
@@ -124,10 +124,10 @@ public class ContratacionesServiceTest {
                 null, null, null);
 
         // Simular el repositorio
-        when(contratacionesRepository.findById(idUsuario)).thenReturn(java.util.Optional.of(contratacion));
+        when(contratacionesRepository.findByIdUsuario(idUsuario)).thenReturn(contratacion);
 
         // Act
-        Contrataciones resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario)
+        Contrataciones resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario);
 
         // Assert
         assertThat(resultado).isSameAs(contratacion);
