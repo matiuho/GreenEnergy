@@ -40,7 +40,10 @@ public class UsuarioControllerTest {
         when(usuarioService.getUsuario()).thenReturn(ListaUsuarios);
 
         try {
-            mockMvc.perform(get("api/usuarios")).andExpect(status().isOk()).andExpect(jsonPath("$[0].idUsuario").value(1L));
+            mockMvc.perform(get("api/usuarios"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].idUsuario")
+            .value(1L));
         } catch (Exception e) {
         }
     }
