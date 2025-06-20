@@ -3,6 +3,7 @@ package com.example.Soporte.Controller;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,29 +38,31 @@ public class SoporteControllerTest {
     @MockBean
     private CategoriaClient categoriaClient;
 
+
+  
+
     @Test
     void getAllSoporte_returnsOKAndJson() throws Exception {
         // Crear una lista ficticia con un soporte
         Soporte soporte = new Soporte();
         soporte.setIdSoporte(1L);
+        soporte.setFecha(LocalDate.now()); 
         soporte.setDescripcion("Problema con el sistema");
         soporte.setIdEstado(null);
         soporte.setIdCategoria(null);
         soporte.setIdusuario(null);
 
         List<Soporte> listaSoporte = Arrays.asList(soporte);
+
         // Simular comportamiento del servicio
         when(soporteService.getSoporte()).thenReturn(listaSoporte);
 
-        try {
-            // Realizar la petición GET y verificar el estado y el contenido JSON
-            mockMvc.perform(get("api/soporte"))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].idSoporte").value(1L));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        // Realizar la petición GET y verificar el contenido
+        mockMvc.perform(get("/api/soporte"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].idSoporte").value(1L));
     }
+
+        
 
 }
