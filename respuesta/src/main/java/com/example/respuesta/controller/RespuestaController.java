@@ -25,8 +25,12 @@ public class RespuestaController {
 
     // Obtener todas las respuetas
     @GetMapping
-    public List<Respuesta> obtenerRespuestas() {
-        return respuestaService.obtenerRespuestas();
+    public ResponseEntity<List<Respuesta>> obtenerRespuestas() {
+        List<Respuesta> respuesta = respuestaService.obtenerRespuestas();
+        if (respuesta.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(respuesta);
     }
 
     // Obtener una respuesta por ID
