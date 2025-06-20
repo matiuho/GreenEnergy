@@ -129,7 +129,7 @@ public class ContratacionesControllerTest {
         try {
             mockMvc.perform(get("/api/contrataciones/usuario/{idusuario}", 1L))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].idContratacion").value(1L));
+                    .andExpect(jsonPath("$[0].idusuario").value(1L));
         } catch (Exception e) {
         }
     }
