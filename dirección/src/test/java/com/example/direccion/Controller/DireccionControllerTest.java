@@ -111,7 +111,6 @@ public class DireccionControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$[0].idDireccion").value(1L));
         } catch (Exception e) {
-            // Manejo de excepciones
-        }
+       }
     }
 }

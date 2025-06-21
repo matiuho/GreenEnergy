@@ -28,19 +28,27 @@ public class EstadoControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void getAllEstados_returnsOkAndJson() {
-        List<Estado> ListaEstados = Arrays.asList(new Estado(1L,"Activo"));
+    void getAllEstados_returnsOkAndJson() throws Exception {
+        List<Estado> listaEstados = Arrays.asList(new Estado(1L, "Activo"));
 
-        when(estadoService.getEstados()).thenReturn(ListaEstados);
+        when(estadoService.getEstados()).thenReturn(listaEstados);
 
-        try {
-            mockMvc.perform(get("api/estados"))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].idEstado").value(1L));
-        } catch (Exception e) {
-            e.printStackTrace();
-
+        mockMvc.perform(get("/api/estado"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1L));
     }
-        
+
+    @Test
+    void getEstadoPorId_returnsOkAndJson() throws Exception {
+        Estado estado = new Estado();
+        estado.setId(1L);
+        estado.setNombre("Activo");
+
+        when(estadoService.getEstadoPorId(1L)).thenReturn(estado);
+
+        mockMvc.perform(get("/api/estado/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Activo"));
     }
 }
