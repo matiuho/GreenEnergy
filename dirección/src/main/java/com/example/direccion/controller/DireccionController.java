@@ -65,7 +65,7 @@ public class DireccionController {
 
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<List<Direccion>> obtenerDirPorUsuario(@PathVariable Long idUsuario) {
-        List<Direccion> direccion = direccionService.obtenerDireccionPorUsuario(idUsuario);
+        List<Direccion> direccion = direccionService.obtenerDireccionesPorUsuario(idUsuario);
 
         if (direccion == null) {
             return ResponseEntity.status(404).body(null);

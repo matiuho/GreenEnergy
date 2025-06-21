@@ -1,5 +1,6 @@
 package com.example.direccion.Service;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
@@ -91,16 +92,34 @@ public class DireccionServiceTest {
     @Test
     void deleteById_deletesDireccion() {
         Long id = 1L;
+        Direccion direccion = new Direccion(id, "Calle Prueba", null, null);
 
-        // Simular el repositorio
-        when(direccionRepository.findById(id)).thenReturn(Optional.of(new Direccion(id, "Calle Prueba", null, null)));
+        // Simulamos que inicialmente sí existe
+        when(direccionRepository.findById(id)).thenReturn(Optional.of(direccion));
 
-        // Ejecutar el metodo a probar
         direccionService.eliminarDireccion(id);
 
-        // Verificar que se haya llamado al metodo deleteById del repositorio
-        assertThat(direccionRepository.findById(id)).isEmpty();
+        // Simulamos que luego de la eliminación ya no está
+        when(direccionRepository.findById(id)).thenReturn(Optional.empty());
+        Optional<Direccion> resultadoPostEliminacion = direccionRepository.findById(id);
+        assertThat(resultadoPostEliminacion).isEmpty();
+        verify(direccionRepository).deleteById(id);
     }
 
+    @Test
+    void findById_returnsDireccionesPorUsuario() {
+        // Arrange
+        Long idUsuario = 1L;
+        Direccion direccion1 = new Direccion(1L, "Calle Prueba 1", null, idUsuario);
+        Direccion direccion2 = new Direccion(2L, "Calle Prueba 2", null, idUsuario);
+        List<Direccion> lista = Arrays.asList(direccion1, direccion2);
+
+        // Simular el repositorio
+        when(direccionRepository.findByIdUsuario(idUsuario)).thenReturn(lista);
+
+        List<Direccion> resultado = direccionService.obtenerDireccionesPorUsuario(idUsuario);
+
+        assertThat(resultado).isEqualTo(lista);
+    }
 
 }

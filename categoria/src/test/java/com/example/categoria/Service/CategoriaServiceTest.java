@@ -28,18 +28,24 @@ public class CategoriaServiceTest {
         List<Categoria> mockList = Arrays.asList(new Categoria(1L,"Prueba"));
 
         when(categoriaRepository.findAll()).thenReturn(mockList);
+
         List<Categoria> result = categoriaService.obtenerCategoria();
+
         assertThat(result).isEqualTo(mockList);
 
     }
+
+
     @Test
-    void findCategoriasById_returnsCategoriaFromRepository(){
+    void findCategoriasById_returnCategoriaFromRepository(){
         Categoria mockCategoria = new Categoria(1L, "Prueba");
 
         when(categoriaRepository.findById(1L)).thenReturn(java.util.Optional.of(mockCategoria));
         Categoria result = categoriaService.getCategoriaById(1L);
         assertThat(result).isEqualTo(mockCategoria);
     }
+
+
     @Test
     void saveCategoria_returnsSavedCategoria() {
         Categoria mockCategoria = new Categoria(1L, "Prueba");
@@ -48,6 +54,8 @@ public class CategoriaServiceTest {
         Categoria result = categoriaService.saveCategoria(mockCategoria);
         assertThat(result).isEqualTo(mockCategoria);
     }
+
+    
     @Test
     void deleteCategoria_callsRepositoryDelete() {
         Long id = 1L;

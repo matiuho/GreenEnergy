@@ -66,9 +66,9 @@ public class DireccionService {
         direccionRepository.deleteById(id);
     }
 
-    public List<Direccion> obtenerDireccionPorUsuario(Long idUsuario) {
-        return direccionRepository.findByIdUsuario(idUsuario);
-    }
+    public List<Direccion> obtenerDireccionesPorUsuario(Long idUsuario) {
+    return direccionRepository.findByIdUsuario(idUsuario);
+}
 
 
 }

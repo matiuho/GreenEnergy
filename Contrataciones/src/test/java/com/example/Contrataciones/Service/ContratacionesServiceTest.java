@@ -130,4 +130,6 @@ public class ContratacionesServiceTest {
         List<Contrataciones> resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario);
         assertThat(resultado).hasSize(2).containsExactly(contratacion1, contratacion2);
     }
+
+    
 }

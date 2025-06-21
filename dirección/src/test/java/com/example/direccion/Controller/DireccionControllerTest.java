@@ -98,11 +98,14 @@ public class DireccionControllerTest {
         mockMvc.perform(delete("/api/direccion/{id}", id))
                 .andExpect(status().isNoContent());
     }
+
+
+
     @Test
     void obtenerDireccionByUsuario_returnsOkAndJson(){
         List<Direccion> listaDirecciones = Arrays.asList(new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L));
 
-        when(direccionService.obtenerDireccionPorUsuario(1L)).thenReturn(listaDirecciones);
+        when(direccionService.obtenerDireccionesPorUsuario(1L)).thenReturn(listaDirecciones);
         try {
             mockMvc.perform(get("/api/direccion/usuario/{idUsuario}", 1L))
                     .andExpect(status().isOk())
