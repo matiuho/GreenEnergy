@@ -1,5 +1,6 @@
 package com.example.categoria.Service;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -24,8 +25,8 @@ public class CategoriaServiceTest {
     private CategoriaService categoriaService;
 
     @Test
-    void findAllCategorias_returnsListFromRepository(){
-        List<Categoria> mockList = Arrays.asList(new Categoria(1L,"Prueba"));
+    void findAllCategorias_returnsListFromRepository() {
+        List<Categoria> mockList = Arrays.asList(new Categoria(1L, "Prueba"));
 
         when(categoriaRepository.findAll()).thenReturn(mockList);
 
@@ -35,16 +36,14 @@ public class CategoriaServiceTest {
 
     }
 
-
     @Test
-    void findCategoriasById_returnCategoriaFromRepository(){
+    void findCategoriasById_returnCategoriaFromRepository() {
         Categoria mockCategoria = new Categoria(1L, "Prueba");
 
         when(categoriaRepository.findById(1L)).thenReturn(java.util.Optional.of(mockCategoria));
         Categoria result = categoriaService.getCategoriaById(1L);
         assertThat(result).isEqualTo(mockCategoria);
     }
-
 
     @Test
     void saveCategoria_returnsSavedCategoria() {
@@ -55,10 +54,12 @@ public class CategoriaServiceTest {
         assertThat(result).isEqualTo(mockCategoria);
     }
 
-    
     @Test
     void deleteCategoria_callsRepositoryDelete() {
         Long id = 1L;
-        categoriaService.eliminarservicio(id);
+
+        categoriaService.eliminarcategoria(id);
+
+        verify(categoriaRepository).deleteById(id);
     }
 }

@@ -1,11 +1,108 @@
 package com.example.respuesta.Service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.example.respuesta.model.Respuesta;
+import com.example.respuesta.repository.RespuestaRepository;
+import com.example.respuesta.service.RespuestaService;
+import com.example.respuesta.webclient.SoporteClient;
 
 @ExtendWith(MockitoExtension.class)
 public class RespuestaServiceTest {
+    // simulo el repositorio de la respuesta
+    @Mock
+    private RespuestaRepository respuestaRepository;
 
-    
+    @Mock
+    private SoporteClient soporteClient;
+
+    @InjectMocks
+    private RespuestaService respuestaService;
+
+    @Test
+    void findAll_returnsListFromRepository() {
+        // crear un elemento que simule la respuesta del repositorio
+        List<Respuesta> listaRespuesta = Arrays.asList(new Respuesta(
+                1L,
+                LocalDate.now(),
+                "Comentario de Pueba",
+                "Usuario",
+                1L));
+
+        // definir el comportamiento del mock (repositorio)
+        when(respuestaRepository.findAll()).thenReturn(listaRespuesta);
+
+        // ejecutar el metodo a probar
+        List<Respuesta> result = respuestaService.obtenerRespuestas();
+        // verificar el resultado (criterios de aceptacion)
+        assertThat(result).isEqualTo(listaRespuesta);
+    }
+
+    @Test
+    void save_returnsSavedRespuesta() {
+        // crear un elemento que simule la respuesta del repositorio
+        Respuesta respuesta = new Respuesta(
+                1L,
+                LocalDate.now(),
+                "Comentario de Pueba",
+                "Usuario",
+                1L);
+
+        // Simular las respuestas de los microservicios
+        Map<String, Object> soporte = Map.of("idsoporte", 1L);
+
+        when(soporteClient.getSoporteById(1L)).thenReturn(soporte);
+
+        // simular el repositorio
+        when(respuestaRepository.save(respuesta)).thenReturn(respuesta);
+
+        // ejecutar el metodo a probar
+        Respuesta result = respuestaService.saveRespuesta(respuesta);
+
+        // verificar el resultado (criterios de aceptacion)
+        assertThat(result).isEqualTo(respuesta);
+    }
+
+    @Test
+    void findById_returnsRespuestaById() {
+        // crear un elemento que simule la respuesta del repositorio
+        Respuesta respuesta = new Respuesta(
+                1L,
+                LocalDate.now(),
+                "Comentario de Pueba",
+                "Usuario",
+                1L);
+
+        when(respuestaRepository.findById(1L)).thenReturn(java.util.Optional.of(respuesta));
+
+        Respuesta result = respuestaService.getRespuestaPorId(1L);
+
+        // verificar el resultado (criterios de aceptacion)
+        assertThat(result).isEqualTo(respuesta);
+    }
+
+    @Test
+    void deleteRespuesta_callsRepositoryDelete() {
+        Long id = 1L;
+
+        // Act
+        respuestaService.eliminarrespuesta(id);
+
+        // Assert
+        verify(respuestaRepository).deleteById(id);
+    }
 
 }

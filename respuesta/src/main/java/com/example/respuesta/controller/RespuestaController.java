@@ -65,7 +65,7 @@ public class RespuestaController {
         }
     }
 
-    // Actualizar un servicio existente
+    // Actualizar una respuesta  existente
     @PutMapping("/{id}")
     public ResponseEntity<Respuesta> actualizar(@PathVariable Long id, @RequestBody Respuesta actdatos) {
         try {

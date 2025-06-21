@@ -26,6 +26,9 @@ public class UsuarioServiceTest {
     @Mock
     private UsuarioRepository repository;
 
+    @Mock
+    private RolClient rolClient;
+
     @InjectMocks
     private UsuarioService service;
 
@@ -64,8 +67,7 @@ public class UsuarioServiceTest {
         assertThrows(RuntimeException.class, () -> service.getUsuarioPorId(1L));
     }
 
-    @Mock
-    private RolClient rolClient;
+   
 
     // Este test ignora el hashing real por simplicidad
     @Test

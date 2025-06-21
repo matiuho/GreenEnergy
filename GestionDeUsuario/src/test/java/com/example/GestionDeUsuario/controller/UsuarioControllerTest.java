@@ -2,7 +2,6 @@ package com.example.GestionDeUsuario.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -106,6 +105,30 @@ public class UsuarioControllerTest {
                 .andExpect(jsonPath("$.password").value("pass1234"))
                 .andExpect(jsonPath("$.idRol").value(1L));
     }
+
+    @Test
+    void getUsuarioById_returnsOkAndJson() throws Exception {
+        Usuario usuario = new Usuario();
+        usuario.setIdUsuario(1L);
+        usuario.setNombre("Juan");
+        usuario.setApellido("Perez");
+        usuario.setEmail("juan@gmail.com");
+        usuario.setPassword("pass1234");
+        usuario.setIdRol(1L);
+
+        when(usuarioService.getUsuarioPorId(1L)).thenReturn(usuario);
+        mockMvc.perform(get("/api/usuarios/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idUsuario").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Juan"))
+                .andExpect(jsonPath("$.apellido").value("Perez"))
+                .andExpect(jsonPath("$.email").value("juan@gmail.com"))
+                .andExpect(jsonPath("$.password").value("pass1234"))
+                .andExpect(jsonPath("$.idRol").value(1L));
+    }
+
+
+
 
     @Test
     void eliminarUsuario_returnsNoContent() throws Exception {

@@ -32,7 +32,7 @@ public class CategoriaService {
     }
 
     // eliminar categoria
-    public void eliminarservicio(Long id) {
+    public void eliminarcategoria(Long id) {
         categoriaRepository.deleteById(id);
     }
 

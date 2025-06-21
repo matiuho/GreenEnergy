@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +23,6 @@ import com.example.categoria.service.CategoriaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.MediaType;
-
 
 @WebMvcTest(CategoriaController.class)
 public class CategoriaControllerTest {
@@ -84,11 +82,11 @@ public class CategoriaControllerTest {
 
     @Test
     void eliminarCategoria_returnsNoContent() throws Exception {
-    Long id = 1L;
+        Long id = 1L;
 
-    doNothing().when(categoriaService).eliminarservicio(id);
+        doNothing().when(categoriaService).eliminarcategoria(id);
 
-    mockMvc.perform(delete("/api/categoria/{id}", id))
-            .andExpect(status().isNoContent());
+        mockMvc.perform(delete("/api/categoria/{id}", id))
+                .andExpect(status().isNoContent());
     }
 }
