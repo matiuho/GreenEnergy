@@ -97,7 +97,7 @@ public class ContratacionesControllerTest {
     }
 
     @Test
-    void getContratacionesPorId_returnsOkAndJson(){
+    void getContratacionesPorId_returnsOkAndJson() {
         Contrataciones contrataciones = new Contrataciones();
         contrataciones.setIdContratacion(1L);
         contrataciones.setFechaContratacion(LocalDate.of(2025, 10, 10));
@@ -108,22 +108,23 @@ public class ContratacionesControllerTest {
         contrataciones.setIdusuario(1L);
 
         when(contratacionesService.getContrtacionPorId(1L)).thenReturn(contrataciones);
-        try{
-            mockMvc.perform(get("/api/contrataciones/{id}",1L))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.idContratacion").value(1L));
+        try {
+            mockMvc.perform(get("/api/contrataciones/{id}", 1L))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.idContratacion").value(1L));
         } catch (Exception e) {
-            
+
         }
     }
+
     @Test
-    void getContratacionesByUsuario_returnsOkAndJson(){
+    void getContratacionesByUsuario_returnsOkAndJson() {
         List<Contrataciones> contrataciones = Arrays.asList(new Contrataciones(
                 1L,
                 LocalDate.of(2025, 10, 10),
                 LocalDate.of(2025, 10, 27),
                 LocalDate.of(2026, 10, 11),
-                null, null, 1L  ));
+                null, null, 1L));
 
         when(contratacionesService.obtenerContratacionByUsuario(1L)).thenReturn(contrataciones);
         try {

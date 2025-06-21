@@ -1,0 +1,59 @@
+package com.example.Proyecto.Service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.example.Proyecto.Model.Proyecto;
+import com.example.Proyecto.Repository.ProyectoRepository;
+import com.example.Proyecto.WebClient.ContratacionClient;
+import com.example.Proyecto.WebClient.EstadoClient;
+import com.example.Proyecto.WebClient.UsuarioClient;
+
+@ExtendWith(MockitoExtension.class)
+public class ProyectoServiceTest {
+    @Mock
+    private ProyectoRepository proyectoRepository;
+    @Mock
+    ContratacionClient contratacionClient;
+    @Mock
+    EstadoClient estadoClient;
+    @Mock
+    UsuarioClient usuarioClient;
+
+    @InjectMocks
+    private ProyectosService proyectosService;
+
+    @Test
+    void findAll_returnsListFromRepository() {
+        List<Proyecto> listaProyectos = Arrays.asList(new Proyecto(
+                1L,
+                "Prueba",
+                null,
+                null,
+                null));
+        when(proyectoRepository.findAll()).thenReturn(listaProyectos);
+        List<Proyecto> result = proyectosService.getProyectos();
+        assertThat(result).isEqualTo(listaProyectos);
+    }
+
+    @Test
+    void getProyectoPorId_returnsProyectoById() {
+        Proyecto proyecto = new Proyecto(1L, "Test", 1L, 1L, 1L);
+        when(proyectoRepository.findById(1L)).thenReturn(Optional.of(proyecto));
+
+        Proyecto result = proyectosService.getProyectoPorId(1L);
+
+        assertThat(result).isEqualTo(proyecto);
+    }
+
+}
