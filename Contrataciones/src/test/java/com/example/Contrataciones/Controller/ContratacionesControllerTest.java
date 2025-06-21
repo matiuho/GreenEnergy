@@ -44,7 +44,7 @@ public class ContratacionesControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void getAllContrataciones_returnsOkAndJson() {
+    void getAllContrataciones_returnsOkAndJson() throws Exception {
         // crear una reserva ficticia para la respuesta del servicio
         List<Contrataciones> listaContrataciones = Arrays.asList(new Contrataciones(
                 1L,
@@ -59,12 +59,10 @@ public class ContratacionesControllerTest {
         // Ejecutar el metodo GET (endpoint)
         // verficar que la respuesta sea 200 OK
         // validar que el archivo json contenga los id
-        try {
-            mockMvc.perform(get("api/contrataciones"))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].idContratacion").value(1L));
-        } catch (Exception e) {
-        }
+
+        mockMvc.perform(get("api/contrataciones"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].idContratacion").value(1L));
 
     }
 
