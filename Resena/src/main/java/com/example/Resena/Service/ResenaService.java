@@ -22,10 +22,14 @@ public class ResenaService {
     private UserClient userClient;
     @Autowired
     private ServicioClient servicioClient;
+
+
     //metodo para consultar todas las reseñas
     public List<Resena> getResenas(){
         return resenaRepository.findAll();
     }
+
+
     public Resena savResena(Resena nuevaResena) {
         //verificar si el usuario existe consultando al microservicio de usuario
         Map<String, Object> user = userClient.getUsuarioById(nuevaResena.getIdUsuario());
@@ -42,10 +46,12 @@ public class ResenaService {
         return resenaRepository.save(nuevaResena);
     }
 
+
     public Resena getResenaPorId(Long id){
         return resenaRepository.findById(id).orElseThrow(()-> new RuntimeException("Resena no encontrado"));
     }
 
+    
     //metodo para buscar por ID USUARIO
     public List<Resena> obtenerReByUsuario(Long idUsuario){
         return resenaRepository.findByIdUsuario(idUsuario);

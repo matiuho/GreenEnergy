@@ -1,6 +1,5 @@
 package com.example.Resena.Controller;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import com.example.Resena.Service.ResenaService;
 import com.example.Resena.WebClient.ServicioClient;
 import com.example.Resena.WebClient.UserClient;
 
-
 @RestController
 @RequestMapping("/api/resena")
 public class ResenaController {
@@ -30,8 +28,12 @@ public class ResenaController {
     ServicioClient servicioClient;
 
     @GetMapping
-    public ResponseEntity<List<Resena>> getResenas() {
+    public ResponseEntity<List<Resena>> obtenerResenas() {
         List<Resena> resenas = resenaService.getResenas();
+        if (resenas.isEmpty()) {
+            // Retorno código 204 No Content
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(resenas);
     }
 
@@ -67,13 +69,15 @@ public class ResenaController {
 
     }
 
-    //endpoint para buscar ReseÃ±a por ID USUARIO
+    // endpoint para buscar Resena por ID USUARIO
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<Resena>> obtenerReByUsuario(@PathVariable Long idUsuario){
-        List<Resena> resena = resenaService.obtenerReByUsuario(idUsuario);
-        if (resena == null) {
-            return ResponseEntity.status(404).body(null);
+    public ResponseEntity<List<Resena>> obtenerReByUsuario(@PathVariable Long idUsuario) {
+        List<Resena> resenas = resenaService.obtenerReByUsuario(idUsuario);
+
+        if (resenas == null || resenas.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content
         }
-        return ResponseEntity.ok(resena);
+
+        return ResponseEntity.ok(resenas); // 200 OK con contenido
     }
 }

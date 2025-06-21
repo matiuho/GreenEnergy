@@ -1,6 +1,5 @@
 package com.example.Contrataciones.Controller;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -81,8 +80,7 @@ public class ContratacionesControllerTest {
         contrataciones.setIdDireccion(1L);
         contrataciones.setIdusuario(1L);
 
-        when(contratacionesService.saveContrataciones(any(Contrataciones.class)))
-                .thenReturn(contrataciones);
+        when(contratacionesService.saveContrataciones(contrataciones)).thenReturn(contrataciones);
 
         mockMvc.perform(post("/api/contrataciones")
                 .contentType(MediaType.APPLICATION_JSON)

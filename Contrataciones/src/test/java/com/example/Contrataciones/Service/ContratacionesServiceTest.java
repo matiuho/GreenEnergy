@@ -124,11 +124,13 @@ public class ContratacionesServiceTest {
                 LocalDate.of(2025, 11, 15),
                 LocalDate.of(2026, 5, 20),
                 4L, 5L, idUsuario);
-        List<Contrataciones> mockLista = List.of(contratacion1, contratacion2);
+        List<Contrataciones> contrataciones = Arrays.asList(contratacion1, contratacion2);
 
-        when(contratacionesRepository.findByIdUsuario(idUsuario)).thenReturn(mockLista);
+        when(contratacionesRepository.findByIdUsuario(idUsuario)).thenReturn(contrataciones);
+
         List<Contrataciones> resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario);
-        assertThat(resultado).hasSize(2).containsExactly(contratacion1, contratacion2);
+        // Verificar que el resultado es el esperado
+        assertThat(resultado).containsExactlyInAnyOrder(contratacion1, contratacion2);
     }
 
     
