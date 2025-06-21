@@ -26,8 +26,4 @@ public class EstadoService {
         return estadoRepository.findById(id).orElseThrow(()-> new RuntimeException("Estado no encontrado"));
     }
 
-    //metodo para agregar un estado nuevo
-    public Estado saveEstado(Estado nuevo){
-        return estadoRepository.save(nuevo);
-    }
 }

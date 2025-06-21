@@ -46,13 +46,5 @@ public class EstadoServiceTest {
         assertThat(result).isEqualTo(mockEstado);
     }
 
-    @Test
-    void saveEstado_returnsSavedEstado() {
-        Estado mockEstado = new Estado(1L, "Activo");
-
-        when(estadoRepository.save(mockEstado)).thenReturn(mockEstado);
-        Estado result = estadoService.saveEstado(mockEstado);
-        assertThat(result).isEqualTo(mockEstado);
-    }
 
 }
