@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.util.Arrays;
 import java.util.List;
@@ -89,5 +90,26 @@ public class CategoriaControllerTest {
 
         mockMvc.perform(delete("/api/categoria/{id}", id))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void actualizarCategoria_returnsOkAndJson() throws Exception {
+        Categoria categoria = new Categoria();
+        categoria.setIdCategoria(1L);
+        categoria.setNombre("prueba");
+
+        Categoria categoriaActualizada = new Categoria();
+        categoriaActualizada.setIdCategoria(1L);
+        categoriaActualizada.setNombre("prueba actualizada");
+
+        when(categoriaService.getCategoriaById(1L)).thenReturn(categoria);
+        when(categoriaService.saveCategoria(categoria)).thenReturn(categoriaActualizada);
+
+        mockMvc.perform(put("/api/categoria/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(categoriaActualizada)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idCategoria").value(1L))
+                .andExpect(jsonPath("$.nombre").value("prueba actualizada"));
     }
 }
