@@ -2,7 +2,12 @@ package com.example.servicio.Controller;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -46,7 +51,7 @@ public class ServicioControllerTest {
                 .andExpect(jsonPath("$[0].idServicio").value(1L));
     }
 
-    @Test 
+    @Test
     void getServicioById_returnsOKAndJson() throws Exception {
         Servicio servicio = new Servicio();
         servicio.setIdServicio(1L);
@@ -77,7 +82,6 @@ public class ServicioControllerTest {
 
         when(servicioService.saveServicio(servicio)).thenReturn(servicio);
 
-
         mockMvc.perform(post("/api/servicios")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(servicio)))
@@ -89,6 +93,13 @@ public class ServicioControllerTest {
     }
 
     @Test
+    void eliminarServicio_returnsNoContent() throws Exception {
+        Long id = 1L;
+        doNothing().when(servicioService).eliminarservicio(id);
+        mockMvc.perform(delete("/api/servicios/{id}", id))
+                .andExpect(status().isNoContent());
+    }
+    
 
 
 }

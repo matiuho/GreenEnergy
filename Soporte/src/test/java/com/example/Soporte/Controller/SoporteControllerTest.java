@@ -62,6 +62,7 @@ public class SoporteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idSoporte").value(1L));
     }
+    
 
         
 
