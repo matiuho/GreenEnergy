@@ -116,22 +116,26 @@ public class RespuestaServiceTest {
                 LocalDate.of(2025, 12, 1),
                 "Comentario antiguo",
                 "UsuarioAntiguo",
-                100L);
+                1L);
 
         Respuesta modificacion = new Respuesta(
                 id,
                 LocalDate.of(2025, 6, 22),
                 "Comentario nuevo",
                 "UsuarioNuevo",
-                200L);
+                2L);
 
         when(respuestaRepository.findById(id)).thenReturn(Optional.of(existente));
-        when(respuestaRepository.save(any(Respuesta.class))).thenReturn(modificacion);  
+        when(respuestaRepository.save(any(Respuesta.class))).thenReturn(modificacion); 
+        
+        
         Respuesta resultado = respuestaService.actualizar(id, modificacion);
+
+
         assertThat(resultado.getFechaSoporte()).isEqualTo(LocalDate.of(2025, 6, 22));
         assertThat(resultado.getComentario()).isEqualTo("Comentario nuevo");
         assertThat(resultado.getTipousuario()).isEqualTo("UsuarioNuevo");
-        assertThat(resultado.getIdsoporte()).isEqualTo(200L);
+        assertThat(resultado.getIdsoporte()).isEqualTo(2L);
     }
 
 }

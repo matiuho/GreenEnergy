@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,8 +78,9 @@ public class DireccionControllerTest {
                 .andExpect(jsonPath("$.idUsuario").value(1L));
 
     }
+
     @Test
-    void obtenerDireccionPorId_returnsOkAndJson() throws Exception{
+    void obtenerDireccionPorId_returnsOkAndJson() throws Exception {
         Direccion direccion = new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L);
 
         when(direccionService.obtenerDireccionPorId(1L)).thenReturn(direccion);
@@ -89,6 +91,7 @@ public class DireccionControllerTest {
                 .andExpect(jsonPath("$.comuna.idComuna").value(1L))
                 .andExpect(jsonPath("$.idUsuario").value(1L));
     }
+
     @Test
     void eliminarDireccion_returnsNoContent() throws Exception {
         Long id = 1L;
@@ -99,11 +102,10 @@ public class DireccionControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-
-
     @Test
-    void obtenerDireccionByUsuario_returnsOkAndJson(){
-        List<Direccion> listaDirecciones = Arrays.asList(new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L));
+    void obtenerDireccionByUsuario_returnsOkAndJson() {
+        List<Direccion> listaDirecciones = Arrays
+                .asList(new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L));
 
         when(direccionService.obtenerDireccionesPorUsuario(1L)).thenReturn(listaDirecciones);
         try {
@@ -111,6 +113,30 @@ public class DireccionControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$[0].idDireccion").value(1L));
         } catch (Exception e) {
-       }
+        }
+    }
+
+    @Test
+    void actualizarDireccion_returnsOkAndJson() throws Exception {
+        Direccion direccion = new Direccion(1L,
+                "Nueva Direccion",
+                new Comuna(1L, "Nueva Comuna", null),
+                1L);
+
+        Direccion nuevaDireccion = new Direccion(1L,
+                "Actualizada Direccion",
+                new Comuna(2L, "Comuna Actualizada", null),
+                1L);
+
+        when(direccionService.obtenerDireccionPorId(1L)).thenReturn(direccion);
+        when(direccionService.saveDireccion(direccion)).thenReturn(nuevaDireccion);
+
+        mockMvc.perform(put("/api/direccion/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(direccion)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idDireccion").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Actualizada Direccion"))
+                .andExpect(jsonPath("$.comuna.idComuna").value(2L));
     }
 }
