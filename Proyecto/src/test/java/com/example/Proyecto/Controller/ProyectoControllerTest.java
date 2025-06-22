@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -102,6 +103,24 @@ public class ProyectoControllerTest {
                 .andExpect(jsonPath("$.estadoId").value(1L))
                 .andExpect(jsonPath("$.usuarioId").value(1L))
                 .andExpect(jsonPath("$.contratacionId").value(1L));
+    }
+
+    @Test
+    void actualizarProyecto_returnsOkAndUpdatedJson() throws Exception {
+        Long id = 1L;
+
+        Proyecto existente = new Proyecto(id, "Comentario viejo", 2L, 1L, 1L);
+        Proyecto actualizado = new Proyecto(id, "Comentario nuevo", 3L, 1L, 1L);
+
+        when(proyectosService.getProyectoPorId(id)).thenReturn(existente);
+        when(proyectosService.saveProyecto(any(Proyecto.class))).thenReturn(actualizado);
+
+        mockMvc.perform(put("/api/proyecto/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(actualizado)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.comentario").value("Comentario nuevo"))
+                .andExpect(jsonPath("$.estadoId").value(3L));
     }
 
 }

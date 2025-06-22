@@ -5,11 +5,11 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +98,28 @@ public class ServicioControllerTest {
         doNothing().when(servicioService).eliminarservicio(id);
         mockMvc.perform(delete("/api/servicios/{id}", id))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void actualizarServicio_devuelve200YJsonActualizado() throws Exception {
+        Servicio servicio = new Servicio(
+                1L,
+                "nombreActualizado",
+                "descripcion actualizada",
+                50000,
+                "Disponible");
+
+        when(servicioService.getServicioPorId(1L)).thenReturn(servicio);
+        when(servicioService.saveServicio(any(Servicio.class))).thenReturn(servicio);
+
+        mockMvc.perform(put("/api/servicios/{id}", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(servicio)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.nombre").value("nombreActualizado"))
+                .andExpect(jsonPath("$.descripcion").value("descripcion actualizada"))
+                .andExpect(jsonPath("$.precio").value(50000))
+                .andExpect(jsonPath("$.disponibilidad").value("Disponible"));
     }
 
 }
