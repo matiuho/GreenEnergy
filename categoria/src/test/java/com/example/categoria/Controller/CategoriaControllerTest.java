@@ -73,6 +73,7 @@ public class CategoriaControllerTest {
         categoria.setNombre("prueba");
 
         when(categoriaService.saveCategoria(categoria)).thenReturn(categoria);
+        
         mockMvc.perform(post("/api/categoria")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(categoria)))

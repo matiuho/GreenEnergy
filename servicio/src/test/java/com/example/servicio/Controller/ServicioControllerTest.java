@@ -4,13 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.servicio.controller.ServicioController;
 import com.example.servicio.model.Servicio;
 import com.example.servicio.service.ServicioService;
@@ -23,6 +25,8 @@ public class ServicioControllerTest {
     private ServicioService servicioService;
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void getAllServicios_returnsOKAndJson() throws Exception {
@@ -41,5 +45,50 @@ public class ServicioControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idServicio").value(1L));
     }
+
+    @Test 
+    void getServicioById_returnsOKAndJson() throws Exception {
+        Servicio servicio = new Servicio();
+        servicio.setIdServicio(1L);
+        servicio.setNombre("Servicio de Prueba");
+        servicio.setDescripcion("Descripción del servicio de prueba");
+        servicio.setPrecio(1000);
+        servicio.setDisponibilidad("Disponible");
+
+        when(servicioService.getServicioPorId(1L)).thenReturn(servicio);
+
+        mockMvc.perform(get("/api/servicios/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idServicio").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Servicio de Prueba"))
+                .andExpect(jsonPath("$.descripcion").value("Descripción del servicio de prueba"))
+                .andExpect(jsonPath("$.precio").value(1000))
+                .andExpect(jsonPath("$.disponibilidad").value("Disponible"));
+
+    }
+
+    @Test
+    void crearServicio_returnsCreatedAndJson() throws Exception {
+        Servicio servicio = new Servicio();
+        servicio.setNombre("Nuevo Servicio");
+        servicio.setDescripcion("Descripción del nuevo servicio");
+        servicio.setPrecio(1500);
+        servicio.setDisponibilidad("Disponible");
+
+        when(servicioService.saveServicio(servicio)).thenReturn(servicio);
+
+
+        mockMvc.perform(post("/api/servicios")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(servicio)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.nombre").value("Nuevo Servicio"))
+                .andExpect(jsonPath("$.descripcion").value("Descripción del nuevo servicio"))
+                .andExpect(jsonPath("$.precio").value(1500))
+                .andExpect(jsonPath("$.disponibilidad").value("Disponible"));
+    }
+
+    @Test
+
 
 }

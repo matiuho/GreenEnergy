@@ -91,7 +91,7 @@ public class ProyectoControllerTest {
     void crearProyecto_returnsCreatedAndJson() throws Exception {
         Proyecto proyecto = new Proyecto(1L, "Proyecto nuevo", 1L, 1L, 1L);
 
-        when(proyectosService.saveProyecto(any(Proyecto.class))).thenReturn(proyecto);
+        when(proyectosService.saveProyecto(proyecto)).thenReturn(proyecto);
 
         mockMvc.perform(post("/api/proyecto")
                 .contentType(MediaType.APPLICATION_JSON)

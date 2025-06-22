@@ -43,4 +43,16 @@ public class RolControllerTest {
         }
         
     }
+
+    @Test 
+    void findRolesById_returnsOkAndJson() throws Exception {
+        Roles roles = new Roles(1L,"Prueba");
+
+        when(rolService.getRolesPorId(1L)).thenReturn(roles);
+
+        mockMvc.perform(get("/api/roles/{id}", 1L))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idRol").value(1L))
+            .andExpect(jsonPath("$.nombre").value("Prueba"));
+    }
 }
