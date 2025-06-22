@@ -1,5 +1,6 @@
 package com.example.categoria.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Categoria {
     @Id
+    @Schema(description = "ID unico de Categoria")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategoria;
 

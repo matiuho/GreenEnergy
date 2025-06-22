@@ -2,6 +2,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TicketApplication",
+            "request": "launch",
+            "mainClass": "com.example.Ticket.TicketApplication",
+            "projectName": "Ticket"
+        },
+        {
+            "type": "java",
+            "name": "ResenaApplication",
+            "request": "launch",
+            "mainClass": "com.example.Resena.ResenaApplication",
+            "projectName": "Resena"
+        },
+        {
+            "type": "java",
+            "name": "ProyectoApplication",
+            "request": "launch",
+            "mainClass": "com.example.Proyecto.ProyectoApplication",
+            "projectName": "Proyecto"
+        },
+        {
+            "type": "java",
             "name": "GestionDeUsuarioApplication",
             "request": "launch",
             "mainClass": "com.example.GestionDeUsuario.GestionDeUsuarioApplication",

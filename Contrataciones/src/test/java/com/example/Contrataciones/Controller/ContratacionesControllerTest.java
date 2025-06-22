@@ -60,7 +60,7 @@ public class ContratacionesControllerTest {
         // verficar que la respuesta sea 200 OK
         // validar que el archivo json contenga los id
 
-        mockMvc.perform(get("api/contrataciones"))
+        mockMvc.perform(get("/api/contrataciones"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idContratacion").value(1L));
 
