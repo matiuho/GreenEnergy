@@ -21,7 +21,7 @@ import com.example.Ticket.webclient.SoporteClient;
 import com.example.Ticket.webclient.UserClient;
 
 @RestController
-@RequestMapping("api/ticket")
+@RequestMapping("/api/ticket")
 public class TicketController {
     @Autowired
     private TicketService ticketService;
@@ -76,7 +76,7 @@ public class TicketController {
         return ResponseEntity.ok(ticket);
     }
 
-    @GetMapping("/usuario/{idsoporte}")
+    @GetMapping("/soporte/{idsoporte}")
     public ResponseEntity<List<Ticket>> obtenerTicketPorSoporte(@PathVariable Long idsoporte) {
         List<Ticket> ticket = ticketService.obtenerTicketPorSoporte(idsoporte);
         if (ticket == null) {

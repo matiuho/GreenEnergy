@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class SoporteService {
@@ -27,52 +29,52 @@ public class SoporteService {
 
     @Autowired
     private UserClient userClient;
-
-    //metodo para consultar todos los Contrataciones
-    public List<Soporte> getSoporte(){
+    // metodo para consultar todos los Contrataciones
+    public List<Soporte> getSoporte() {
         return soporteRepository.findAll();
     }
 
-    //metodo para agregar un nuevo proyecto
+    // metodo para agregar un nuevo proyecto
     public Soporte saveSoporte(Soporte nuevosoporte) {
 
-        //verificar si la categoria existe consultando al microservicio categoria
-        Map<String, Object> categoria  = categoriaClient.getCategoriaById(nuevosoporte.getIdCategoria());
-        //verifico si me trajo el estado o no
+        // verificar si la categoria existe consultando al microservicio categoria
+        Map<String, Object> categoria = categoriaClient.getCategoriaById(nuevosoporte.getIdCategoria());
+        // verifico si me trajo el estado o no
         if (categoria == null || categoria.isEmpty()) {
             throw new RuntimeException("Categoria no encontrado");
         }
 
-        //verificar si el estado existe consultando al microservicio de estado
+        // verificar si el estado existe consultando al microservicio de estado
         Map<String, Object> estado = estadoClient.getEstadoById(nuevosoporte.getIdEstado());
-        //verifico si me trajo el usuario o no
+        // verifico si me trajo el usuario o no
         if (estado == null || estado.isEmpty()) {
             throw new RuntimeException("Direccion no encontrada");
         }
-        //verificar si el proyecto existe consultando al microservicio de usuario
+        // verificar si el proyecto existe consultando al microservicio de usuario
         Map<String, Object> usuario = userClient.getUsuarioById(nuevosoporte.getIdusuario());
-        //verifico si me trajo el usuario o no
+        // verifico si me trajo el usuario o no
         if (usuario == null || usuario.isEmpty()) {
             throw new RuntimeException("Usuario no encontrada");
         }
 
         return soporteRepository.save(nuevosoporte);
     }
-    
-    
+
     public void eliminarPorId(Long id) {
         soporteRepository.deleteById(id);
     }
-    //metodo para buscar un soporte por su ID
-     public Soporte getSoportePorId(Long id){
-        return soporteRepository.findById(id).orElseThrow(()-> new RuntimeException("Soporte no encontrado"));
+
+    // metodo para buscar un soporte por su ID
+    public Soporte getSoportePorId(Long id) {
+        return soporteRepository.findById(id).orElseThrow(() -> new RuntimeException("Soporte no encontrado"));
     }
 
-    //metodo para buscar un soporte por ID USUARIO
-    public List<Soporte> obtenerSoByUsuario(Long idusuario){
+    // metodo para buscar un soporte por ID USUARIO
+    public List<Soporte> obtenerSoByUsuario(Long idusuario) {
         return soporteRepository.findByUsuario(idusuario);
-        
+
     }
+    
     
 
 }
