@@ -1,6 +1,7 @@
 package com.example.respuesta.Service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -95,7 +97,7 @@ public class RespuestaServiceTest {
     }
 
     @Test
-    void deleteRespuesta_callsRepositoryDelete() {
+    void deleteRespuesta_deleteRespuesta() {
         Long id = 1L;
 
         // Act
@@ -103,6 +105,33 @@ public class RespuestaServiceTest {
 
         // Assert
         verify(respuestaRepository).deleteById(id);
+    }
+
+    @Test
+    void updateRespuesta_actualizaYDevuelveRespuesta() {
+        Long id = 1L;
+
+        Respuesta existente = new Respuesta(
+                id,
+                LocalDate.of(2025, 12, 1),
+                "Comentario antiguo",
+                "UsuarioAntiguo",
+                100L);
+
+        Respuesta modificacion = new Respuesta(
+                id,
+                LocalDate.of(2025, 6, 22),
+                "Comentario nuevo",
+                "UsuarioNuevo",
+                200L);
+
+        when(respuestaRepository.findById(id)).thenReturn(Optional.of(existente));
+        when(respuestaRepository.save(any(Respuesta.class))).thenReturn(modificacion);  
+        Respuesta resultado = respuestaService.actualizar(id, modificacion);
+        assertThat(resultado.getFechaSoporte()).isEqualTo(LocalDate.of(2025, 6, 22));
+        assertThat(resultado.getComentario()).isEqualTo("Comentario nuevo");
+        assertThat(resultado.getTipousuario()).isEqualTo("UsuarioNuevo");
+        assertThat(resultado.getIdsoporte()).isEqualTo(200L);
     }
 
 }

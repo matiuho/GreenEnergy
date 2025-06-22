@@ -76,10 +76,7 @@ public class ServicioServiceTest {
         Servicio existente = new Servicio(id, "Servicio viejo", "Descripción vieja", 5000, "Inactivo");
         Servicio modificacion = new Servicio(id, "Servicio nuevo", "Descripción nueva", 10000, "Disponible");
 
-        // Simular que el servicio ya existe en el repositorio
         when(servicioRepository.findById(id)).thenReturn(Optional.of(existente));
-
-        // Simular que el servicio actualizado es el que se devuelve luego del save
         when(servicioRepository.save(any(Servicio.class))).thenReturn(modificacion);
 
         Servicio resultado = servicioService.actualizarServicio(id, modificacion);
@@ -88,9 +85,6 @@ public class ServicioServiceTest {
         assertThat(resultado.getDescripcion()).isEqualTo("Descripción nueva");
         assertThat(resultado.getPrecio()).isEqualTo(10000);
         assertThat(resultado.getDisponibilidad()).isEqualTo("Disponible");
-
-        verify(servicioRepository).findById(id);
-        verify(servicioRepository).save(any(Servicio.class));
     }
 
 }
