@@ -122,7 +122,7 @@ public class ContratacionesControllerTest {
                 LocalDate.of(2026, 10, 11),
                 null, null, 1L));
 
-        when(contratacionesService.obtenerContratacionByUsuario(1L)).thenReturn(contrataciones);
+        when(contratacionesService.obtenerCoByUsuario(1L)).thenReturn(contrataciones);
         try {
             mockMvc.perform(get("/api/contrataciones/usuario/{idusuario}", 1L))
                     .andExpect(status().isOk())

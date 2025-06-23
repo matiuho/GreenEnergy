@@ -62,7 +62,7 @@ public class TicketController {
 
     @GetMapping("/usuario/{idusuario}")
     public ResponseEntity<List<Ticket>> obtenerTicketPorUsuario(@PathVariable Long idusuario) {
-        List<Ticket> ticket = ticketService.obtenerTicketPorUsuario(idusuario);
+        List<Ticket> ticket = ticketService.obtenerTiByUsuario(idusuario);
         if (ticket == null) {
             return ResponseEntity.status(404).body(null);
         }
@@ -71,7 +71,7 @@ public class TicketController {
 
     @GetMapping("/soporte/{idsoporte}")
     public ResponseEntity<List<Ticket>> obtenerTicketPorSoporte(@PathVariable Long idsoporte) {
-        List<Ticket> ticket = ticketService.obtenerTicketPorSoporte(idsoporte);
+        List<Ticket> ticket = ticketService.obtenerTiBySoporte(idsoporte);
         if (ticket == null) {
             return ResponseEntity.status(404).body(null);
         }

@@ -128,7 +128,7 @@ public class ContratacionesServiceTest {
 
         when(contratacionesRepository.findByIdUsuario(idUsuario)).thenReturn(contrataciones);
 
-        List<Contrataciones> resultado = contratacionesService.obtenerContratacionByUsuario(idUsuario);
+        List<Contrataciones> resultado = contratacionesService.obtenerCoByUsuario(idUsuario);
         // Verificar que el resultado es el esperado
         assertThat(resultado).containsExactlyInAnyOrder(contratacion1, contratacion2);
     }

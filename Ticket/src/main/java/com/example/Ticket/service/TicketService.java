@@ -49,14 +49,20 @@ public class TicketService {
 
 
 
-    //metodo para buscar un ticket por ID USUARIO
-    public List<Ticket> obtenerTicketPorUsuario(Long idusuario){
-        return ticketRepository.findByUsuario(idusuario);
+    public List<Ticket> obtenerTiByUsuario(Long idusuario) {
+        List<Ticket> ticket = ticketRepository.findByUsuario(idusuario);
+        if (ticket == null || ticket.isEmpty()) {
+            throw new RuntimeException("No se encontraron Ticket para el usuario con ID: " + idusuario);
+        }
+        return ticket;
     }
 
-    //metodo para buscar un ticket por ID SOPORTE
-    public List<Ticket> obtenerTicketPorSoporte(Long idsoporte){
-        return ticketRepository.findBySoporte(idsoporte);
+    public List<Ticket> obtenerTiBySoporte(Long idsoporte) {
+        List<Ticket> ticket = ticketRepository.findBySoporte(idsoporte);
+        if (ticket == null || ticket.isEmpty()) {
+            throw new RuntimeException("No se encontraron Ticket para el soporte con ID: " + idsoporte);
+        }
+        return ticket;
     }
 
     //eliminar un ticket

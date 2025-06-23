@@ -117,7 +117,7 @@ public class ContratacionesController {
     public ResponseEntity<List<Contrataciones>> obtenerConPorUsuario(
         @Parameter(description = "ID de la contratación a buscar", required = true, example = "1")
         @PathVariable Long idusuario) {
-        List<Contrataciones> contratacion = contratacionesService.obtenerContratacionByUsuario(idusuario);
+        List<Contrataciones> contratacion = contratacionesService.obtenerCoByUsuario(idusuario);
 
         if (contratacion == null) {
             return ResponseEntity.status(404).body(null);

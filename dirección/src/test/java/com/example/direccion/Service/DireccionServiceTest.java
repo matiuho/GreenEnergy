@@ -117,7 +117,7 @@ public class DireccionServiceTest {
         // Simular el repositorio
         when(direccionRepository.findByIdUsuario(idUsuario)).thenReturn(lista);
 
-        List<Direccion> resultado = direccionService.obtenerDireccionesPorUsuario(idUsuario);
+        List<Direccion> resultado = direccionService.obtenerDiByUsuario(idUsuario);
 
         assertThat(resultado).isEqualTo(lista);
     }

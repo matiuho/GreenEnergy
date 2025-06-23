@@ -62,9 +62,12 @@ public class ContratacionesService {
                 .orElseThrow(() -> new RuntimeException("Contratacion no encontrado"));
     }
 
-    // metodo para buscar por ID USUARIO
-    public List<Contrataciones> obtenerContratacionByUsuario(Long idusuario) {
-        return contratacionesRepository.findByIdUsuario(idusuario);
+    public List<Contrataciones> obtenerCoByUsuario(Long idusuario) {
+        List<Contrataciones> contrataciones = contratacionesRepository.findByIdUsuario(idusuario);
+        if (contrataciones == null || contrataciones.isEmpty()) {
+            throw new RuntimeException("No se encontraron Contrataciones para el usuario con ID: " + idusuario);
+        }
+        return contrataciones;
     }
 
     

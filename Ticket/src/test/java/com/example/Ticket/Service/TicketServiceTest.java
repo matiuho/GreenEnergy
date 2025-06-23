@@ -80,7 +80,7 @@ public class TicketServiceTest {
 
         when(ticketRepository.findByUsuario(idUsuario)).thenReturn(lista);
 
-        List<Ticket> resultado = ticketService.obtenerTicketPorUsuario(idUsuario);
+        List<Ticket> resultado = ticketService.obtenerTiByUsuario(idUsuario);
 
         assertThat(resultado).containsExactly(ticket);
     }
@@ -92,7 +92,7 @@ public class TicketServiceTest {
 
         when(ticketRepository.findBySoporte(idSoporte)).thenReturn(lista);
 
-        List<Ticket> resultado = ticketService.obtenerTicketPorSoporte(idSoporte);
+        List<Ticket> resultado = ticketService.obtenerTiBySoporte(idSoporte);
 
         assertThat(resultado).containsExactly(ticket);
     }

@@ -107,7 +107,7 @@ public class DireccionControllerTest {
         List<Direccion> listaDirecciones = Arrays
                 .asList(new Direccion(1L, "Parral 2406", new Comuna(1L, "Santiago", null), 1L));
 
-        when(direccionService.obtenerDireccionesPorUsuario(1L)).thenReturn(listaDirecciones);
+        when(direccionService.obtenerDiByUsuario(1L)).thenReturn(listaDirecciones);
         try {
             mockMvc.perform(get("/api/direccion/usuario/{idUsuario}", 1L))
                     .andExpect(status().isOk())

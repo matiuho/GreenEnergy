@@ -105,7 +105,7 @@ public class DireccionController {
     public ResponseEntity<List<Direccion>> obtenerDirPorUsuario(
     @Parameter(description = "ID del usuario para buscar sus direcciones", required = true, example = "10")    
     @PathVariable Long idUsuario) {
-        List<Direccion> direccion = direccionService.obtenerDireccionesPorUsuario(idUsuario);
+        List<Direccion> direccion = direccionService.obtenerDiByUsuario(idUsuario);
 
         if (direccion == null) {
             return ResponseEntity.status(404).body(null);

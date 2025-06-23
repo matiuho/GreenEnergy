@@ -66,8 +66,12 @@ public class DireccionService {
         direccionRepository.deleteById(id);
     }
 
-    public List<Direccion> obtenerDireccionesPorUsuario(Long idUsuario) {
-        return direccionRepository.findByIdUsuario(idUsuario);
+    public List<Direccion> obtenerDiByUsuario(Long idusuario) {
+        List<Direccion> direccion = direccionRepository.findByIdUsuario(idusuario);
+        if (direccion == null || direccion.isEmpty()) {
+            throw new RuntimeException("No se encontraron direcciones para el usuario con ID: " + idusuario);
+        }
+        return direccion;
     }
 
 }

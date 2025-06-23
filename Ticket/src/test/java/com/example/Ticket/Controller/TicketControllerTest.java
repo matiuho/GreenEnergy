@@ -85,7 +85,7 @@ public class TicketControllerTest {
     void getTicketsByUsuario_returnsOkAndJson() {
         List<Ticket> tickets = Arrays.asList(new Ticket(1L, "Red", 1L, 1L));
 
-        when(ticketService.obtenerTicketPorUsuario(1L)).thenReturn(tickets);
+        when(ticketService.obtenerTiByUsuario(1L)).thenReturn(tickets);
 
         try {
             mockMvc.perform(get("/api/ticket/usuario/{idusuario}", 1L))
@@ -99,7 +99,7 @@ public class TicketControllerTest {
     void getTicketsBySoporte_returnsOkAndJson() {
         List<Ticket> tickets = Arrays.asList(new Ticket(1L, "Soporte de red", 1L, 1L));
 
-        when(ticketService.obtenerTicketPorSoporte(1L)).thenReturn(tickets);
+        when(ticketService.obtenerTiBySoporte(1L)).thenReturn(tickets);
 
         try {
             mockMvc.perform(get("/api/ticket/soporte/{idsoporte}", 1L))
