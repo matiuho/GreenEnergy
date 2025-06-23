@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.categoria.model.Categoria;
 import com.example.categoria.service.CategoriaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/categoria")
+@Tag(name = "Categorias", description = "Mostrar las Categorias existentes")
 public class CategoriaController {
 
     @Autowired
@@ -25,12 +29,14 @@ public class CategoriaController {
 
     // Obtener todas las categroias 
     @GetMapping
+    @Operation(summary = "Obtener todas las categorias")
     public List<Categoria> obtenerTodos() {
         return categoriaService.obtenerCategoria();
     }
 
     // Obtener un servicio por ID
     @GetMapping("/{id}")
+       @Operation(summary = "Obtener las categorias por id")
     public ResponseEntity<Categoria> obtenerPorId(@PathVariable Long id) {
         try {
             //verificar si el servicio existe
@@ -43,6 +49,7 @@ public class CategoriaController {
 
      // Crear un nuevo servicio
     @PostMapping
+    @Operation(summary = "Crear una nueva Categoria")
     public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria) {
         if (categoria.getNombre().length() > 30) {
             return ResponseEntity.badRequest().body("El Nombre debe Contener entre 1 y 30 Caracteres");
@@ -53,6 +60,8 @@ public class CategoriaController {
 
     // Actualizar un servicio existente
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar una Categoria por id")
+    
     public ResponseEntity<Categoria> actualizar(@PathVariable Long id, @RequestBody Categoria  datos) {
         try {
             Categoria actualizado = categoriaService.getCategoriaById(id);
@@ -65,6 +74,7 @@ public class CategoriaController {
 
      // Eliminar un categoria
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar una Categoria por id")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         categoriaService.eliminarcategoria(id);
         return ResponseEntity.noContent().build();
