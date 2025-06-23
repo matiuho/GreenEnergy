@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @Transactional
 public class ServicioService {
@@ -22,8 +21,8 @@ public class ServicioService {
         return servicioRepository.findAll();
     }
 
-    public Servicio getServicioPorId(Long id){
-        return servicioRepository.findById(id).orElseThrow(()-> new RuntimeException("Servicio no encontrado"));
+    public Servicio getServicioPorId(Long id) {
+        return servicioRepository.findById(id).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
     }
 
     public Servicio saveServicio(Servicio servicio) {
@@ -41,5 +40,17 @@ public class ServicioService {
 
     public void eliminarservicio(Long id) {
         servicioRepository.deleteById(id);
+    }
+
+    public Servicio desactivarServicio(Long id) {
+        Servicio servicio = servicioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+
+        servicio.setActivo(false);
+        return servicioRepository.save(servicio);
+    }
+
+    public List<Servicio> listarServiciosActivos() {
+        return servicioRepository.findByActivoTrue();
     }
 }

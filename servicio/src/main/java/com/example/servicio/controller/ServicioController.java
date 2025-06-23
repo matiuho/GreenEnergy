@@ -16,10 +16,11 @@ public class ServicioController {
     @Autowired
     private ServicioService servicioService;
 
-    // Obtener todos los servicios
+    // Obtener todos los servicios activos
     @GetMapping
-    public List<Servicio> obtenerTodos() {
-        return servicioService.obtenerTodos();
+    public ResponseEntity<List<Servicio>> obtenerServiciosActivos() {
+        List<Servicio> activos = servicioService.listarServiciosActivos();
+        return activos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(activos);
     }
 
     // Obtener un servicio por ID
@@ -72,6 +73,7 @@ public class ServicioController {
             return ResponseEntity.notFound().build();
         }
     }
+
     // Eliminar un servicio
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
@@ -79,5 +81,4 @@ public class ServicioController {
         return ResponseEntity.noContent().build();
     }
 
-    
 }

@@ -138,4 +138,28 @@ public class RespuestaServiceTest {
         assertThat(resultado.getIdsoporte()).isEqualTo(2L);
     }
 
+    @Test 
+    void findByIdSoporte_returnsRespuestaList(){
+        Long idsoporte=1L;
+        Respuesta respuesta1= new Respuesta(
+                1L,
+                LocalDate.of(2025, 6, 22),
+                "Comentario nuevo",
+                "UsuarioNuevo",
+                idsoporte);
+         Respuesta respuesta2 = new Respuesta(
+                2L,
+                LocalDate.of(2025, 6, 22),
+                "Comentario",
+                "RESPUESTAS NNUEVAS ",
+                idsoporte);
+
+        List<Respuesta> respuestas = Arrays.asList(respuesta1,respuesta2);
+
+        when(respuestaRepository.findBySoporte(idsoporte)).thenReturn(respuestas);
+        List<Respuesta> result = respuestaService.obtenerReBySoporte(idsoporte);
+
+         // Verificar que el resultado es el esperado
+        assertThat(result).containsExactlyInAnyOrder(respuesta1,respuesta2);
+    }
 }

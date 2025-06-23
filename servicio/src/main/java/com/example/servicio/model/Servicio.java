@@ -18,8 +18,7 @@ public class Servicio {
 
     @Column(nullable = false, length = 50)
     private String nombre;
-    
-    
+
     @Column(nullable = false, length = 100)
     private String descripcion;
 
@@ -28,6 +27,16 @@ public class Servicio {
 
     @Column(nullable = false, length = 20)
     private String disponibilidad;
-    
+
+    @Column(nullable = false)
+    private boolean activo = true;
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 
 }

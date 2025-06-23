@@ -17,7 +17,7 @@ public class LocalDataBase {
                 repository.save(new Servicio(null,
                                  "Instalación On-Grid",
                                 "Conectada a la red eléctrica; permite reducir el consumo de la compañía eléctrica.",
-                                1500000,"Disponible"));
+                                1500000,"Disponible",true));
                 repository.save(new Servicio(null,
                                 "Instalación Off-Grid",
                                 "Funciona de forma autónoma usando baterías; ideal para zonas sin acceso a la red.",

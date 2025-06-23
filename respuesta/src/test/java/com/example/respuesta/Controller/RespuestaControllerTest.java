@@ -125,15 +125,14 @@ public class RespuestaControllerTest {
         respuesta.setFechaRespuesta(LocalDate.now());
         respuesta.setComentario("Nueva Respuesta");
         respuesta.setTipousuario("Cliente");
-        respuesta.setIdsoporte(null);
+        respuesta.setIdsoporte(1L);
 
         List<Respuesta> listaRespuestas = Arrays.asList(respuesta);
 
         when(respuestaService.obtenerReBySoporte(1L)).thenReturn(listaRespuestas);
 
          mockMvc.perform(get("/api/respuesta/soporte/{idsoporte}", 1L))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].idrespuesta").value(1L)) 
+                .andExpect(status().isOk()).andExpect(jsonPath("$[0].idrespuesta").value(1L)) 
                 .andExpect(jsonPath("$[0].comentario").value("Nueva Respuesta"))
                 .andExpect(jsonPath("$[0].tipousuario").value("Cliente"))
                 .andExpect(jsonPath("$[0].idsoporte").value(1L));
