@@ -34,4 +34,12 @@ public class Usuario {
 
     @Column(nullable = false)
     private Long idRol;
+
+    public Usuario(String nombre, String apellido, String email, String password, Long idRol) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.email = email;
+    this.password = password;
+    this.idRol = idRol;
+}
 }

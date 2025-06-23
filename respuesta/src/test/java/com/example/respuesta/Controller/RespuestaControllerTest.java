@@ -40,7 +40,7 @@ public class RespuestaControllerTest {
     void getAllRespuesta_returnsOkAndJson() throws Exception {
         Respuesta respuesta = new Respuesta();
         respuesta.setIdrespuesta(1L);
-        respuesta.setFechaSoporte(LocalDate.now());
+        respuesta.setFechaRespuesta(LocalDate.now());
         respuesta.setComentario("Comentario de prueba");
         respuesta.setTipousuario("Usuario");
         respuesta.setIdsoporte(null);
@@ -78,7 +78,7 @@ public class RespuestaControllerTest {
     void getAllRespuestaById_returnsOkAndJson() throws Exception {
         Respuesta respuesta = new Respuesta();
         respuesta.setIdrespuesta(1L);
-        respuesta.setFechaSoporte(LocalDate.now());
+        respuesta.setFechaRespuesta(LocalDate.now());
         respuesta.setComentario("Comentario de prueba");
         respuesta.setTipousuario("Cliente");
         respuesta.setIdsoporte(null);
@@ -116,6 +116,27 @@ public class RespuestaControllerTest {
                 .andExpect(jsonPath("$.idrespuesta").value(1L))
                 .andExpect(jsonPath("$.comentario").value("Comentario actualizado"))
                 .andExpect(jsonPath("$.tipousuario").value("Cliente"));
+    }
+
+    @Test
+    void getRespuestaBySoporte_returnsOkAndJson() throws Exception{
+        Respuesta respuesta = new Respuesta();
+        respuesta.setIdrespuesta(1L);
+        respuesta.setFechaRespuesta(LocalDate.now());
+        respuesta.setComentario("Nueva Respuesta");
+        respuesta.setTipousuario("Cliente");
+        respuesta.setIdsoporte(null);
+
+        List<Respuesta> listaRespuestas = Arrays.asList(respuesta);
+
+        when(respuestaService.obtenerReBySoporte(1L)).thenReturn(listaRespuestas);
+
+         mockMvc.perform(get("/api/respuesta/soporte/{idsoporte}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].idrespuesta").value(1L)) 
+                .andExpect(jsonPath("$[0].comentario").value("Nueva Respuesta"))
+                .andExpect(jsonPath("$[0].tipousuario").value("Cliente"))
+                .andExpect(jsonPath("$[0].idsoporte").value(1L));
     }
 
 }

@@ -97,11 +97,11 @@ public class SoporteController {
 
     }
 
-    // metodo para actualixar un paciete por su id
+    // metodo para actualizar un soporte por su id
     @PutMapping("/{id}")
     public ResponseEntity<Soporte> actualizarSoportePorId(@PathVariable Long id, @RequestBody Soporte sop) {
         try {
-            // verifico si el paciente existe
+            // verifico si el soporte existe
             Soporte soporte2 = soporteService.getSoportePorId(id);
             // si existe modifico uno a uno sus valores
             soporte2.setFecha(sop.getFecha());
@@ -110,11 +110,11 @@ public class SoporteController {
             soporte2.setIdCategoria(sop.getIdCategoria());
             soporte2.setIdusuario(sop.getIdusuario());
 
-            // actualizar el registro
+            // actualizar el soporte
             soporteService.saveSoporte(soporte2);
             return ResponseEntity.ok(soporte2);
         } catch (Exception e) {
-            // si no encuentra el paciente
+            // si no encuentra el soporte
             return ResponseEntity.notFound().build();
         }
     }

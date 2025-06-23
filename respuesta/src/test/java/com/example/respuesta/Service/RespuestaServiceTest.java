@@ -132,7 +132,7 @@ public class RespuestaServiceTest {
         Respuesta resultado = respuestaService.actualizar(id, modificacion);
 
 
-        assertThat(resultado.getFechaSoporte()).isEqualTo(LocalDate.of(2025, 6, 22));
+        assertThat(resultado.getFechaRespuesta()).isEqualTo(LocalDate.of(2025, 6, 22));
         assertThat(resultado.getComentario()).isEqualTo("Comentario nuevo");
         assertThat(resultado.getTipousuario()).isEqualTo("UsuarioNuevo");
         assertThat(resultado.getIdsoporte()).isEqualTo(2L);

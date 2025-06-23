@@ -44,7 +44,7 @@ public class DireccionService {
             var comuna = comunaRepository.findById(idComuna)
                     .orElseThrow(() -> new RuntimeException("Comuna no encontrada con ID: " + idComuna));
 
-            //Asignar la comuna encontrada a la dirección
+            // Asignar la comuna encontrada a la dirección
             nuevaDireccion.setComuna(comuna);
 
             // Guardar la dirección
@@ -67,8 +67,7 @@ public class DireccionService {
     }
 
     public List<Direccion> obtenerDireccionesPorUsuario(Long idUsuario) {
-    return direccionRepository.findByIdUsuario(idUsuario);
-}
-
+        return direccionRepository.findByIdUsuario(idUsuario);
+    }
 
 }

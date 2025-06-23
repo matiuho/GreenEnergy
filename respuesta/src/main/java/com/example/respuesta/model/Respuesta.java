@@ -24,7 +24,7 @@ public class Respuesta {
     private Long idrespuesta;
     
     @Column(nullable = false)
-    private LocalDate fechaSoporte;
+    private LocalDate fechaRespuesta;
 
     @Column(nullable = false,length = 80)
     private String comentario;

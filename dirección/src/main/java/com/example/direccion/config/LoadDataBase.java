@@ -415,7 +415,7 @@ public class LoadDataBase {
                 comunaRepository.save(new Comuna("Antártica", new Region(16, null)));
                 
 
-                System.out.println("✅ Regiones Cargadas  Y Comunas correctamente.");
+                System.out.println("Regiones Cargadas  Y Comunas correctamente.");
 
             } else {
                 System.out.println("Regiones y Comunas ya cargadas.");

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,8 @@ public class RespuestaController {
     @PostMapping
     public ResponseEntity<?> crearservicio(@RequestBody Respuesta nuevarespuesta) {
         // Definir los tipos de usuario permitidos
-        Set<String> tiposPermitidos = Set.of("Administrador", "Tecnico Instalador", "Coordinador", "Cliente","Soporte");
+        Set<String> tiposPermitidos = Set.of("Administrador", "Tecnico Instalador", "Coordinador", "Cliente",
+                "Soporte");
 
         // Validar si el tipo de usuario no está en el conjunto
         if (!tiposPermitidos.contains(nuevarespuesta.getTipousuario())) {
@@ -65,7 +67,7 @@ public class RespuestaController {
         }
     }
 
-    // Actualizar una respuesta  existente
+    // Actualizar una respuesta existente
     @PutMapping("/{id}")
     public ResponseEntity<Respuesta> actualizar(@PathVariable Long id, @RequestBody Respuesta actdatos) {
         try {
@@ -76,11 +78,20 @@ public class RespuestaController {
         }
     }
 
-    // Eliminar un servicio
+    // Eliminar una respuesta
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         respuestaService.eliminarrespuesta(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/soporte/{idsoporte}")
+    public ResponseEntity<List<Respuesta>> obtenerRespuestasPorSoporte(@PathVariable Long idsoporte) {
+        List<Respuesta> respuestas = respuestaService.obtenerReBySoporte(idsoporte);
+        if (respuestas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(respuestas);
     }
 
 }

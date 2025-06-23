@@ -18,7 +18,8 @@ public class RespuestaService {
 
     @Autowired
     private RespuestaRepository respuestaRepository;
-    @Autowired  SoporteClient soporteClient;
+    @Autowired
+    SoporteClient soporteClient;
 
     // mostrar todas las respuestas
     public List<Respuesta> obtenerRespuestas() {
@@ -33,9 +34,8 @@ public class RespuestaService {
     public Respuesta actualizar(Long id, Respuesta datos) {
         Respuesta existente = respuestaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Respuesta no encontrado"));
-        existente.setFechaSoporte(datos.getFechaSoporte());
+        existente.setFechaRespuesta(datos.getFechaRespuesta());
         existente.setComentario(datos.getComentario());
-        existente.setTipousuario(datos.getTipousuario());
 
         return respuestaRepository.save(existente);
     }
@@ -45,7 +45,7 @@ public class RespuestaService {
     }
 
     public Respuesta saveRespuesta(Respuesta nuevaRespuesta) {
-        
+
         // verificar si el Soporte existe consultando al microservicio Soporte
         Map<String, Object> soporte = soporteClient.getSoporteById(nuevaRespuesta.getIdsoporte());
         // verifico si me trajo el estado o no
@@ -53,5 +53,13 @@ public class RespuestaService {
             throw new RuntimeException("Soporte no encontrado");
         }
         return respuestaRepository.save(nuevaRespuesta);
+    }
+
+    public List<Respuesta> obtenerReBySoporte(Long idsoporte) {
+        List<Respuesta> respuestas = respuestaRepository.findBySoporte(idsoporte);
+        if (respuestas == null || respuestas.isEmpty()) {
+            throw new RuntimeException("No se encontraron respuestas para el soporte con ID: " + idsoporte);
+        }
+        return respuestas;
     }
 }
