@@ -1,5 +1,6 @@
 package com.example.Ticket.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Detalles de un Ticket de soporte o seguimiento")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
