@@ -25,7 +25,7 @@ public class ResenaService {
 
     // metodo para consultar todas las reseñas
     public List<Resena> listarResenasActivas() {
-        return resenaRepository.findAllByActivaTrue();
+        return resenaRepository.findAllByActivoTrue();
     }
 
     public Resena savResena(Resena nuevaResena) {
@@ -50,7 +50,7 @@ public class ResenaService {
 
     // metodo para buscar por ID USUARIO
     public List<Resena> obtenerReByUsuario(Long idUsuario) {
-        return resenaRepository.findByIdUsuario(idUsuario);
+        return resenaRepository.findByActivoTrue(idUsuario);
     }
 
     public Resena desactivarResena(Long id) {

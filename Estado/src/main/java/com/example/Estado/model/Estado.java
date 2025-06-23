@@ -1,5 +1,6 @@
 package com.example.Estado.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 
 
@@ -17,11 +18,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Estados")
 public class Estado {
     @Id
+    @Schema(description = "ID unica de Estado")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Condición del Estado", example = "Activo")
     @Column(nullable = false, length = 30)
     private String nombre;
 }

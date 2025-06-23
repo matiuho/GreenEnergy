@@ -47,7 +47,7 @@ public class ResenaServiceTest {
         resena.setIdUsuario(null);
         resena.setActivo(true);
 
-        when(resenaRepository.findAllByActivaTrue()).thenReturn(Arrays.asList(resena));
+        when(resenaRepository.findAllByActivoTrue()).thenReturn(Arrays.asList(resena));
 
         List<Resena> result = resenaService.listarResenasActivas();
 
@@ -112,7 +112,7 @@ public class ResenaServiceTest {
 
         List<Resena> resenas = Arrays.asList(resena1, resena2);
 
-        when(resenaRepository.findByIdUsuario(idUsuario)).thenReturn(resenas);
+        when(resenaRepository.findByActivoTrue(idUsuario)).thenReturn(resenas);
 
         List<Resena> result = resenaService.obtenerReByUsuario(idUsuario);
 

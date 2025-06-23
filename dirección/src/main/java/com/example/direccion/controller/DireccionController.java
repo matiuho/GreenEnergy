@@ -17,13 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.direccion.model.Direccion;
 import com.example.direccion.service.DireccionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/direccion")
+@Tag(name = "Direcciones", description = "Operaciones relacionadas con las Direcciones de clientes.")
 public class DireccionController {
     @Autowired
     private DireccionService direccionService;
 
     @GetMapping
+    @Operation(summary = "Obtener todas las Direcciones",
+               description = "Retorna una lista de todas las direcciones existentes en el sistema.")
+    @ApiResponse(responseCode = "200", description = "Las direcciones fueron encontradas y devueltas.",
+                 content = @Content(schema = @Schema(implementation = Direccion.class)))
+    @ApiResponse(responseCode = "204", description = "No hay direcciones para devolver (lista vacía).")
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor al intentar obtener las direcciones.")
     public ResponseEntity<List<Direccion>> obtenerDirecciones() {
         List<Direccion> direcciones = direccionService.getDirecciones();
         if (direcciones.isEmpty()) {
@@ -35,6 +49,15 @@ public class DireccionController {
 
     // endpoint para crear una nueva direccion
     @PostMapping
+    @Operation(summary = "Crear una nueva Dirección",
+               description = "Registra una nueva dirección en el sistema. El nombre de la dirección debe tener entre 5 y 50 caracteres.")
+    @ApiResponse(responseCode = "201", description = "La Dirección fue creada exitosamente.",
+                 content = @Content(schema = @Schema(implementation = Direccion.class)))
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida: el nombre excede los límites (5-50 caracteres) o es nulo/vacío.",
+                 content = @Content(schema = @Schema(implementation = String.class, example = "El Nombre debe Contener entre 5 y 50 Caracteres")))
+    @ApiResponse(responseCode = "404", description = "Recurso asociado (ej. comuna) no encontrado durante la creación.",
+                 content = @Content(schema = @Schema(implementation = String.class, example = "La comuna especificada no existe.")))
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor al crear la dirección.")
     public ResponseEntity<?> crearDireccion(@RequestBody Direccion nuevaDireccion) {
         if (nuevaDireccion.getNombre().length() < 5 || nuevaDireccion.getNombre().length() > 50) {
             return ResponseEntity.badRequest().body("El Nombre debe Contener entre 5 y 50 Caracteres");
@@ -51,7 +74,15 @@ public class DireccionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Direccion> obtenerDireccionPorId(@PathVariable Long id) {
+    @Operation(summary = "Obtener Dirección por ID",
+               description = "Busca y retorna una dirección específica mediante su identificador único.")
+    @ApiResponse(responseCode = "200", description = "Dirección encontrada y devuelta.",
+                 content = @Content(schema = @Schema(implementation = Direccion.class)))
+    @ApiResponse(responseCode = "404", description = "La dirección con el ID especificado no fue encontrada.")
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar la dirección.")
+    public ResponseEntity<Direccion> obtenerDireccionPorId(
+        @Parameter(description = "ID de la dirección a buscar", required = true, example = "1")
+        @PathVariable Long id) {
         try {
             // verificar si existe la comuna
             // si no existe, se lanza una excepcion
@@ -64,7 +95,16 @@ public class DireccionController {
     }
 
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<Direccion>> obtenerDirPorUsuario(@PathVariable Long idUsuario) {
+    @Operation(summary = "Obtener Direcciones por ID de Usuario",
+               description = "Retorna una lista de direcciones asociadas a un ID de usuario específico.")
+    @ApiResponse(responseCode = "200", description = "Direcciones encontradas y devueltas.",
+                 content = @Content(schema = @Schema(implementation = Direccion.class)))
+    @ApiResponse(responseCode = "404", description = "No se encontraron direcciones para el ID de usuario especificado o el usuario no existe.")
+    @ApiResponse(responseCode = "204", description = "No hay direcciones para este usuario (lista vacía).")
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar las direcciones por usuario.")
+    public ResponseEntity<List<Direccion>> obtenerDirPorUsuario(
+    @Parameter(description = "ID del usuario para buscar sus direcciones", required = true, example = "10")    
+    @PathVariable Long idUsuario) {
         List<Direccion> direccion = direccionService.obtenerDireccionesPorUsuario(idUsuario);
 
         if (direccion == null) {
@@ -76,7 +116,18 @@ public class DireccionController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarDireccion(@PathVariable Long id, @RequestBody Direccion direccionActualizada) {
+    @Operation(summary = "Actualizar una Dirección por ID",
+               description = "Actualiza completamente un registro de dirección existente identificado por su ID. " +
+                             "El nombre debe tener entre 5 y 50 caracteres.")
+    @ApiResponse(responseCode = "200", description = "Dirección actualizada exitosamente y devuelta.",
+                 content = @Content(schema = @Schema(implementation = Direccion.class)))
+    @ApiResponse(responseCode = "400", description = "Solicitud inválida: datos de entrada erróneos o nombre inválido (fuera del rango de 5-50 caracteres).",
+                 content = @Content(schema = @Schema(implementation = String.class, example = "El Nombre debe Contener entre 5 y 50 Caracteres y no puede estar vacío para la actualización.")))
+    @ApiResponse(responseCode = "404", description = "Dirección no encontrada para actualizar.")
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor al actualizar la dirección.")
+    public ResponseEntity<?> actualizarDireccion(
+    @Parameter(description = "ID de la dirección a actualizar", required = true, example = "1")    
+    @PathVariable Long id, @RequestBody Direccion direccionActualizada) {
         try {
             // verificar si existe la direccion
             Direccion direccion = direccionService.obtenerDireccionPorId(id);
@@ -94,7 +145,14 @@ public class DireccionController {
 
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarDireccion(@PathVariable Long id) {
+    @Operation(summary = "Eliminar una Dirección por ID",
+               description = "Elimina permanentemente una dirección del sistema por su identificador único.")
+    @ApiResponse(responseCode = "204", description = "Dirección eliminada exitosamente (sin contenido para devolver).")
+    @ApiResponse(responseCode = "404", description = "Dirección no encontrada para eliminar.")
+    @ApiResponse(responseCode = "500", description = "Error interno del servidor al eliminar la dirección.")
+    public ResponseEntity<?> eliminarDireccion(
+    @Parameter(description = "ID de la dirección a eliminar", required = true, example = "1")    
+    @PathVariable Long id) {
         try {
             // verificar si existe la direccion
             direccionService.obtenerDireccionPorId(id);
@@ -107,7 +165,6 @@ public class DireccionController {
         }
     }
 
-    
-
+        //http://localhost:8083/doc/swagger-ui/index.html#/Contrataciones/obtenerContrataciones
 
 }

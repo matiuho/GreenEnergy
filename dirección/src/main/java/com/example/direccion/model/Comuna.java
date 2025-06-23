@@ -2,6 +2,7 @@ package com.example.direccion.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,13 +20,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Comuna")
 public class Comuna {
 
     @Id
+    @Schema(description = "ID unica de Comuna")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComuna;
 
     @Column(nullable = false, length = 30)
+    @Schema (description = "Nombre de la comuna")
     private String nombre;
 
 

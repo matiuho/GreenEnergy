@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,13 +21,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Región")
 
 public class Region {
 
     @Id
+    @Schema(description = "ID unica de región")
     private int idRegion;
 
     @Column(nullable = false, length = 100)
+    @Schema(description = "Nombre de la región")
     private String nombre;
 
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
