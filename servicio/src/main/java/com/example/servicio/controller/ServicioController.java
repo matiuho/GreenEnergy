@@ -113,7 +113,7 @@ public class ServicioController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/desactivar/{idServicio}")
+    @PutMapping("/desactivar/{id}")
     @Operation(summary = "Desactivar un servicio",
                description = "Cambia el estado de un servicio a inactivo mediante su ID.")
     @ApiResponse(responseCode = "200", description = "Servicio desactivado exitosamente.",

@@ -34,7 +34,7 @@ public class RespuestaController {
 
     // Obtener todas las respuetas
     @GetMapping
-    @Operation(summary = "Obtener todas las respuestas de tickets de soporte",
+    @Operation(summary = "Obtener todas las respuestas",
                description = "Retorna una lista de todas las respuestas registradas en el sistema.")
     @ApiResponse(responseCode = "200", description = "Las respuestas fueron encontradas y devueltas.",
                  content = @Content(schema = @Schema(implementation = Respuesta.class))) 
