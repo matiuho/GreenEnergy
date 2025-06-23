@@ -21,27 +21,27 @@ public class LocalDataBase {
                 repository.save(new Servicio(null,
                                 "Instalación Off-Grid",
                                 "Funciona de forma autónoma usando baterías; ideal para zonas sin acceso a la red.",
-                                1000000,"Disponible"));
+                                1000000,"Disponible",true));
                 repository.save(new Servicio(null,
                                 " Instalación Híbrida",
                                 "Combina red eléctrica y baterías para asegurar suministro continuo.",
-                                3000000,"Disponible"));
+                                3000000,"Disponible",true));
                 repository.save(new Servicio(null,
                                 " Instalación Comercial",
                                 "Diseñada para oficinas o negocios que buscan ahorro energético.",
-                                2500000,"Disponible"));
+                                2500000,"Disponible",true));
                 repository.save(new Servicio(null,
                                 " Instalación Agrícola o Rural",
                                 "Instalación en zonas de campo para alimentar equipos como bombas o cercas.",
-                                2500000,"Disponible"));
+                                2500000,"Disponible",true));
                 repository.save(new Servicio(null,
                                 " Instalación en Suelo",
                                 "Paneles montados directamente en el terreno, con estructuras fijas o móviles.",
-                                1850000,"Disponible"));
+                                1850000,"Disponible",true));
                 repository.save(new Servicio(null,
                                 "Instalación con Seguimiento Solar",
                                 "Paneles que se mueven siguiendo al sol para captar más energía.",
-                                3500000,"Disponible"));
+                                3500000,"Disponible",true));
                                 System.out.println("Base de datos inicializada con datos");
             } else {
                 System.out.println("Base de datos ya contiene datos.");  

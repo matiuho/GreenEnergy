@@ -17,10 +17,6 @@ public class ServicioService {
     @Autowired
     private ServicioRepository servicioRepository;
 
-    public List<Servicio> obtenerTodos() {
-        return servicioRepository.findAll();
-    }
-
     public Servicio getServicioPorId(Long id) {
         return servicioRepository.findById(id).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
     }
@@ -52,5 +48,13 @@ public class ServicioService {
 
     public List<Servicio> listarServiciosActivos() {
         return servicioRepository.findByActivoTrue();
+    }
+
+    public Servicio activarServicio(Long id) {
+        Servicio servicio = servicioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+
+        servicio.setActivo(true);
+        return servicioRepository.save(servicio);
     }
 }

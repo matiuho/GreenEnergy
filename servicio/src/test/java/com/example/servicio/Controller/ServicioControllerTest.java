@@ -41,10 +41,11 @@ public class ServicioControllerTest {
         servicio.setDescripcion("Descripción del servicio de prueba");
         servicio.setPrecio(0);
         servicio.setDisponibilidad("Disponible");
+        servicio.setActivo(true);
 
         List<Servicio> listaServicios = Arrays.asList(servicio);
 
-        when(servicioService.obtenerTodos()).thenReturn(listaServicios);
+        when(servicioService.listarServiciosActivos()).thenReturn(listaServicios);
 
         mockMvc.perform(get("/api/servicios"))
                 .andExpect(status().isOk())
@@ -107,7 +108,7 @@ public class ServicioControllerTest {
                 "nombreActualizado",
                 "descripcion actualizada",
                 50000,
-                "Disponible");
+                "Disponible", true);
 
         when(servicioService.getServicioPorId(1L)).thenReturn(servicio);
         when(servicioService.saveServicio(any(Servicio.class))).thenReturn(servicio);
@@ -119,7 +120,36 @@ public class ServicioControllerTest {
                 .andExpect(jsonPath("$.nombre").value("nombreActualizado"))
                 .andExpect(jsonPath("$.descripcion").value("descripcion actualizada"))
                 .andExpect(jsonPath("$.precio").value(50000))
-                .andExpect(jsonPath("$.disponibilidad").value("Disponible"));
+                .andExpect(jsonPath("$.disponibilidad").value("Disponible"))
+                .andExpect(jsonPath("$.activo").value(true));
+    }
+
+    @Test
+    void activarServicio_retornaServicioActivado() throws Exception {
+        Servicio servicioActivado = new Servicio(1L, "Paneles Solares", "Instalacion", 17990, "Disponible", true);
+
+        when(servicioService.activarServicio(1L)).thenReturn(servicioActivado);
+
+        mockMvc.perform(put("/api/servicios/activar/{idServicio}",1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idServicio").value(1L))
+                .andExpect(jsonPath("$.nombre").value("Paneles Solares"))
+                .andExpect(jsonPath("$.descripcion").value("Instalacion"))
+                .andExpect(jsonPath("$.precio").value(17990))
+                .andExpect(jsonPath("$.activo").value(true));
+                
+    }
+
+    @Test
+    void desactivarServicio_retornaServiciodesa() throws Exception {
+        Servicio servicioDesactivad = new Servicio(1L, "Paneles Solares", "Instalacion", 17990, "Disponible", false);
+
+        when(servicioService.desactivarServicio(1L)).thenReturn(servicioDesactivad);
+
+        mockMvc.perform(put("/api/servicios/desactivar/{idServicio}",1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idServicio").value(1L));
+                
     }
 
 }

@@ -81,4 +81,25 @@ public class ServicioController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/desactivar/{id}")
+    public ResponseEntity<?> desactivarServicio(@PathVariable Long id) {
+        try {
+            Servicio servicioDesactivado = servicioService.desactivarServicio(id);
+            return ResponseEntity.ok(servicioDesactivado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("No se pudo desactivar: " + e.getMessage());
+        }
+    }
+
+
+    @PutMapping("/activar/{idServicio}")
+    public ResponseEntity<?> activarServicio(@PathVariable("idServicio") Long id) {
+        try {
+            Servicio activado = servicioService.activarServicio(id);
+            return ResponseEntity.ok(activado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("No se pudo activar: " + e.getMessage());
+        }
+    }
+
 }
