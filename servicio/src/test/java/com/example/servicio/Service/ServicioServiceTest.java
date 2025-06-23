@@ -30,7 +30,7 @@ public class ServicioServiceTest {
     @Test
     void findAll_returnsListFromRepository() {
         List<Servicio> listaServicios = Arrays
-                .asList(new Servicio(1L, "Servicio prueba", "prueba", 10000, "Disponible", true));
+                .asList(new Servicio(1L, "Servicio prueba", "prueba", 10000, true));
         when(servicioRepository.findByActivoTrue()).thenReturn(listaServicios);
 
         List<Servicio> result = servicioService.listarServiciosActivos();
@@ -40,7 +40,7 @@ public class ServicioServiceTest {
     @Test
     void findById_returnsServicionById() {
         Long id = 1L;
-        Servicio servicio = new Servicio(1L, "prueba", "descripcion", 10000, "Disponible", true);
+        Servicio servicio = new Servicio(1L, "prueba", "descripcion", 10000, true);
         when(servicioRepository.findById(id)).thenReturn(Optional.of(servicio));
         Servicio result = servicioService.getServicioPorId(id);
         assertThat(result).isEqualTo(servicio);
@@ -48,7 +48,7 @@ public class ServicioServiceTest {
 
     @Test
     void saveServicio_returnsSavedServicio() {
-        Servicio mockServicio = new Servicio(1L, "prueba", "descripcion", 10000, "Disponible", true);
+        Servicio mockServicio = new Servicio(1L, "prueba", "descripcion", 10000, true);
 
         when(servicioRepository.save(mockServicio)).thenReturn(mockServicio);
 
@@ -60,7 +60,7 @@ public class ServicioServiceTest {
     @Test
     void deleteById_deletesServicio() {
         Long id = 1L;
-        Servicio servicio = new Servicio(id, "Servicio de prueba", "Descripción", 10000, "Disponible", true);
+        Servicio servicio = new Servicio(id, "Servicio de prueba", "Descripción", 10000, true);
         when(servicioRepository.findById(id)).thenReturn(Optional.of(servicio));
 
         servicioService.eliminarservicio(id);
@@ -75,8 +75,8 @@ public class ServicioServiceTest {
     void updateServicio_updatesAndReturnsServicio() {
         Long id = 1L;
 
-        Servicio existente = new Servicio(id, "Servicio viejo", "Descripción vieja", 5000, "No Disponible", true);
-        Servicio modificacion = new Servicio(id, "Servicio nuevo", "Descripción nueva", 10000, "Disponible", true);
+        Servicio existente = new Servicio(id, "Servicio viejo", "Descripción vieja", 5000, true);
+        Servicio modificacion = new Servicio(id, "Servicio nuevo", "Descripción nueva", 10000, true);
 
         when(servicioRepository.findById(id)).thenReturn(Optional.of(existente));
         when(servicioRepository.save(any(Servicio.class))).thenReturn(modificacion);
@@ -88,8 +88,8 @@ public class ServicioServiceTest {
 
     @Test
     void desactivarServicio() {
-        Servicio activo = new Servicio(1L, "Paneles Solares", "Instalación", 17990, "Disponible", true);
-        Servicio desactivado = new Servicio(1L, "Paneles Solares", "Instalación", 17990, "Disponible", false);
+        Servicio activo = new Servicio(1L, "Paneles Solares", "Instalación", 17990, true);
+        Servicio desactivado = new Servicio(1L, "Paneles Solares", "Instalación", 17990, false);
 
         when(servicioRepository.findById(1L)).thenReturn(Optional.of(activo));
 
@@ -105,8 +105,8 @@ public class ServicioServiceTest {
 
     @Test
     void activarServicio() {
-         Servicio desactivado = new Servicio(1L, "Paneles Solares", "Instalación", 17990, "Disponible", false);
-        Servicio activo = new Servicio(1L, "Paneles Solares", "Instalación", 17990, "Disponible", true);
+         Servicio desactivado = new Servicio(1L, "Paneles Solares", "Instalación", 17990, false);
+        Servicio activo = new Servicio(1L, "Paneles Solares", "Instalación", 17990, true);
        
 
         when(servicioRepository.findById(1L)).thenReturn(Optional.of(desactivado));

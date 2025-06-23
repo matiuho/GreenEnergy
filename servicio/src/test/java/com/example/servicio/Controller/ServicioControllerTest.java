@@ -40,7 +40,6 @@ public class ServicioControllerTest {
         servicio.setNombre("Servicio de Prueba");
         servicio.setDescripcion("Descripción del servicio de prueba");
         servicio.setPrecio(0);
-        servicio.setDisponibilidad("Disponible");
         servicio.setActivo(true);
 
         List<Servicio> listaServicios = Arrays.asList(servicio);
@@ -59,7 +58,6 @@ public class ServicioControllerTest {
         servicio.setNombre("Servicio de Prueba");
         servicio.setDescripcion("Descripción del servicio de prueba");
         servicio.setPrecio(1000);
-        servicio.setDisponibilidad("Disponible");
 
         when(servicioService.getServicioPorId(1L)).thenReturn(servicio);
 
@@ -68,8 +66,7 @@ public class ServicioControllerTest {
                 .andExpect(jsonPath("$.idServicio").value(1L))
                 .andExpect(jsonPath("$.nombre").value("Servicio de Prueba"))
                 .andExpect(jsonPath("$.descripcion").value("Descripción del servicio de prueba"))
-                .andExpect(jsonPath("$.precio").value(1000))
-                .andExpect(jsonPath("$.disponibilidad").value("Disponible"));
+                .andExpect(jsonPath("$.precio").value(1000));
 
     }
 
@@ -79,7 +76,6 @@ public class ServicioControllerTest {
         servicio.setNombre("Nuevo Servicio");
         servicio.setDescripcion("Descripción del nuevo servicio");
         servicio.setPrecio(1500);
-        servicio.setDisponibilidad("Disponible");
 
         when(servicioService.saveServicio(servicio)).thenReturn(servicio);
 
@@ -89,8 +85,7 @@ public class ServicioControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.nombre").value("Nuevo Servicio"))
                 .andExpect(jsonPath("$.descripcion").value("Descripción del nuevo servicio"))
-                .andExpect(jsonPath("$.precio").value(1500))
-                .andExpect(jsonPath("$.disponibilidad").value("Disponible"));
+                .andExpect(jsonPath("$.precio").value(1500));
     }
 
     @Test
@@ -107,8 +102,8 @@ public class ServicioControllerTest {
                 1L,
                 "nombreActualizado",
                 "descripcion actualizada",
-                50000,
-                "Disponible", true);
+                50000
+                , true);
 
         when(servicioService.getServicioPorId(1L)).thenReturn(servicio);
         when(servicioService.saveServicio(any(Servicio.class))).thenReturn(servicio);
@@ -120,13 +115,12 @@ public class ServicioControllerTest {
                 .andExpect(jsonPath("$.nombre").value("nombreActualizado"))
                 .andExpect(jsonPath("$.descripcion").value("descripcion actualizada"))
                 .andExpect(jsonPath("$.precio").value(50000))
-                .andExpect(jsonPath("$.disponibilidad").value("Disponible"))
                 .andExpect(jsonPath("$.activo").value(true));
     }
 
     @Test
     void activarServicio_retornaServicioActivado() throws Exception {
-        Servicio servicioActivado = new Servicio(1L, "Paneles Solares", "Instalacion", 17990, "Disponible", true);
+        Servicio servicioActivado = new Servicio(1L, "Paneles Solares", "Instalacion", 17990, true);
 
         when(servicioService.activarServicio(1L)).thenReturn(servicioActivado);
 
@@ -142,7 +136,7 @@ public class ServicioControllerTest {
 
     @Test
     void desactivarServicio_retornaServiciodesa() throws Exception {
-        Servicio servicioDesactivad = new Servicio(1L, "Paneles Solares", "Instalacion", 17990, "Disponible", false);
+        Servicio servicioDesactivad = new Servicio(1L, "Paneles Solares", "Instalacion", 17990, false);
 
         when(servicioService.desactivarServicio(1L)).thenReturn(servicioDesactivad);
 

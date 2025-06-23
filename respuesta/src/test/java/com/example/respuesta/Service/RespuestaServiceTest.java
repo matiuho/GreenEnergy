@@ -98,13 +98,10 @@ public class RespuestaServiceTest {
 
     @Test
     void deleteRespuesta_deleteRespuesta() {
-        Long id = 1L;
 
-        // Act
-        respuestaService.eliminarrespuesta(id);
+        respuestaService.eliminarrespuesta(1L);
 
-        // Assert
-        verify(respuestaRepository).deleteById(id);
+        verify(respuestaRepository).deleteById(1L);
     }
 
     @Test

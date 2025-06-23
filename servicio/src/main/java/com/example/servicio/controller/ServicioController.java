@@ -45,11 +45,6 @@ public class ServicioController {
         if (servicio.getDescripcion().length() < 1 || servicio.getDescripcion().length() > 100) {
             return ResponseEntity.badRequest().body("La Descripcicion debe Contener entre 1 y 100 Caracteres");
         }
-        if (!servicio.getDisponibilidad().contains("Disponible")
-                && !servicio.getDisponibilidad().contains("No Disponible")) {
-            return ResponseEntity.badRequest()
-                    .body("Disponibilidad Solo acepta 2 Estados 'Disponible' y 'No Disponible'");
-        }
         Servicio nuevoServicio = servicioService.saveServicio(servicio);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoServicio);
     }
@@ -64,7 +59,6 @@ public class ServicioController {
             servicio.setNombre(servicioActualizada.getNombre());
             servicio.setDescripcion(servicioActualizada.getDescripcion());
             servicio.setPrecio(servicioActualizada.getPrecio());
-            servicio.setDisponibilidad(servicioActualizada.getDisponibilidad());
             // guardar el servicio actualizado
             Servicio updatedDireccion = servicioService.saveServicio(servicio);
             return ResponseEntity.ok(updatedDireccion);

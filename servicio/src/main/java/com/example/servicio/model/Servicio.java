@@ -25,9 +25,6 @@ public class Servicio {
     @Column(nullable = false)
     private int precio;
 
-    @Column(nullable = false, length = 20)
-    private String disponibilidad;
-
     @Column(nullable = false)
     private boolean activo = true;
 

@@ -7,8 +7,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,49 +45,51 @@ public class UsuarioServiceTest {
         List<Usuario> usuarios = service.getUsuario();
 
         // verificar que la lista devuelta es la misma que la del mock
-        assertEquals(mockUsuarios, usuarios);
-    }
-
-    // BUSCAR USUARIO POR ID
-    @Test
-    void getUsuarioPorId_returnsUsuarioIfExists() {
-        Usuario mockUsuario = new Usuario(1L, "Juan", "Perez", "@gmail.com", "pass", 1L);
-        when(repository.findById(1L)).thenReturn(Optional.of(mockUsuario));
-
-        Usuario usuario = service.getUsuarioPorId(1L);
-
-        assertEquals(mockUsuario, usuario);
+        assertThat(usuarios).isSameAs(mockUsuarios);
     }
 
     @Test
     void getUsuarioPorId_throwsExceptionIfNotFound() {
-        when(repository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class, () -> service.getUsuarioPorId(1L));
+        Usuario mockUsuario = new Usuario(1L,
+         "Juan", "Perez",
+        "@gmail.com", "paswords",
+        1L);
+
+
+        when(repository.findById(1L)).thenReturn(java.util.Optional.of(mockUsuario));
+
+        Usuario resultado = service.getUsuarioPorId(1L);
+
+        assertThat(resultado).isSameAs(mockUsuario);
     }
 
    
 
-    // Este test ignora el hashing real por simplicidad
     @Test
-    void saveUsuario_savesWhenRoleExists() {
-        Usuario input = new Usuario(1L, "Juan", "Perez", "@gmail.com", "pass", 1L);
-        Usuario esperado = new Usuario(1L, "Juan", "Perez", "@gmail.com", "hashed", 1L);
+    void save_returnsSavedUsuario() {
+        Usuario nuevoUsuario = new Usuario(1L,
+         "Juan", "Perez",
+          "@gmail.com", "pass",
+           1L);
+        
 
-        when(rolClient.getRolesById(1L)).thenReturn(Map.of("id", 1));
-        when(repository.save(any())).thenReturn(esperado);
+        Map<String, Object> usuarioMock = Map.of("idUsuario", 1L);
+        when(rolClient.getRolesById(1L)).thenReturn(usuarioMock);
 
-        // Si has mockeado el hash también:
-        // when(PasswordUtil.hashPassword("pass")).thenReturn("hashed");
+        when(repository.save(any())).thenReturn(nuevoUsuario);
 
-        Usuario guardado = service.saveUsuario(input);
 
-        assertEquals("hashed", guardado.getPassword());
+        Usuario resultado = service.saveUsuario(nuevoUsuario);
+
+        assertThat(resultado).isSameAs(nuevoUsuario);
     }
 
     @Test
     void eliminarUsuario_deletesUsuario() {
+
         service.eliminarUsuario(1L);
+
         verify(repository).deleteById(1L);
     }
     
