@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.GestionDeUsuario.Security.TokenUtil;
 import com.example.GestionDeUsuario.model.Usuario;
 import com.example.GestionDeUsuario.repository.UsuarioRepository;
 import com.example.GestionDeUsuario.webclient.RolClient;
@@ -52,23 +51,4 @@ public class UsuarioService {
     public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
-
-    public String autenticarUsuario(String nombre, String rawPassword) {
-        Usuario usuario = usuarioRepository.findByNombreIgnoreCase(nombre);
-        if (usuario == null) {
-            System.out.println("Usuario no encontrado");
-            return null;
-        }
-        // toma el texto lo pasa pasword y lo encripta con hashpassword
-        String hashedInput = PasswordUtil.hashPassword(rawPassword);
-        // comparar la contraseña guardada con la de la base de datos
-        if (!hashedInput.equals(usuario.getPassword())) {
-            System.out.println("La contraseña no coincide.");
-            return null;
-        }
-        String token = TokenUtil.generateToken(usuario.getNombre());
-
-        return token;
-    }
-
 }
