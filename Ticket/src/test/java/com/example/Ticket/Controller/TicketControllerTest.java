@@ -11,8 +11,6 @@ import java.util.List;
 
 import com.example.Ticket.model.Ticket;
 import com.example.Ticket.service.TicketService;
-import com.example.Ticket.webclient.SoporteClient;
-import com.example.Ticket.webclient.UserClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Test;
@@ -31,10 +29,6 @@ public class TicketControllerTest {
 
     @MockBean
     private TicketService ticketService;
-    @MockBean
-    private SoporteClient soporteClient;
-    @MockBean
-    private UserClient userClient;
     @Autowired
     private MockMvc mockMvc;
     @Autowired

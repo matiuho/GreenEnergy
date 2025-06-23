@@ -1,6 +1,5 @@
 package com.example.Ticket.Controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Ticket.model.Ticket;
 import com.example.Ticket.service.TicketService;
-import com.example.Ticket.webclient.SoporteClient;
-import com.example.Ticket.webclient.UserClient;
+
 
 @RestController
 @RequestMapping("/api/ticket")
@@ -26,11 +24,6 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private UserClient userClient;
-
-    @Autowired  
-    private SoporteClient soporteClient;
 
     
     // Endpoint para obtener todos los ticket
