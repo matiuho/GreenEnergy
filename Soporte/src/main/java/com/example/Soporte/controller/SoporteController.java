@@ -149,11 +149,8 @@ public class SoporteController {
             // verifico si el soporte existe
             Soporte soporte2 = soporteService.getSoportePorId(id);
             // si existe modifico uno a uno sus valores
-            soporte2.setFecha(sop.getFecha());
             soporte2.setDescripcion(sop.getDescripcion());
             soporte2.setIdEstado(sop.getIdEstado());
-            soporte2.setIdCategoria(sop.getIdCategoria());
-            soporte2.setIdusuario(sop.getIdusuario());
 
             // actualizar el soporte
             soporteService.saveSoporte(soporte2);

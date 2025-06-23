@@ -34,7 +34,6 @@ public class RespuestaService {
     public Respuesta actualizar(Long id, Respuesta datos) {
         Respuesta existente = respuestaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Respuesta no encontrado"));
-        existente.setFechaRespuesta(datos.getFechaRespuesta());
         existente.setComentario(datos.getComentario());
 
         return respuestaRepository.save(existente);

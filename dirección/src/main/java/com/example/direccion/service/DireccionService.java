@@ -60,6 +60,7 @@ public class DireccionService {
     public Direccion obtenerDireccionPorId(Long id) {
         return direccionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Direccion no encontrada con ID: " + id));
+                
     }
 
     public void eliminarDireccion(Long id) {
