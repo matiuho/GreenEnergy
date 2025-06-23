@@ -1,5 +1,7 @@
 package com.example.Resena.Controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -42,10 +44,11 @@ public class ResenaControllerTest {
         resena.setComentario("Comentario de prueba");
         resena.setIdUsuario(null);
         resena.setIdServicio(null);
+        resena.setActivo(true);
 
         List<Resena> listaResenas = Arrays.asList(resena);
 
-        when(resenaService.getResenas()).thenReturn(listaResenas);
+        when(resenaService.listarResenasActivas()).thenReturn(listaResenas);
 
         mockMvc.perform(get("/api/resena"))
                 .andExpect(status().isOk())
@@ -62,6 +65,7 @@ public class ResenaControllerTest {
         resena.setComentario("Comentario de prueba");
         resena.setIdUsuario(1L);
         resena.setIdServicio(1L);
+        resena.setActivo(true);
 
         when(resenaService.savResena(resena)).thenReturn(resena);
 
@@ -83,6 +87,7 @@ public class ResenaControllerTest {
         resena.setComentario("Comentario de prueba");
         resena.setIdUsuario(null);
         resena.setIdServicio(null);
+        resena.setActivo(true);
 
         when(resenaService.getResenaPorId(1L)).thenReturn(resena);
 
@@ -99,6 +104,7 @@ public class ResenaControllerTest {
         resena.setComentario("Comentario de prueba");
         resena.setIdUsuario(1L);
         resena.setIdServicio(null);
+        resena.setActivo(true);
 
         List<Resena> listaResenas = Arrays.asList(resena);
 
@@ -107,6 +113,25 @@ public class ResenaControllerTest {
         mockMvc.perform(get("/api/resena/usuario/{idUsuario}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idResena").value(1L));
+    }
+
+    @Test
+    void desactivarResena_retornaResenadesa() throws Exception {
+       Resena resena = new Resena();
+        resena.setIdResena(1L);
+        resena.setFechaComentario(LocalDate.of(2025, 10, 10));
+        resena.setComentario("Comentario de prueba");
+        resena.setIdUsuario(1L);
+        resena.setIdServicio(null);
+        resena.setActivo(false);
+
+        when(resenaService.desactivarResena(1L)).thenReturn(resena);
+
+        mockMvc.perform(put("/api/resena/desactivar/{idresena}",1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.idResena").value(1L))
+                .andExpect(jsonPath("$.activo").value(false));
+                
     }
 
 }

@@ -16,4 +16,7 @@ public interface ResenaRepository extends JpaRepository<Resena, Long>{
     @Query("SELECT r FROM Resena r WHERE r.idUsuario = :idUsuario")
     List<Resena> findByIdUsuario(@Param("idUsuario") Long idUsuario);
 
+    List<Resena>findAllByActivaTrue();
+
+
 }

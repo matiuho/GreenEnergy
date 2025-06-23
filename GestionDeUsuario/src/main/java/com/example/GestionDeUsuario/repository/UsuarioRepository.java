@@ -12,5 +12,6 @@ import com.example.GestionDeUsuario.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     //metodo para buscar con un nombre
     Usuario findByNombreIgnoreCase(String nombre);
+    boolean existsByEmail(String email);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class ResenaController {
 
     @GetMapping
     public ResponseEntity<List<Resena>> obtenerResenas() {
-        List<Resena> resenas = resenaService.getResenas();
+        List<Resena> resenas = resenaService.listarResenasActivas();
         if (resenas.isEmpty()) {
             // Retorno código 204 No Content
             return ResponseEntity.noContent().build();
@@ -79,5 +80,15 @@ public class ResenaController {
         }
 
         return ResponseEntity.ok(resenas); // 200 OK con contenido
+    }
+
+    @PutMapping("/desactivar/{id}")
+    public ResponseEntity<?> desactivarResena(@PathVariable Long id) {
+        try {
+            Resena desactivada = resenaService.desactivarResena(id);
+            return ResponseEntity.ok(desactivada);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("No se pudo desactivar: " + e.getMessage());
+        }
     }
 }

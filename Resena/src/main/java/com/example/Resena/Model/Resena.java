@@ -35,5 +35,16 @@ public class Resena {
     @Column(nullable = false)
     private Long idServicio;
 
+    @Column(nullable = false)
+    private boolean activo = true;
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
 
 }

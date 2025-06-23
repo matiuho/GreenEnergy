@@ -1,12 +1,15 @@
 package com.example.Resena.Service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.time.LocalDate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,12 +45,13 @@ public class ResenaServiceTest {
         resena.setComentario("Comentario de prueba");
         resena.setIdServicio(null);
         resena.setIdUsuario(null);
+        resena.setActivo(true);
 
-        when(resenaRepository.findAll()).thenReturn(Arrays.asList(resena));
+        when(resenaRepository.findAllByActivaTrue()).thenReturn(Arrays.asList(resena));
 
-        List<Resena> result = resenaService.getResenas();
+        List<Resena> result = resenaService.listarResenasActivas();
 
-        assertThat(result).isEqualTo(Arrays.asList(resena));
+        assertThat(result).containsExactly(resena);
     }
 
     @Test
@@ -56,7 +60,7 @@ public class ResenaServiceTest {
             1L,
             "Comentario de prueba",
             LocalDate.of(2025, 12, 12),
-            1L, 1L);
+            1L, 1L,true);
 
         //simular las respuestas de los otros microservicios 
         Map<String, Object> usuarioMock = Map.of("id", 1L, "name", "Usuario Test");
@@ -80,7 +84,7 @@ public class ResenaServiceTest {
             idResena,
             "Comentario de prueba",
             LocalDate.of(2025, 12, 12),
-            1L, 1L);
+            1L, 1L,true);
 
         // Simular el repositorio
         when(resenaRepository.findById(idResena)).thenReturn(java.util.Optional.of(resena));
@@ -98,13 +102,13 @@ public class ResenaServiceTest {
         1L,
         "Comentario 1",
         LocalDate.of(2025, 12, 12),
-        idUsuario, 1L);
+        idUsuario, 1L,true);
 
         Resena resena2 = new Resena(
         2L,
         "Comentario 2",
         LocalDate.of(2025, 12, 13),
-        idUsuario, 1L);
+        idUsuario, 1L,true);
 
         List<Resena> resenas = Arrays.asList(resena1, resena2);
 
@@ -114,5 +118,32 @@ public class ResenaServiceTest {
 
         assertThat(result).containsExactlyInAnyOrder(resena1, resena2);
     }
+
+    @Test
+    void desactivarResena() {
+       Resena activada = new Resena(
+        1L,
+        "Comentario 1",
+        LocalDate.of(2025, 12, 12),
+        1L, 1L,true);
+
+        Resena desactivado  = new Resena(
+        1L,
+        "Comentario 1",
+        LocalDate.of(2025, 12, 12),
+        1L, 1L,false);
+
+        when(resenaRepository.findById(1L)).thenReturn(Optional.of(activada));
+
+        when(resenaRepository.save(any(Resena.class))).thenReturn(desactivado);
+
+        Resena resultado = resenaService.desactivarResena(1L);
+
+        assertThat(resultado).isEqualTo(desactivado);
+        verify(resenaRepository).findById(1L);
+        verify(resenaRepository).save(activada);
+    }
+
+
 
 }

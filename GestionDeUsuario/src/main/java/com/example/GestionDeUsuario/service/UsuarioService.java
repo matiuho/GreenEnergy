@@ -33,13 +33,17 @@ public class UsuarioService {
 
     // metodo para agregar un nuevo usuario
     public Usuario saveUsuario(Usuario nuevoUsuario) {
+        if (usuarioRepository.existsByEmail(nuevoUsuario.getEmail())) {
+            throw new RuntimeException("Ya existe un usuario con ese email");
+        }
+
         // verificar si el rol existe consultando al microservicio roles
         Map<String, Object> roles = rolClient.getRolesById(nuevoUsuario.getIdRol());
         // verifico si me trajo el rol o no
         if (roles == null || roles.isEmpty()) {
             throw new RuntimeException("Rol no encontrado");
         }
-        // **Encriptar la contraseña antes de guardarla**
+        // Encriptar la contraseña antes de guardarla
         nuevoUsuario.setPassword(PasswordUtil.hashPassword(nuevoUsuario.getPassword()));
 
         return usuarioRepository.save(nuevoUsuario);
@@ -55,15 +59,15 @@ public class UsuarioService {
             System.out.println("Usuario no encontrado");
             return null;
         }
-        //toma el texto lo pasa pasword y lo encripta con hashpassword
+        // toma el texto lo pasa pasword y lo encripta con hashpassword
         String hashedInput = PasswordUtil.hashPassword(rawPassword);
-        //comparar la contraseña guardada con la de la base de datos
+        // comparar la contraseña guardada con la de la base de datos
         if (!hashedInput.equals(usuario.getPassword())) {
             System.out.println("La contraseña no coincide.");
             return null;
         }
         String token = TokenUtil.generateToken(usuario.getNombre());
-        
+
         return token;
     }
 

@@ -59,7 +59,8 @@ public class UsuarioController {
             Usuario usuario = usuarioService.saveUsuario(nuevoUsuario);
             return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
+            //erro 409 conflic ya que hay dos usuarios con el mismo correo
+            return ResponseEntity.status(409).body(e.getMessage());
         }
     }
 
