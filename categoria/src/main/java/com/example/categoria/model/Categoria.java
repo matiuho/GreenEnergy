@@ -16,12 +16,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "Categorias")
 public class Categoria {
     @Id
     @Schema(description = "ID unico de Categoria")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategoria;
 
+    @Schema(description = "Nombre de la categoría (entre 1 y 30 caracteres)", example = "Técnico Postinstalación", required = true)
     @Column(nullable = false,length = 30)
     private String nombre;
 }
