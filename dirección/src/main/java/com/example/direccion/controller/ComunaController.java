@@ -30,11 +30,17 @@ public class ComunaController {
     //endpoint para buscar todas las comunas
     @GetMapping
     @Operation(summary = "Obtener todas las Comunas",
-               description = "Retorna una lista de todas las comunas existentes en el sistema.")
-    @ApiResponse(responseCode = "200", description = "Las comunas fueron encontradas y devueltas.",
-                 content = @Content(schema = @Schema(implementation = Comuna.class))) 
-    @ApiResponse(responseCode = "204", description = "No hay comunas para devolver (lista vacía).")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al intentar obtener las comunas.")
+    description = "Retorna una lista de todas las comunas existentes en el sistema.")
+
+    @ApiResponse(responseCode = "200",
+    description = "Las comunas fueron encontradas y devueltas.",
+    content = @Content(schema = @Schema(implementation = Comuna.class))) 
+
+    @ApiResponse(responseCode = "204",
+    description = "No hay comunas para devolver (lista vacía).")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al intentar obtener las comunas.")
     public ResponseEntity<List<Comuna>> obtenercomunas() {
         List<Comuna> comunas = comunaService.getComunas();
         if (comunas.isEmpty()) {
@@ -48,11 +54,17 @@ public class ComunaController {
     //endpoint para buscar una comuna por su id
     @GetMapping("/{id}")
     @Operation(summary = "Obtener Comuna por ID",
-               description = "Busca y retorna una comuna específica mediante su identificador único.")
-    @ApiResponse(responseCode = "200", description = "La Comuna fue encontrada y devuelta.",
-                 content = @Content(schema = @Schema(implementation = Comuna.class))) // Documenta que devuelve un objeto Comuna
-    @ApiResponse(responseCode = "404", description = "La Comuna con el ID especificado no fue encontrada.")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar la comuna.")
+    description = "Busca y retorna una comuna específica mediante su identificador único.")
+
+    @ApiResponse(responseCode = "200",
+    description = "La Comuna fue encontrada y devuelta.",
+    content = @Content(schema = @Schema(implementation = Comuna.class)))
+
+    @ApiResponse(responseCode = "404",
+    description = "La Comuna con el ID especificado no fue encontrada.")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al buscar la comuna.")
     public ResponseEntity<Comuna> obtenerComunaPorId(
     @Parameter(description = "ID de la comuna a buscar", required = true, example = "1")    
     @PathVariable Long id) {

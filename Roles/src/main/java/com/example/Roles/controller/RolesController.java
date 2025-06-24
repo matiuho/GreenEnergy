@@ -28,10 +28,15 @@ public class RolesController {
     // Obtener todas los roles
     @GetMapping
     @Operation(summary = "Obtener todos los roles",
-               description = "Retorna una lista de todos los roles existentes en el sistema.")
-    @ApiResponse(responseCode = "200", description = "Los roles fueron encontrados y devueltos.",
-                 content = @Content(schema = @Schema(implementation = Roles.class)))
-    @ApiResponse(responseCode = "204", description = "No hay roles para devolver (lista vacía).")
+    description = "Retorna una lista de todos los roles existentes en el sistema.")
+
+    @ApiResponse(responseCode = "200",
+    description = "Los roles fueron encontrados y devueltos.",
+    content = @Content(schema = @Schema(implementation = Roles.class)))
+
+    @ApiResponse(responseCode = "204",
+    description = "No hay roles para devolver")
+
     @ApiResponse(responseCode = "500", description = "Error interno del servidor al intentar obtener los roles.")
     public List<Roles> obtenerRoles() {
         return rolesService.obtenerRoles();
@@ -40,10 +45,15 @@ public class RolesController {
     // Obtener un rol por ID
     @GetMapping("/{id}")
     @Operation(summary = "Obtener un rol por ID",
-               description = "Busca y retorna un rol específico mediante su identificador único.")
-    @ApiResponse(responseCode = "200", description = "Rol encontrado y devuelto.",
-                 content = @Content(schema = @Schema(implementation = Roles.class)))
-    @ApiResponse(responseCode = "404", description = "El rol con el ID especificado no fue encontrado.")
+    description = "Busca y retorna un rol específico mediante su identificador único.")
+
+    @ApiResponse(responseCode = "200",
+    description = "Rol encontrado y devuelto.",
+    content = @Content(schema = @Schema(implementation = Roles.class)))
+
+    @ApiResponse(responseCode = "404",
+    description = "El rol con el ID especificado no fue encontrado.")
+    
     @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar el rol.")
     public ResponseEntity<Roles> obtenerPorId(@PathVariable Long id) {
         try {

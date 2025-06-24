@@ -30,12 +30,21 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+
+
     // endpoint para obtener todos los usuarios
     @GetMapping
     @Operation(summary = "Obtener todos los Usuarios", description = "Retorna una lista de todos los usuarios registrados en el sistema.")
-    @ApiResponse(responseCode = "200", description = "Los Usuarios fueron encontrados y devueltos.", content = @Content(schema = @Schema(implementation = Usuario.class)))
-    @ApiResponse(responseCode = "204", description = "No hay usuarios registrados para devolver (lista vacía).")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al intentar obtener los usuarios.")
+
+    @ApiResponse(responseCode = "200",
+     description = "Los Usuarios fueron encontrados y devueltos.", 
+    content = @Content(schema = @Schema(implementation = Usuario.class)))
+
+    @ApiResponse(responseCode = "204", 
+    description = "No hay usuarios registrados para devolver (lista vacía).")
+
+    @ApiResponse(responseCode = "500", 
+    description = "Error interno del servidor al intentar obtener los usuarios.")
     public ResponseEntity<List<Usuario>> obtenerUsuario() {
         List<Usuario> usuarios = usuarioService.getUsuario();
         if (usuarios.isEmpty()) {
@@ -46,19 +55,23 @@ public class UsuarioController {
 
     // endpoint para crear un nuevo usuario
     @PostMapping
-    @Operation(summary = "Crear un nuevo Usuario", description = "Registra un nuevo usuario en el sistema. Se aplican validaciones a los datos proporcionados.")
-    @ApiResponse(responseCode = "201", description = "Usuario creado exitosamente.", content = @Content(schema = @Schema(implementation = Usuario.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida: los datos del usuario no cumplen con los requisitos (ej. formato de email, longitud de contraseña).", content = @Content(schema = @Schema(implementation = String.class, example = "El email es inválido debe tener '@' y terminar en '.com o .cl'"))) // Ejemplo
-                                                                                                                                                                                                                                                                                                                                 // del
-                                                                                                                                                                                                                                                                                                                                 // mensaje
-                                                                                                                                                                                                                                                                                                                                 // de
-                                                                                                                                                                                                                                                                                                                                 // error
-    @ApiResponse(responseCode = "409", description = "Conflicto: ya existe un usuario con el email proporcionado.", content = @Content(schema = @Schema(implementation = String.class, example = "Ya existe un usuario con este correo electrónico."))) // Ejemplo
-                                                                                                                                                                                                                                                        // del
-                                                                                                                                                                                                                                                        // mensaje
-                                                                                                                                                                                                                                                        // de
-                                                                                                                                                                                                                                                        // error
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al crear el usuario.")
+    @Operation(summary = "Crear un nuevo Usuario", 
+    description = "Registra un nuevo usuario en el sistema. Se aplican validaciones a los datos proporcionados.")
+
+    @ApiResponse(responseCode = "201",
+     description = "Usuario creado exitosamente.", content = @Content(schema = @Schema(implementation = Usuario.class)))
+
+    @ApiResponse(responseCode = "400",
+     description = "Solicitud inválida: los datos del usuario no cumplen con los requisitos (ej. formato de email, longitud de contraseña).", 
+     content = @Content(schema = @Schema(implementation = String.class,
+    example = "El email es inválido debe tener '@' y terminar en '.com o .cl'")))
+    
+    @ApiResponse(responseCode = "409",
+    description = "Conflicto: ya existe un usuario con el email proporcionado.", 
+    content = @Content(schema = @Schema(implementation = String.class, example = "Ya existe un usuario con este correo electrónico."))) 
+
+    @ApiResponse(responseCode = "500",
+     description = "Error interno del servidor al crear el usuario.")
     public ResponseEntity<?> crearUsuario(@RequestBody Usuario nuevoUsuario) {
         // Validacion debe contener ciertos caracteres
         if (!nuevoUsuario.getEmail().contains("@") ||
@@ -88,10 +101,19 @@ public class UsuarioController {
 
     // endpoint para obtener un usuario por id
     @GetMapping("/{id}")
-    @Operation(summary = "Obtener Usuario por ID", description = "Busca y retorna un usuario específico mediante su identificador único.")
-    @ApiResponse(responseCode = "200", description = "El Usuario fue encontrado y devuelto.", content = @Content(schema = @Schema(implementation = Usuario.class)))
-    @ApiResponse(responseCode = "404", description = "El Usuario con el ID especificado no fue encontrado.")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar el usuario.")
+    @Operation(summary = "Obtener Usuario por ID",
+    description = "Busca y retorna un usuario específico mediante su identificador único.")
+
+    @ApiResponse(responseCode = "200",
+    description = "El Usuario fue encontrado y devuelto.", 
+    content = @Content(schema = @Schema(implementation = Usuario.class)))
+
+    @ApiResponse(responseCode = "404",
+     description = "El Usuario con el ID especificado no fue encontrado.")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al buscar el usuario.")
+
     public ResponseEntity<Usuario> obtenerUsuarioPorId(
             @Parameter(description = "ID del usuario a buscar", required = true, example = "1") @PathVariable Long id) {
         try {
@@ -105,10 +127,17 @@ public class UsuarioController {
 
     // endpoint para eliminar un usuario por id
     @DeleteMapping("/{id}")
-    @Operation(summary = "Eliminar un Usuario por ID", description = "Elimina permanentemente un usuario del sistema por su identificador único.")
-    @ApiResponse(responseCode = "204", description = "Usuario eliminado exitosamente (sin contenido para devolver).")
-    @ApiResponse(responseCode = "404", description = "Usuario no encontrado para eliminar.")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al eliminar el usuario.")
+    @Operation(summary = "Eliminar un Usuario por ID",
+    description = "Elimina permanentemente un usuario del sistema por su identificador único.")
+
+    @ApiResponse(responseCode = "204",
+    description = "Usuario eliminado exitosamente (sin contenido para devolver).")
+
+    @ApiResponse(responseCode = "404",
+    description = "Usuario no encontrado para eliminar.")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al eliminar el usuario.")
     public ResponseEntity<?> borrarUsuarioPorId(
             @Parameter(description = "ID del usuario a eliminar", required = true, example = "1") @PathVariable Long id) {
         try {
@@ -125,14 +154,23 @@ public class UsuarioController {
 
     // metodo para actualixar un usuario por su id
     @PutMapping("/{id}")
-    @Operation(summary = "Actualizar un Usuario por ID", description = "Actualiza completamente un usuario existente identificado por su ID. "
-            +
-            "Se aplican validaciones a los datos del usuario.")
-    @ApiResponse(responseCode = "200", description = "Usuario actualizado exitosamente y devuelto.", content = @Content(schema = @Schema(implementation = Usuario.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida: los datos del usuario no cumplen con los requisitos.", content = @Content(schema = @Schema(implementation = String.class, example = "El Nombre debe Contener entre 1 y 50 Caracteres")))
-    @ApiResponse(responseCode = "404", description = "Usuario no encontrado para actualizar.")
-    @ApiResponse(responseCode = "409", description = "Conflicto: el email de actualización ya pertenece a otro usuario.", content = @Content(schema = @Schema(implementation = String.class, example = "Ya existe un usuario con este correo electrónico.")))
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al actualizar el usuario.")
+    @Operation(summary = "Actualizar un Usuario por ID", 
+    description = "Actualiza completamente un usuario existente identificado por su ID. " + "Se aplican validaciones a los datos del usuario.")
+    @ApiResponse(responseCode = "200",
+    description = "Usuario actualizado exitosamente y devuelto.", content = @Content(schema = @Schema(implementation = Usuario.class)))
+
+    @ApiResponse(responseCode = "400",
+    description = "Solicitud inválida: los datos del usuario no cumplen con los requisitos.",
+    content = @Content(schema = @Schema(implementation = String.class, example = "El Nombre debe Contener entre 1 y 50 Caracteres")))
+
+    @ApiResponse(responseCode = "404",
+    description = "Usuario no encontrado para actualizar.")
+    @ApiResponse(responseCode = "409",
+    description = "Conflicto: el email de actualización ya pertenece a otro usuario.",
+    content = @Content(schema = @Schema(implementation = String.class, example = "Ya existe un usuario con este correo electrónico.")))
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al actualizar el usuario.")
     public ResponseEntity<Usuario> actualizarUsuarioPorId(
             @Parameter(description = "ID del usuario a actualizar", required = true, example = "1") @PathVariable Long id,
             @RequestBody Usuario user) {
@@ -154,7 +192,6 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     // http://localhost:8096/doc/swagger-ui/index.html#/
 }

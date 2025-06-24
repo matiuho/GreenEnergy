@@ -32,8 +32,12 @@ public class CategoriaController {
     // Obtener todas las categroias
     @GetMapping
     @Operation(summary = "Obtener todas las Categorias")
-    @ApiResponse(responseCode = "200", description = "Las Categorias fueron encontradas y devueltas")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al intentar obtener las categorías")
+
+    @ApiResponse(responseCode = "200",
+    description = "Las Categorias fueron encontradas y devueltas")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al intentar obtener las categorías")
     public List<Categoria> obtenerTodos() {
         return categoriaService.obtenerCategoria();
     }
@@ -41,8 +45,12 @@ public class CategoriaController {
     // Obtener un servicio por ID
     @GetMapping("/{id}")
     @Operation(summary = "Obtener las categorias por id")
-    @ApiResponse(responseCode = "200", description = "La Categoria fue encontrada y devuelta")
-    @ApiResponse(responseCode = "404", description = "La Categoria no fue encontrada")
+
+    @ApiResponse(responseCode = "200",
+    description = "La Categoria fue encontrada y devuelta")
+
+    @ApiResponse(responseCode = "404",
+    description = "La Categoria no fue encontrada")
     public ResponseEntity<Categoria> obtenerPorId(
             @Parameter(description = "ID de la categoría a buscar", required = true, example = "1") @PathVariable Long id) {
         try {
@@ -54,11 +62,15 @@ public class CategoriaController {
         }
     }
 
-    // Crear un nuevo servicio
+    // Crear una nueva Categoria
     @PostMapping
     @Operation(summary = "Crear una nueva Categoria")
-    @ApiResponse(responseCode = "201", description = "La Categoria fue creada exitosamente")
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida, el nombre excede los 30 caracteres")
+
+    @ApiResponse(responseCode = "201",
+    description = "La Categoria fue creada exitosamente")
+
+    @ApiResponse(responseCode = "400",
+    description = "Solicitud inválida, el nombre excede los 30 caracteres")
     public ResponseEntity<?> crearCategoria(
         @RequestBody Categoria categoria) {
         if (categoria.getNombre().length() > 30) {
@@ -68,12 +80,18 @@ public class CategoriaController {
         return ResponseEntity.status(201).body(nuevaCategoria);
     }
 
-    // Actualizar un servicio existente
+    // Actualizar una Categoria existente
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar una Categoria por id")
-    @ApiResponse(responseCode = "200", description = "Categoría actualizada exitosamente")
-    @ApiResponse(responseCode = "404", description = "Categoría no encontrada")
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida o datos de entrada erróneos")
+
+    @ApiResponse(responseCode = "200",
+    description = "Categoría actualizada exitosamente")
+
+    @ApiResponse(responseCode = "404",
+    description = "Categoría no encontrada")
+
+    @ApiResponse(responseCode = "400",
+    description = "Solicitud inválida o datos de entrada erróneos")
     public ResponseEntity<Categoria> actualizar(
             @Parameter(description = "ID de la categoría a actualizar", required = true, example = "1") 
             @PathVariable Long id,
@@ -89,9 +107,13 @@ public class CategoriaController {
 
     // Eliminar un categoria
     @DeleteMapping("/{id}")
-    @ApiResponse(responseCode = "204", description = "Categoría eliminada exitosamente (no hay contenido para devolver)")
-    @ApiResponse(responseCode = "404", description = "Categoría no encontrada para eliminar")
     @Operation(summary = "Eliminar una Categoria por id")
+
+    @ApiResponse(responseCode = "204",
+    description = "Categoría eliminada exitosamente (no hay contenido para devolver)")
+
+    @ApiResponse(responseCode = "404",
+    description = "Categoría no encontrada para eliminar")
     public ResponseEntity<Void> eliminar(
             @Parameter(description = "ID de la categoría a eliminar", required = true, example = "1") @PathVariable Long id) {
         categoriaService.eliminarcategoria(id);

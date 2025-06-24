@@ -46,11 +46,17 @@ public class ProyectoController {
 
     @GetMapping
     @Operation(summary = "Obtener todos los Proyectos",
-               description = "Retorna una lista de todos los proyectos registrados en el sistema.")
-    @ApiResponse(responseCode = "200", description = "Los Proyectos fueron encontrados y devueltos.",
-                 content = @Content(schema = @Schema(implementation = Proyecto.class)))
-    @ApiResponse(responseCode = "204", description = "No hay proyectos registrados para devolver (lista vacía).")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al intentar obtener los proyectos.")
+    description = "Retorna una lista de todos los proyectos registrados en el sistema.")
+
+    @ApiResponse(responseCode = "200",
+    description = "Los Proyectos fueron encontrados y devueltos.",
+    content = @Content(schema = @Schema(implementation = Proyecto.class)))
+
+    @ApiResponse(responseCode = "204",
+    description = "No hay proyectos registrados para devolver.")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al intentar obtener los proyectos.")
     public ResponseEntity<List<Proyecto>> obtenerProyectos() {
         List<Proyecto> proyecto = proyectosService.getProyectos();
         if (proyecto.isEmpty()) {
@@ -63,14 +69,21 @@ public class ProyectoController {
     // endpoint para crear un nuevo proyecto
     @PostMapping
     @Operation(summary = "Crear un nuevo Proyecto",
-               description = "Registra un nuevo proyecto en el sistema. El comentario debe tener entre 1 y 100 caracteres.")
+    description = "Registra un nuevo proyecto en el sistema. El comentario debe tener entre 1 y 100 caracteres.")
+
     @ApiResponse(responseCode = "201", description = "Proyecto creado exitosamente.",
-                 content = @Content(schema = @Schema(implementation = Proyecto.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida: el comentario no cumple con los requisitos de longitud o es nulo.",
-                 content = @Content(schema = @Schema(implementation = String.class, example = "El comentario debe tener entre 1 y 100 caracteres."))) 
-    @ApiResponse(responseCode = "404", description = "Recurso asociado (ej. estado, usuario, contratación) no encontrado.",
-                 content = @Content(schema = @Schema(implementation = String.class, example = "El estado especificado no existe.")))
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al crear el proyecto.")
+    content = @Content(schema = @Schema(implementation = Proyecto.class)))
+
+    @ApiResponse(responseCode = "400",
+    description = "Solicitud inválida: el comentario no cumple con los requisitos de longitud o es nulo.",
+    content = @Content(schema = @Schema(implementation = String.class, example = "El comentario debe tener entre 1 y 100 caracteres."))) 
+
+    @ApiResponse(responseCode = "404",
+    description = "Recurso asociado (ej. estado, usuario, contratación) no encontrado.",
+    content = @Content(schema = @Schema(implementation = String.class, example = "El estado especificado no existe.")))
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al crear el proyecto.")
     public ResponseEntity<?> crearProyecto(@RequestBody Proyecto nuevoproyecto) {
         if (nuevoproyecto.getComentario().length() < 1|| nuevoproyecto.getComentario().length() > 100) {
             return ResponseEntity.badRequest().body("El comentario debe tener entre 1 y 100 caracteres.");
@@ -84,14 +97,20 @@ public class ProyectoController {
         } 
     }
 
-    // endpoint para buscar un estado mediante su id
+    // endpoint para buscar un proyecto mediante su id
     @GetMapping("/{id}")
     @Operation(summary = "Obtener Proyecto por ID",
-               description = "Busca y retorna un proyecto específico mediante su identificador único.")
-    @ApiResponse(responseCode = "200", description = "El Proyecto fue encontrado y devuelto.",
-                 content = @Content(schema = @Schema(implementation = Proyecto.class)))
-    @ApiResponse(responseCode = "404", description = "El Proyecto con el ID especificado no fue encontrado.")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar el proyecto.")
+    description = "Busca y retorna un proyecto específico mediante su identificador único.")
+
+    @ApiResponse(responseCode = "200",
+    description = "El Proyecto fue encontrado y devuelto.",
+    content = @Content(schema = @Schema(implementation = Proyecto.class)))
+
+    @ApiResponse(responseCode = "404",
+    description = "El Proyecto con el ID especificado no fue encontrado.")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al buscar el proyecto.")
     public ResponseEntity<Proyecto> obtenerProyectoPorId(
     @Parameter(description = "ID del proyecto a buscar", required = true, example = "1")    
     @PathVariable Long id) {
@@ -109,12 +128,20 @@ public class ProyectoController {
     // endpoint para buscar Contratcion por ID USUARIO
     @GetMapping("/usuario/{usuarioId}")
     @Operation(summary = "Obtener Proyectos por ID de Usuario",
-               description = "Retorna una lista de proyectos asociados a un ID de usuario específico.")
-    @ApiResponse(responseCode = "200", description = "Proyectos encontrados y devueltos.",
-                 content = @Content(schema = @Schema(implementation = Proyecto.class)))
-    @ApiResponse(responseCode = "404", description = "No se encontraron proyectos para el ID de usuario especificado o el usuario no existe.")
-    @ApiResponse(responseCode = "204", description = "No hay proyectos para este usuario (lista vacía).")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al buscar los proyectos por usuario.")
+    description = "Retorna una lista de proyectos asociados a un ID de usuario específico.")
+
+    @ApiResponse(responseCode = "200",
+    description = "Proyectos encontrados y devueltos.",
+    content = @Content(schema = @Schema(implementation = Proyecto.class)))
+
+    @ApiResponse(responseCode = "404",
+    description = "No se encontraron proyectos para el ID de usuario especificado o el usuario no existe.")
+
+    @ApiResponse(responseCode = "204",
+    description = "No hay proyectos para este usuario (lista vacía).")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al buscar los proyectos por usuario.")
     public ResponseEntity<List<Proyecto>> obtenerProByUsuario(
     @Parameter(description = "ID del usuario para buscar sus proyectos", required = true, example = "5")    
     @PathVariable Long usuarioId) {
@@ -129,14 +156,23 @@ public class ProyectoController {
     //endpoint para actualizar un proyecto
     @PutMapping ("/{id}")
     @Operation(summary = "Actualizar un Proyecto por ID",
-               description = "Actualiza el comentario y el estado de un proyecto existente identificado por su ID. " +
-                             "El comentario debe tener entre 1 y 100 caracteres.")
-    @ApiResponse(responseCode = "200", description = "Proyecto actualizado exitosamente y devuelto.",
-                 content = @Content(schema = @Schema(implementation = Proyecto.class)))
-    @ApiResponse(responseCode = "400", description = "Solicitud inválida: el comentario no cumple con los requisitos de longitud o es nulo.",
-                 content = @Content(schema = @Schema(implementation = String.class, example = "El comentario debe tener entre 1 y 100 caracteres.")))
-    @ApiResponse(responseCode = "404", description = "Proyecto no encontrado para actualizar o el nuevo estado no existe.")
-    @ApiResponse(responseCode = "500", description = "Error interno del servidor al actualizar el proyecto.")
+    description = "Actualiza el comentario y el estado de un proyecto existente identificado por su ID. " +
+                  "El comentario debe tener entre 1 y 100 caracteres.")
+
+    @ApiResponse(responseCode = "200",
+    description = "Proyecto actualizado exitosamente y devuelto.",
+    content = @Content(schema = @Schema(implementation = Proyecto.class)))
+
+    @ApiResponse(responseCode = "400",
+    description = "Solicitud inválida: el comentario no cumple con los requisitos de longitud o es nulo.",
+    content = @Content(schema = @Schema(implementation = String.class,
+    example = "El comentario debe tener entre 1 y 100 caracteres.")))
+
+    @ApiResponse(responseCode = "404",
+    description = "Proyecto no encontrado para actualizar o el nuevo estado no existe.")
+
+    @ApiResponse(responseCode = "500",
+    description = "Error interno del servidor al actualizar el proyecto.")
     public ResponseEntity<?> actualizarProyecto(
     @Parameter(description = "ID del proyecto a actualizar", required = true, example = "1")    
     @PathVariable Long id, @RequestBody Proyecto proyectoActualizado) {
