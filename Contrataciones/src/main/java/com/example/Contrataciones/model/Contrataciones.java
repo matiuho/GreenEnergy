@@ -21,32 +21,32 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Contrataciones")
 public class Contrataciones {
     @Id
-    @Schema(description = "ID unico de Contrataciones")
+    @Schema(description = "ID unico de Contrataciones", example = "1", required = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idContratacion;
 
     @Column(nullable = false)
-    @Schema(description = "Fecha de la contratción")
+    @Schema(description = "Fecha de la contratción", example = "2023-01-01", required = true)
     private LocalDate fechaContratacion;
 
     @Column(nullable = false)
-    @Schema(description = "Fecha de inicio de la contratación")
+    @Schema(description = "Fecha de inicio de la contratación", example = "2023-01-01", required = true)
     private LocalDate fechaInicio;
 
     @Column(nullable = false)
-    @Schema(description = "Fecha del fin de la contratación")
+    @Schema(description = "Fecha del fin de la contratación", example = "2023-01-01", required = true)
     private LocalDate fechaFin;
 
     @Column(nullable = false)
-    @Schema(description = "ID unico de Servicio")
+    @Schema(description = "ID unico de Servicio", example = "1", required = true)
     private Long idServicio;
 
     @Column(nullable = false)
-    @Schema(description = "ID unico de Dirección")
+    @Schema(description = "ID unico de Dirección", example = "1", required = true)
     private Long idDireccion;
 
     @Column(nullable=false)
-    @Schema(description = "ID unico de Usuario")
+    @Schema(description = "ID unico de Usuario", example = "1", required = true)
     private Long idusuario;
 
     

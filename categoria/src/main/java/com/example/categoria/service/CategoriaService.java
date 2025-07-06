@@ -33,7 +33,7 @@ public class CategoriaService {
 
     // eliminar categoria
     public void eliminarcategoria(Long id) {
-        categoriaRepository.deleteById(id);
+        categoriaRepository.deleteById(id); 
     }
 
 }

@@ -20,27 +20,27 @@ import lombok.NoArgsConstructor;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "ID único del usuario")
+    @Schema(description = "ID único del usuario", example = "1", required = true)
     private Long idUsuario;
 
     @Column(nullable = false, length = 50)
-    @Schema(description = "Nombre del usuario")
+    @Schema(description = "Nombre del usuario", example = "Juan", required = true)
     private String nombre;
 
     @Column(nullable = false, length = 50)
-    @Schema(description = "Apellido del usuario")
+    @Schema(description = "Apellido del usuario", example = "Pérez", required = true)
     private String apellido;
 
     @Column(nullable = false, length = 50,unique = true)
-    @Schema(description = "Correo electrónico único del usuario")
+    @Schema(description = "Correo electrónico único del usuario", example = "juan.perez@gmail.com", required = true)
     private String email;
 
     @Column(nullable = false, length = 80)
-    @Schema(description = "Contraseña encriptada del usuario")
+    @Schema(description = "Contraseña encriptada del usuario", example = "password12", required = true)
     private String password;
 
     @Column(nullable = false)
-    @Schema(description = "ID del rol asignado al usuario")
+    @Schema(description = "ID del rol asignado al usuario", example = "1", required = true)
     private Long idRol;
 
     public Usuario(String nombre, String apellido, String email, String password, Long idRol) {

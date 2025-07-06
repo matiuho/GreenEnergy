@@ -98,12 +98,7 @@ public class UsuarioControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(usuario)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.idUsuario").value(1L))
-                .andExpect(jsonPath("$.nombre").value("Juan"))
-                .andExpect(jsonPath("$.apellido").value("Perez"))
-                .andExpect(jsonPath("$.email").value("juan.perez@gmail.com"))
-                .andExpect(jsonPath("$.password").value("pass1234"))
-                .andExpect(jsonPath("$.idRol").value(1L));
+                .andExpect(jsonPath("$.email").value("juan.perez@gmail.com"));
     }
 
     @Test

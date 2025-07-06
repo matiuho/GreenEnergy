@@ -26,11 +26,11 @@ import lombok.NoArgsConstructor;
 public class Region {
 
     @Id
-    @Schema(description = "ID unica de región")
+    @Schema(description = "ID unica de región", example = "1", required = true)
     private int idRegion;
 
     @Column(nullable = false, length = 100)
-    @Schema(description = "Nombre de la región")
+    @Schema(description = "Nombre de la región", example = "Metropolitana", required = true)
     private String nombre;
 
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)

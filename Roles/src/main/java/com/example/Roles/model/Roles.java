@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Roles {
     @Id
-    @Schema(description = "ID único del Rol")
+    @Schema(description = "ID único del Rol", example = "1", required = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRol;
 
-    @Schema(description = "Nombre del Rol")
+    @Schema(description = "Nombre del Rol", example = "Administrador", required = true)
     @Column (nullable = false,length = 20)
     private String nombre;
 

@@ -16,23 +16,23 @@ public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "ID único del Servicio")
+    @Schema(description = "ID único del Servicio", example = "1", required = true)
     private Long idServicio;
 
     @Column(nullable = false, length = 50)
-    @Schema(description = "Nombre del Servicio")
+    @Schema(description = "Nombre del Servicio", example = "Paneles Solares de Techo", required = true)
     private String nombre;
 
     @Column(nullable = false, length = 100)
-    @Schema(description = "Descripción detallada del Servicio")
+    @Schema(description = "Descripción detallada del Servicio", example = "Instalación de paneles solares en techos residenciales", required = true)
     private String descripcion;
 
     @Column(nullable = false)
-    @Schema(description = "Precio del Servicio")
+    @Schema(description = "Precio del Servicio", example = "1500", required = true)
     private int precio;
 
     @Column(nullable = false)
-    @Schema(description = "Indica si el servicio está activo o no (true/false)")
+    @Schema(description = "Indica si el servicio está activo o no (true/false)", required = true)
     private boolean activo = true;
 
     public boolean isActivo() {

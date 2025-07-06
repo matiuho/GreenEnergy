@@ -24,12 +24,12 @@ import lombok.NoArgsConstructor;
 public class Comuna {
 
     @Id
-    @Schema(description = "ID unica de Comuna")
+    @Schema(description = "ID unica de Comuna", example = "1", required = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComuna;
 
     @Column(nullable = false, length = 30)
-    @Schema (description = "Nombre de la comuna")
+    @Schema (description = "Nombre de la comuna", example = "Santiago", required = true)
     private String nombre;
 
 

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Estados")
 public class Estado {
     @Id
-    @Schema(description = "ID unica de Estado")
+    @Schema(description = "ID unica de Estado", example = "1", required = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

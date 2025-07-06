@@ -22,20 +22,20 @@ import lombok.NoArgsConstructor;
 public class Direccion {
 
     @Id
-    @Schema(description = "ID unico de Dirección")
+    @Schema(description = "ID unico de Dirección", example = "1", required = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDireccion;
 
-    @Schema(description = "Nombre de la dirección")
+    @Schema(description = "Nombre de la dirección", example = "Av. Siempre Viva 742", required = true)
     @Column(nullable = false, length = 50)
     private String nombre;
 
-    @Schema(description = "ID unico de comuna")
+    @Schema(description = "ID unico de comuna", example = "1", required = true)
     @ManyToOne
     @JoinColumn(name = "comuna_id", nullable = false)
     private Comuna comuna;
 
-    @Schema(description = "ID unico de usuario")
+    @Schema(description = "ID unico de usuario", example = "1", required = true)
     @Column(nullable = false)
     private Long idUsuario;
 }
